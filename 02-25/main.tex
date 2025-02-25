@@ -33,6 +33,9 @@
 % usa un font monospazio guardabile
 \usepackage{lmodern}
 
+% tikz in sans
+\tikzset{every picture/.style={/utils/exec={\sffamily}}}
+
 \renewcommand{\rmdefault}{ppl}
 \renewcommand{\sfdefault}{phv}
 \renewcommand{\ttdefault}{lmtt}
@@ -249,7 +252,7 @@ Ogni sistema è caratterizzato poi da un certo livello di \textbf{disturbo}.
 L'idea è spesso quella di \textit{inseguire} gli ingressi e \textit{reiettare} i disturbi.
 
 \subsubsection{Sistemi dinamici}
-L'argomento di interesse è quello dei sistemi \textbf{dinamici}:
+Ad interessarci in particolare sono  sistemi \textbf{dinamici}.
 \begin{definition}{Sistema dinamico}
 	Un sistema si dice dinamico quando le sue grandezze si evolvono nel tempo.
 \end{definition}
@@ -262,17 +265,18 @@ Solitamente i sistemi dinamici sono costituiti da più sottosistemi che interagi
 
 Incontriamo diversi problemi nello studio dei sistemi:
 \begin{itemize}
-	\item Il problema della \textbf{modellistica}, che consiste nel creare un modello per il sistema;
-	\item Il problema della \textbf{simulazione}, che consiste nel simulare il sistema in base alla variazione degli ingressi;
-	\item Il problema del \textbf{controllo}, che consiste nel studiare come agire \textit{dall'esterno} su un sistema per modificarne la naturale evoluzione ed ottenere un comportamento desiderato.
+	\item Il problema della \textbf{modellistica}, che consiste nel creare un modello matematico del sistema, e quindi del suo comportamento;
+	\item Il problema della \textbf{simulazione}, che consiste nel simulare la risposta del sistema, nel tempo, in base alla variazione degli ingressi;
+	\item Il problema del \textbf{controllo}, che consiste nello studiare come agire \textit{dall'esterno} su un sistema per modificarne la naturale evoluzione ed ottenere un comportamento desiderato.
+		Ad agire sul sistema sarà spesso un altro sistema, detto \textbf{sistema di controllo}, che produrrà gli ingressi del sistema vero e proprio sulla base di dati \textbf{comandi}.
 \end{itemize}
 
 \subsubsection{Diagrammi a blocchi}
-Rappresentiamo i sistemi attraverso diagrammi a \textit{"scatole"} o a \textbf{blocchi}:
+Rappresentiamo i modelli che facciamo sistemi attraverso diagrammi a \textit{"scatole"} o a \textbf{blocchi}:
 
 \begin{center}
 	\begin{tikzpicture}
-		\draw (0,0) rectangle (2, 1);
+		\draw[fill=cyan] (0,0) rectangle (2, 1);
 		\draw[-stealth] (-2, 0.5) -> (0, 0.5);
 		\draw[-stealth] (2, 0.5) -> (4, 0.5);
 		\draw[-stealth] (1, 2) -> (1, 1);
@@ -285,7 +289,7 @@ Rappresentiamo i sistemi attraverso diagrammi a \textit{"scatole"} o a \textbf{b
 \end{center} 
 
 La scatola sistema è spesso caratterizzata da una certa funzione matematica $f(u, \xi, \theta)$, dove $\xi$ rappresenta i disturbi e $\theta$ i parametri del modello.
-Gli ingressi e le uscite saranno quindi rappresentati da variabili $u$ e $v$. 
+Gli ingressi e le uscite saranno quindi rappresentati da variabili $u$ e $v$, con $v = f(u, \xi, \theta)$. 
 Notiamo che la funzione che rappresenta il sistema ha la variabile di ingresso $u$ come argomento.
 
 \begin{center}
@@ -295,27 +299,33 @@ Notiamo che la funzione che rappresenta il sistema ha la variabile di ingresso $
 		\draw[-stealth] (2, 0.5) -> (4, 0.5);
 		\node at (1, 0.5) {$f(u, \xi, \theta)$};
 		\node at (-1, 0.7) {$u$};
-		\node at (3, 0.7) {$y$};
+		\node at (3, 0.7) {$v$};
 	\end{tikzpicture}
 \end{center}
+
 
 \subsubsection{Proprietà dei sistemi dinamici}
 Notiamo alcune proprietà dei sistemi dinamici:
 \begin{itemize}
-	\item Questi devono essere \textbf{causali}, cioè l'uscita non deve dipendere da valori futuri dell'ingresso: se l'uscita è rappresentata da $y(t)$ e l'ingresso $x(t)$, si ha che $y(t)$ dipende da $x(t)$ solo per $t < t_0$ con $t_0$ l'istante corrente;
-	\item Possono essere sia \textbf{stocastici} che \textbf{deterministici}, se sono presenti o meno fenomeni aleatori nel legame ingresso uscita. Il corso tratterà di sistemi \textit{deterministici};
+	\item Questi devono essere \textbf{causali}, cioè l'uscita non deve dipendere da valori futuri dell'ingresso: se l'uscita è rappresentata da $v(t)$ e l'ingresso da $u(t)$, si ha che $v(t)$ dipende da $u(t)$ solo per $t < t_0$ con $t_0$ l'istante corrente;
+	\item Possono essere sia \textbf{stocastici} che \textbf{deterministici}, se sono presenti o meno fenomeni aleatori nel legame ingresso uscita. Il corso in particolare tratterà di sistemi \textit{deterministici};
 \end{itemize}
 
 \subsection{Modellistica di sistemi}
-Vediamo gli approcci più comuni alla modellistica di sistemi.
+Vediamo gli approcci più comuni alla modellazione di sistemi dinamici.
 
 \subsubsection{Modello a scatola nera}
-Possiamo adottare un approcio sperimentale (o \textit{induttivo}) alla modellistica di un sistema, considerandolo come una \textbf{scatola nera} (\textit{black box}) 
+Possiamo adottare un approccio sperimentale (o \textit{induttivo}) alla modellistica di un sistema, considerandolo come una \textbf{scatola nera} (\textit{black box}) 
 
 \begin{center}
 	\begin{tikzpicture}
-		\draw (0,0) rectangle (2, 1);
+		% scatola nera
+		\draw[fill=darkgray] (0,0) rectangle (2, 1);
+		\node[text width=1.5cm, text centered, color=white] at (1, 0.5) {Scatola nera};
+		% misura
 		\draw (4,0) rectangle (6, 1);
+		\node at (5, 0.5) {Misura};
+		
 		\draw[-stealth] (-2, 0.5) -> (0, 0.5);
 		\draw[-stealth] (2, 0.5) -> (4, 0.5);
 		
@@ -326,20 +336,33 @@ Possiamo adottare un approcio sperimentale (o \textit{induttivo}) alla modellist
 		\draw[-stealth] (-1, -1.5) -> (2, -1.5);
 		\draw[-stealth] (5, -1.5) -> (4, -1.5);
 
+		% tabelle
 		\draw (2,-2) rectangle (4, -1);
-		\draw (2,-4) rectangle (4, -3);
-
-		\node at (1, 0.5) {Black box};
-		\node at (5, 0.5) {Misura};
-		\node at (-1, 0.8) {Ingressi};
-
 		\node at (3, -1.5) {Tabelle};
+		% fitting
+		\draw (2,-4) rectangle (4, -3);
 		\node at (3, -3.5) {Fitting};
+		
+		% modello
+		\draw[fill=lime] (5,-4) rectangle (7, -3);
+		\node at (6, -3.5) {Modello};
+
+		\draw[-stealth] (4, -3.5) -> (5, -3.5); 
+
+		\node at (-1, 0.8) {Ingressi};
 	\end{tikzpicture}
 \end{center}
 
 L'idea è quella di studiare il comportamento del sistema in risposta a diversi stimoli, e costruire un'associazione fra stimolo e risposta corrispondente.
 Il problema (\textit{fitting}) da qui in poi sarà quello di trovare una certa funzione che approssima, per quanto possibile, il comportamento del sistema in risposta ai diversi stimoli.
+Approcci per il fitting della funzione di risposta possono essere:
+\begin{itemize}
+	\item Regole stato-azione;
+	\item Alberi decisionali;
+	\item Regressione lineare;
+	\item Modelli statistici;
+	\item Reti neurali.
+\end{itemize}
 
 Un approccio di questo tipo non richiede alcuna conoscenza del principio di funzionamento interno del sistema (dettagli fisici, tecnici, ecc...), ed è quindi puramente sperimentale.
 
@@ -352,8 +375,13 @@ In questo caso si costruisce un modello astratto del sistema di interesse, e si 
 
 \begin{center}
 	\begin{tikzpicture}
-		\draw (0,0) rectangle (2, 1);
-		\draw (4,0) rectangle (6, 1);
+		% sistema reale
+		\draw[fill=cyan] (0,0) rectangle (2, 1);
+		\node[text width=1.5cm, text centered] at (1, 0.5) {Sistema reale};
+		% modello astratto
+		\draw (0,-2) rectangle (2, -1);
+		\node[text width=1.5cm, text centered] at (1, -1.5) {Modello astratto};
+		
 		\draw[-stealth] (-2, 0.5) -> (0, 0.5);
 		\draw[-stealth] (2, 0.5) -> (4, 0.5);
 		
@@ -362,26 +390,35 @@ In questo caso si costruisce un modello astratto del sistema di interesse, e si 
 		\draw[-stealth] (-1, -1.5) -> (0, -1.5);
 		\draw (5, -1.5) -> (2, -1.5);
 		
-		\draw[] (5.5, 0) -> (5.5, -1.7);
+		\draw (5.5, 0) -> (5.5, -1.7);
 		\draw[-stealth] (5.5, -1.7) -> (2, -1.7);
 
-		\draw (0,-2) rectangle (2, -1);
-
-		\node at (1, 0.5) {S. reale};
+		% validazione
+		\draw (4,0) rectangle (6, 1);
 		\node at (5, 0.5) {Validazione};
-		\node at (-1, 0.8) {Ingressi};
-
-		\node at (1, -1.5) {M. astratto};
 		
+		\draw[-stealth] (6, 0.5) -> (7, 0.5);
+
+		% modello 
+		\draw[fill=lime] (7,0) rectangle (9, 1);
+		\node at (8, 0.5) {Modello};
+
+		\node at (-1, 0.8) {Ingressi};
+	
 		\node at (3.5, -1.9) {Modifica};
 	\end{tikzpicture}
 \end{center}
 
+Approcci di questo tipo richiedono di ricavare modelli astratti di sistemi, conoscendone quindi le leggi di funzionamento interno.
+Per questo sono molto accurati per sistemi ben conosciuti, ma difficili da realizzare altrimenti.
+
 \subsubsection{Modello a scatola grigia}
 Un approccio intermedio fra scatola nera e scatola bianca è quello a \textbf{scatola grigia}.
 In questo caso assumiamo di conoscere il comportamento generale del sistema, ma di dover identificare parametri specifici.
+Si crea quindi un modello a scatola bianca, lasciando vuoti i parametri che non si conoscono (\textit{scatola bianca}). 
+Svolgendo varie misurazioni e confrontando i risultati del modello astratto e del sistema reale si andranno poi a determinare nel dettaglio tali parametri (\textit{scatola nera}).
 
 \subsubsection{Approccio pragmatico}
-Un approccio pragmatico consiste nello sviluppare un modello a priori, senza considerare un sistema reale, e poi adattarlo fino alla convergenza con un sistema veramente esistente. # chiarisci cosa intende
+Un approccio pragmatico consiste nello sviluppare un modello a priori, senza considerare necessariamente un sistema reale, e poi adattarlo fino alla convergenza con un sistema veramente esistente.
 
 \end{document}
