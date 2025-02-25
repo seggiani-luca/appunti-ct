@@ -1,0 +1,387 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Fondamenti di Automatica}
+\author{Luca Seggiani}
+\date{2025}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=Teorema~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=Definizione~\thetcbcounter: #2,
+	#1
+}
+
+% disponi problemi
+\newtcolorbox[auto counter, number within=section]{problem}[2][]{%
+	colback=green!10,
+	colframe=green!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=Problema~\thetcbcounter: #2,
+	#1
+}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+\begin{document}
+
+% sezione (data)
+\section{Lezione del 25-02-25}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsubsection{Introduzione al corso}
+Il corso di fondamenti di automatica introduce i concetti di base dell'automazione:
+\begin{enumerate}
+	\item Introduzione all'automazione;
+	\item Modellistica matematica (variabili di stato, trasformata di Laplace, ecc...);
+	\item Analisi dei sistemi dinamici (funzioni di trasferimento, ecc...);
+	\item Strumenti per l'analisi dei sistemi dinamici (diagrammi di Bode, Nyquist, ecc...);
+	\item Sistemi di controllo (PID, ecc...)
+\end{enumerate}
+
+\subsection{Introduzione all'automazione}
+L'automazione si può intendere come la capacità di eseguire un compito \textit{in modo automatico}.
+Per ogni \textit{compito} visto durante il corso si creerà un modello matematico, e un sistema capace di eseguirlo in maniera autonoma, senza l'intervento di esterni.
+
+Elemento chiave nei sistemi che verranno studiati sarà il \textbf{feedback}, in italiano \textit{retroazione}, che rappresenta l'informazione che possiamo prendere indietro dal sistema in modo da influenzare i sistemi di controllo automatico.
+
+\subsubsection{Fasi di sviluppo}
+Il termine inglese \textit{"automation"} viene introdotto come contrazione di \textit{"automatic production"} dalla Ford Motor Company nel 1947 per denominare l'insieme di apparati di movimentazione automatica installati nelle loro linee di produzione.
+
+Possiamo tracciare diverse fasi di sviluppo della disciplina dell'automazione:
+\begin{enumerate}
+	\item \textbf{Prima rivoluzione industriale} ($\sim$1780): \\
+		Vengono introdotti i primi strumenti meccanici di produzione (macchine a vapore, ecc...).
+	\item \textbf{Seconda rivoluzione industriale} ($\sim$1870): \\
+		Si organizza il lavoro in catene di produzione sfruttando l'energia elettrica (catena Ford, ecc...).
+	\item \textbf{Terza rivoluzione industriale} ($\sim$1970): \\ 
+		Si automatizza il processo di produzione grazie a sistemi IT ed elettronici (PLC, ecc...).
+	\item \textbf{Quarta rivoluzione industriale} ($\sim$2010): \\
+		Prodotti e processi interconnessi grazie all'IoT e a tecnologie digitali (industria 4.0, ecc...).
+\end{enumerate}
+
+\subsubsection{Tecnologie abilitanti}
+Possiamo individuare alcune macroaree dell'automazione moderna, in ambito (perlopiù) industriale:
+\begin{itemize}
+	\item Tecniche di produzione avanzate (stampa 3D (additiva), ecc...);
+	\item Realtà aumentata;
+	\item Simulazione;
+	\item Sviluppo orizzontale e verticale;
+	\item IoT industriale (IIoT);
+	\item Cloud computing;
+	\item Cybersecurity;
+	\item Big data analytics.
+\end{itemize}
+
+\subsection{Modellistica matematica}
+\subsubsection{Sistemi}
+Veniamo quindi alle tecniche che ci permettono di studiare matematicamente un dato \textbf{sistema}.
+\begin{definition}{Sistema}
+	Un sistema è un insieme di parti interconnesse e interagenti che formano un insieme più grande e complesso.
+\end{definition}
+
+Di un sistema ci interessano gli \textbf{ingressi}, cioè cosa \textit{entra} nel sistema, e le \textbf{uscite}, cioè cosa \textit{esce} dal sistema.
+Ogni sistema è caratterizzato poi da un certo livello di \textbf{disturbo}.
+L'idea è spesso quella di \textit{inseguire} gli ingressi e \textit{reiettare} i disturbi.
+
+\subsubsection{Sistemi dinamici}
+L'argomento di interesse è quello dei sistemi \textbf{dinamici}:
+\begin{definition}{Sistema dinamico}
+	Un sistema si dice dinamico quando le sue grandezze si evolvono nel tempo.
+\end{definition}
+
+Le grandezze di un sistema dinamico (le uscite e lo stato interno) sono quindi caratterizzate da funzioni con variabile tempo, che quindi \textit{variano} nel tempo e interagiscono con l'ambiente esterno.
+
+Solitamente i sistemi dinamici sono costituiti da più sottosistemi che interagiscono fra di loro.
+
+\par\medskip
+
+Incontriamo diversi problemi nello studio dei sistemi:
+\begin{itemize}
+	\item Il problema della \textbf{modellistica}, che consiste nel creare un modello per il sistema;
+	\item Il problema della \textbf{simulazione}, che consiste nel simulare il sistema in base alla variazione degli ingressi;
+	\item Il problema del \textbf{controllo}, che consiste nel studiare come agire \textit{dall'esterno} su un sistema per modificarne la naturale evoluzione ed ottenere un comportamento desiderato.
+\end{itemize}
+
+\subsubsection{Diagrammi a blocchi}
+Rappresentiamo i sistemi attraverso diagrammi a \textit{"scatole"} o a \textbf{blocchi}:
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw (0,0) rectangle (2, 1);
+		\draw[-stealth] (-2, 0.5) -> (0, 0.5);
+		\draw[-stealth] (2, 0.5) -> (4, 0.5);
+		\draw[-stealth] (1, 2) -> (1, 1);
+
+		\node at (1, 0.5) {Sistema};
+		\node at (-1, 0.8) {Ingressi};
+		\node at (3, 0.8) {Uscite};
+		\node at (1, 2.3) {Disturbi};
+	\end{tikzpicture}
+\end{center} 
+
+La scatola sistema è spesso caratterizzata da una certa funzione matematica $f(u, \xi, \theta)$, dove $\xi$ rappresenta i disturbi e $\theta$ i parametri del modello.
+Gli ingressi e le uscite saranno quindi rappresentati da variabili $u$ e $v$. 
+Notiamo che la funzione che rappresenta il sistema ha la variabile di ingresso $u$ come argomento.
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw (0,0) rectangle (2, 1);
+		\draw[-stealth] (-2, 0.5) -> (0, 0.5);
+		\draw[-stealth] (2, 0.5) -> (4, 0.5);
+		\node at (1, 0.5) {$f(u, \xi, \theta)$};
+		\node at (-1, 0.7) {$u$};
+		\node at (3, 0.7) {$y$};
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection{Proprietà dei sistemi dinamici}
+Notiamo alcune proprietà dei sistemi dinamici:
+\begin{itemize}
+	\item Questi devono essere \textbf{causali}, cioè l'uscita non deve dipendere da valori futuri dell'ingresso: se l'uscita è rappresentata da $y(t)$ e l'ingresso $x(t)$, si ha che $y(t)$ dipende da $x(t)$ solo per $t < t_0$ con $t_0$ l'istante corrente;
+	\item Possono essere sia \textbf{stocastici} che \textbf{deterministici}, se sono presenti o meno fenomeni aleatori nel legame ingresso uscita. Il corso tratterà di sistemi \textit{deterministici};
+\end{itemize}
+
+\subsection{Modellistica di sistemi}
+Vediamo gli approcci più comuni alla modellistica di sistemi.
+
+\subsubsection{Modello a scatola nera}
+Possiamo adottare un approcio sperimentale (o \textit{induttivo}) alla modellistica di un sistema, considerandolo come una \textbf{scatola nera} (\textit{black box}) 
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw (0,0) rectangle (2, 1);
+		\draw (4,0) rectangle (6, 1);
+		\draw[-stealth] (-2, 0.5) -> (0, 0.5);
+		\draw[-stealth] (2, 0.5) -> (4, 0.5);
+		
+		\draw[-stealth] (3, -2) -> (3, -3);
+
+		\draw (-1, 0.5) -> (-1, -1.5);
+		\draw (5, 0) -> (5, -1.5);
+		\draw[-stealth] (-1, -1.5) -> (2, -1.5);
+		\draw[-stealth] (5, -1.5) -> (4, -1.5);
+
+		\draw (2,-2) rectangle (4, -1);
+		\draw (2,-4) rectangle (4, -3);
+
+		\node at (1, 0.5) {Black box};
+		\node at (5, 0.5) {Misura};
+		\node at (-1, 0.8) {Ingressi};
+
+		\node at (3, -1.5) {Tabelle};
+		\node at (3, -3.5) {Fitting};
+	\end{tikzpicture}
+\end{center}
+
+L'idea è quella di studiare il comportamento del sistema in risposta a diversi stimoli, e costruire un'associazione fra stimolo e risposta corrispondente.
+Il problema (\textit{fitting}) da qui in poi sarà quello di trovare una certa funzione che approssima, per quanto possibile, il comportamento del sistema in risposta ai diversi stimoli.
+
+Un approccio di questo tipo non richiede alcuna conoscenza del principio di funzionamento interno del sistema (dettagli fisici, tecnici, ecc...), ed è quindi puramente sperimentale.
+
+Notiamo che approcci di questo tipo sono effettivamente alla base delle tecniche di apprendimento automatico.
+In questo le reti neurali per l'apprendimento \textit{supervisionato} non sono che una tecnica molto potente per il fitting di varie relazioni ingresso-uscita.
+
+\subsubsection{Modello a scatola bianca}
+Un altro approccio è quello analitico (o \textit{deduttivo}).
+In questo caso si costruisce un modello astratto del sistema di interesse, e si \textit{valida} confrontandolo col sistema reale, agendo con delle modifiche nel caso di incongruenze. 
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw (0,0) rectangle (2, 1);
+		\draw (4,0) rectangle (6, 1);
+		\draw[-stealth] (-2, 0.5) -> (0, 0.5);
+		\draw[-stealth] (2, 0.5) -> (4, 0.5);
+		
+		\draw (-1, 0.5) -> (-1, -1.5);
+		\draw[stealth-] (5, 0) -> (5, -1.5);
+		\draw[-stealth] (-1, -1.5) -> (0, -1.5);
+		\draw (5, -1.5) -> (2, -1.5);
+		
+		\draw[] (5.5, 0) -> (5.5, -1.7);
+		\draw[-stealth] (5.5, -1.7) -> (2, -1.7);
+
+		\draw (0,-2) rectangle (2, -1);
+
+		\node at (1, 0.5) {S. reale};
+		\node at (5, 0.5) {Validazione};
+		\node at (-1, 0.8) {Ingressi};
+
+		\node at (1, -1.5) {M. astratto};
+		
+		\node at (3.5, -1.9) {Modifica};
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection{Modello a scatola grigia}
+Un approccio intermedio fra scatola nera e scatola bianca è quello a \textbf{scatola grigia}.
+In questo caso assumiamo di conoscere il comportamento generale del sistema, ma di dover identificare parametri specifici.
+
+\subsubsection{Approccio pragmatico}
+Un approccio pragmatico consiste nello sviluppare un modello a priori, senza considerare un sistema reale, e poi adattarlo fino alla convergenza con un sistema veramente esistente. # chiarisci cosa intende
+
+\end{document}
