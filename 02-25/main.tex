@@ -265,9 +265,9 @@ Solitamente i sistemi dinamici sono costituiti da più sottosistemi che interagi
 
 Incontriamo diversi problemi nello studio dei sistemi:
 \begin{itemize}
-	\item Il problema della \textbf{modellistica}, che consiste nel creare un modello matematico del sistema, e quindi del suo comportamento;
-	\item Il problema della \textbf{simulazione}, che consiste nel simulare la risposta del sistema, nel tempo, in base alla variazione degli ingressi;
-	\item Il problema del \textbf{controllo}, che consiste nello studiare come agire \textit{dall'esterno} su un sistema per modificarne la naturale evoluzione ed ottenere un comportamento desiderato.
+	\item Se è ignoto il sistema, abbiamo il problema della \textbf{modellistica}, che consiste nel creare un modello matematico del sistema, e quindi del suo comportamento;
+	\item Se è ignota l'uscita, abbiamo il problema della \textbf{simulazione}, che consiste nel simulare la risposta del sistema, nel tempo, in base alla variazione degli ingressi;
+	\item Se conosciamo il sistema e la sua uscita, abbiamo il problema del \textbf{controllo}, che consiste nello studiare come agire \textit{dall'esterno} su un sistema per modificarne la naturale evoluzione ed ottenere un comportamento desiderato.
 		Ad agire sul sistema sarà spesso un altro sistema, detto \textbf{sistema di controllo}, che produrrà gli ingressi del sistema vero e proprio sulla base di dati \textbf{comandi}.
 \end{itemize}
 
@@ -289,7 +289,7 @@ Rappresentiamo i modelli che facciamo sistemi attraverso diagrammi a \textit{"sc
 \end{center} 
 
 La scatola sistema è spesso caratterizzata da una certa funzione matematica $f(u, \xi, \theta)$, dove $\xi$ rappresenta i disturbi e $\theta$ i parametri del modello.
-Gli ingressi e le uscite saranno quindi rappresentati da variabili $u$ e $v$, con $v = f(u, \xi, \theta)$. 
+Gli ingressi e le uscite saranno quindi rappresentati da variabili $u$ e $y$, con $y = f(u, \xi, \theta)$. 
 Notiamo che la funzione che rappresenta il sistema ha la variabile di ingresso $u$ come argomento.
 
 \begin{center}
@@ -299,10 +299,9 @@ Notiamo che la funzione che rappresenta il sistema ha la variabile di ingresso $
 		\draw[-stealth] (2, 0.5) -> (4, 0.5);
 		\node at (1, 0.5) {$f(u, \xi, \theta)$};
 		\node at (-1, 0.7) {$u$};
-		\node at (3, 0.7) {$v$};
+		\node at (3, 0.7) {$y$};
 	\end{tikzpicture}
 \end{center}
-
 
 \subsubsection{Proprietà dei sistemi dinamici}
 Notiamo alcune proprietà dei sistemi dinamici:
@@ -420,5 +419,7 @@ Svolgendo varie misurazioni e confrontando i risultati del modello astratto e de
 
 \subsubsection{Approccio pragmatico}
 Un approccio pragmatico consiste nello sviluppare un modello a priori, senza considerare necessariamente un sistema reale, e poi adattarlo fino alla convergenza con un sistema veramente esistente.
+
+Dal punto di vista ingegneristico, quento significa ipotizzare un modello per un sistema ideale, che andiamo quindi a definire in maniera astratta, e poi ad implementare nella realtà cercando di avvicinarci il più possibile all'idea originale. 
 
 \end{document}
