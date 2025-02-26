@@ -276,7 +276,7 @@ notando che chiamiamo $x \leftarrow v$ (ci riferiamo alle velocità, non alle po
 
 \par\smallskip
 
-Gli elementi visti finora non sono altro che \textbf{integratori}, cioè sistemi dinamici che prendono $x'$ e restituiscono $x$ per una certa variabile.
+Gli elementi visti finora non sono altro che \textbf{integratori} o \textit{operatori integrali}, cioè sistemi dinamici che prendono $x'$ e restituiscono $x$ per una certa variabile.
 
 Indichiamo questi come segue:
 
@@ -344,8 +344,8 @@ Vediamo un particolare tipo di sistema dinamico:
 
 I sistemi lineari e tempo invarianti ci sono particolarmente utili in quanto sono completamente compresi e facili da risolvere, e riescono a modellizzare in maniera abbastanza accurata una vasta gamma di fenomeni.
 
-\subsection{Modellizzazione a equazioni differenziali lineari}
-Estendiamo l'approccio a scatola bianca introducendo formalmente una forma ad \textbf{equazioni differenziali lineari}.
+\subsection{Modellizzazione a variabili di stato}
+Estendiamo l'approccio a scatola bianca introducendo formalmente una forma che sfrutta equazioni differenziali lineari per modellizzare uno \textit{stato interno} in determinate \textbf{variabili di stato}.
 
 \begin{definition}{Modello a variabili di stato}
 	Introduciamo il modello per sistemi a equazioni differenziali lineari:
@@ -472,7 +472,7 @@ $$
 da cui:
 $$
 A = B = C = 0, \ D = \alpha 
-$$ # rivedi
+$$
 
 \subsubsection{Esempio: sistema massa-molla-smorzatore}
 Vediamo il sistema fisico dato da un carrello di massa $M$ legato ad una parete da una molla con costante $K$ e sottoposto ad attrito proporzionale alla sua velocità $v$.
@@ -503,6 +503,10 @@ $$
 \begin{pmatrix}
 	0 & 1 \\ 
 	-\frac{K}{M} & -\frac{B}{M}
+\end{pmatrix}
+\begin{pmatrix}
+	x \\ 
+	v
 \end{pmatrix}
 +
 \begin{pmatrix}
@@ -544,7 +548,6 @@ D =
 0
 \end{pmatrix}
 $$ 
-# qui riguarda bene
 
 Notiamo che si potrebbe scegliere, analogamente, la v\textit{velocità} $v$ come \textbf{uscita}, da cui si otterrebbe:
 $$
@@ -568,7 +571,7 @@ $$
 
 \par\medskip 
 
-Abbiamo quindi visto come il modello a variabili di stato permette di rappresentare una vasta gamma di situazionifisiche con facilità e secondo un formato standard, con cui sono tra l'altro compatibili diversi sistemi di calcolo e simulazione al calcolatore.
+Abbiamo quindi visto come il modello a variabili di stato permette di rappresentare una vasta gamma di situazioni fisiche con facilità e secondo un formato standard, con cui sono tra l'altro compatibili diversi sistemi di calcolo e simulazione al calcolatore.
 
 \subsubsection{Limiti dei sistemi lineari}
 Notiamo come il mondo reale spesso è \textbf{non lineare}.
@@ -600,7 +603,7 @@ $$
 
 Chiamiamo questa forma \textbf{forma bilineare}.
 \begin{definition}{Forma bilineare}
-	Introduciamo la forma:
+	Introduciamo la forma bilineare:
 	\[
 		\begin{cases}
 			x' = f(x) + g(x) u \\ 
@@ -609,5 +612,8 @@ Chiamiamo questa forma \textbf{forma bilineare}.
 	\]
 \end{definition}
 
+In questo caso, $f(x)$ rappresenta l'evoluzione dello stato indipendente da $u$, e $g(x)$ rappresenta la risposta di stato, variabile (linearmente) in $x$, ad $u$.
+La risposta del sistema è state invece modellata come solo dipendente dallo stato interno $x$.
+Sistemi di questo tipo sono onnipresenti, ma chiaramente più difficili da gestire.
 
 \end{document}
