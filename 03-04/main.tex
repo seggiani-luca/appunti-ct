@@ -201,7 +201,7 @@
 
 % testo
 Avevamo ricavato la formula per la \textbf{risposta libera} di un sistema.
-Introduciamo quindi la parte di soluzione legata alla \textbf{risposta forzata} del sistema, cioe' quella legata al termine $Bu$ nell'equazione differenziale:
+Introduciamo quindi la parte di soluzione legata alla \textbf{risposta forzata} del sistema, cioè quella legata al termine $Bu$ nell'equazione differenziale:
 $$
 x' = Ax + Bu
 $$
@@ -209,11 +209,11 @@ da cui:
 $$
 x(t) = x_l + x_v = e^{At} x_0 + \int_0^t e^{A(t - \tau)} Bu(\tau) \, d\tau
 $$
-dove la risposta libera e' data dal primo termine:
+dove la risposta libera è data dal primo termine:
 $$
 x_l = e^{At} x_0 
 $$
-e la risposta forzata e' data dall'\textit{integrale di convoluzione}:
+e la risposta forzata è data dall'\textit{integrale di convoluzione}:
 $$
 x_v = \int_0^t e^{A(t - \tau)} Bu(\tau) \, d\tau
 $$
@@ -227,10 +227,37 @@ F \left( y(t), ..., y^{(n)}(t), u(t), ..., u^{(p)}(t), t \right) = 0
 $$
 da cui possiamo ricavare la derivata di grado massimo dell'uscita: 
 $$
-y^n(t) = \hat{F} \left( y(t), ..., y^{n-1}(t), u(t), ..., u^p(t), t \right)
+y^{(n)}(t) = \hat{F} \left( y(t), ..., y^{n-1}(t), u(t), ..., u^p(t), t \right)
 $$
 
-Quello che vorremo fare e' ricondurci alla forma in variabili di stato:
+\par\smallskip
+
+Facciamo alcune considerazioni sulla forma di queste equazioni.
+Possiamo prendere la forma generale della $F$, che assumiamo rappresentare  un vincolo differenziale che lega in forma implicita ingresso e uscita:
+$$
+F(t) = \sum_{i = 0}^{n} \alpha_i y^{(i)} (t) + \sum_{j = 1}^{p} \beta_i u^{(j)} (t), \quad F(t) = 0
+$$
+l'equazione della $y^{(n)} (t)$ sarà allora:
+$$
+y^{(n)} (t) = \frac{1}{\alpha_n} \left( \sum_{i = 0}^{n - 1} - \alpha_i y^{(i)} (t) + \sum_{j = 0}^p - \beta_i u^{(j)} (t) \right)
+$$
+
+Possiamo porre:
+\[
+	\begin{cases}		
+		\alpha_i ' = \frac{\alpha_i}{\alpha_n} \\ 
+		\beta_i ' = - \beta_i
+	\end{cases}
+\]
+in modo da riscrivere la derivata di grado massimo nella forma più compatta:
+$$
+y^{(n)} (t) = \sum_{i = 0}^{n - 1} - \alpha_i ' y^{(i)} (t) + \sum_{j = 0}^p  \beta_i ' u^{(j)} (t) 
+$$
+Per questo motivo, da qui in poi assumeremo $\alpha_i \leftarrow \alpha_i '$ e $\beta_i \leftarrow \beta_i '$.
+
+\par\smallskip
+
+Quello che volevamo fare era quindi ricondurci alla forma in variabili di stato:
 \[
 	\begin{cases}
 		x' = Ax + Bu \\ 
@@ -256,7 +283,8 @@ e date $x$ e $f$ lineari dire:
 $$
 x'(t) = Ax + Bu
 $$
-e:
+
+Patiamo dal vettore di stato:
 $$
 x = \begin{pmatrix}
 x_1 \\
@@ -270,7 +298,7 @@ y^{(n - 1)}
 \end{pmatrix}
 $$
 
-A questo punto la derivata di $x$ sara', assunto $p = 0$ (quindi non ci sono derivate dell'ingresso): 
+A questo punto la derivata di $x$ sarà, assunto $p = 0$ (quindi non ci sono derivate dell'ingresso): 
 $$
 x' = \begin{pmatrix}
 x'_1 \\
@@ -280,13 +308,13 @@ x'_n
 x_2 \\
 ... \\
 x_n \\ 
-\hat{F} \left( (y, ..., y^{n - 1}), u, t \right)
+y^{(n)}(t)
 \end{pmatrix}
 = \begin{pmatrix}
 x_2 \\
 ... \\
 x_n \\
-\hat{F} (x, u, t)
+\hat{F} \left( (y, ..., y^{(n - 1)}), u, t \right)
 \end{pmatrix}
 = \overline{f}(x, u, t)
 $$
@@ -313,20 +341,19 @@ y = \begin{pmatrix}
 0
 \end{pmatrix} u
 	\end{cases}
-\] # potrebbe essere \beta_0 = 1, non sono sicuro
+\]
 
-# riporta matrici A, B, C, D in forma esplicita
-
-Notiamo che questo processo non e' dissimile a quello adottato ad esempio nello studio dei sistemi meccanici, dove le derivate successive della posizione facevano da variabili di stato (solitamente posizione e velocita'), una di queste variabili faceva da valore di uscita (solitamente la posizione), e la derivata della variabile di stato di ordine piu' alto (solitamente l'accelerazione) era l'unica derivata della variabile di stato che introduceva nuove informazioni nel sistema.
+Notiamo che questo processo non è dissimile a quello adottato ad esempio nello studio dei sistemi meccanici, dove le derivate successive della posizione facevano da variabili di stato (solitamente posizione e velocità), una di queste variabili faceva da valore di uscita (solitamente la posizione), e la derivata della variabile di stato di ordine più alto (solitamente l'accelerazione) era l'unica derivata della variabile di stato che introduceva nuove informazioni nel sistema.
 
 \subsection{Dipendenza dalle derivate della variabile di ingresso}
 Abbiamo posto finora $p = 0$, quindi nessuna derivata della variabili di ingresso.
 Vediamo il caso in cui includiamo tali derivate.
 
 \subsubsection{Caso $\mathbf{p < n}$}
-Vediamo innanzitutto il caso in cui il termine di grado massimo delle variabili di stato dipende dalle derivate della variabile di ingresso, cioe' $0 < p < n$ e:
+Vediamo innanzitutto il caso in cui il termine di grado massimo delle variabili di stato dipende dalle derivate della variabile di ingresso, cioè $0 < p < n$.
+Avevamo l'equazione differenziale:
 $$
-y^{(n)} = \sum_{i=0}^{n-1} - \alpha_i y^{(i)}(t) + \sum_{j=0}^p \beta_j u^{(j)}(t)
+y^{(n)} (t) = \sum_{i=0}^{n-1} - \alpha_i y^{(i)}(t) + \sum_{j=0}^p \beta_j u^{(j)}(t)
 $$
 
 In questo caso la situazione si complica, e ci conviene sfruttare il \textbf{principio di sovrapposizione}.
@@ -335,9 +362,9 @@ $$
 z^{(n)}(t) = \sum_{i = 0}^{n - 1} -\alpha_i z^{(i)}(t) + u(t)
 $$
 che rappresenta la risposta del sistema al solo ingresso $u(t)$ (senza derivate superiori).
-Vediamo che questa e' la forma che siamo stati abituati a risolvere finora.
+Vediamo che questa è la forma che siamo stati abituati a risolvere finora.
 
-Per il principio di sovrapposizione, varra' allora che:
+Per il principio di sovrapposizione, varrà allora che:
 $$
 y(t) = \sum_{j = 0}^{p} \beta_j z^{(j)}(t)
 $$
@@ -356,7 +383,7 @@ x + \begin{pmatrix}
 0 \\
 ... \\
 0 \\
-1
+\beta_0
 \end{pmatrix} u \\ 
 y = \begin{pmatrix}
 	\beta_0 & ... & \beta_p & 0 & ... & 0
@@ -367,10 +394,11 @@ y = \begin{pmatrix}
 \]
 
 \subsubsection{Caso $\mathbf{p = n}$}
-Vediamo quindi il caso $p = n$. # riguarda
+Vediamo quindi il caso $p = n$. # manca ancora
+
 
 \subsection{Rappresentazioni equivalenti}
-Vediamo che la scelta di variabili di stato non e' unica.
+Vediamo che la scelta di variabili di stato non è unica.
 Potremmo infatti avere:
 \[
 	\begin{cases}
@@ -380,7 +408,7 @@ Potremmo infatti avere:
 \]
 e definire una matrice $T \in \mathbb{R}^{n \times n}$ invertibile detta \textbf{matrice del cambio di base} tale che:
 $$
-\hat{x} = Tx = 
+\hat{x} = Tx \implies 
 \begin{cases}
 	\hat{x}' = \hat{A}\hat{x} + \hat{B}u \\
 	\hat{y} = \hat{C}\hat{x} + \hat{D}u
@@ -390,10 +418,20 @@ $$
 Ricaviamo le matrici $\hat{A}$, $\hat{B}$, $\hat{C}$ e $\hat{D}$ come:
 $$
 \hat{A} = T A T^{-1}, \quad \hat{B} = TB, \quad \hat{C} = CT^{-1}, \quad \hat{D} = D
-$$ # scopri come e perche
+$$
+visto che:
+\[
+	\begin{cases}
+		T x = T A T^{-1} T x + T B u \\ 
+		y = C T^{-1} T x + D u
+	\end{cases}
+\]
+per cancellazione di $T^{-1} T$.
+
+Meccanicamente, questo non significa altro che possiamo prendere diversi sistemi riferimento per velocità e posizione e conservare comunque l'informazione del sistema.
 
 \subsection{Autovalori e modi}
-Avevamo dalla formula di Lagrange che per la risposta libera, cioe' la soluzione di $x_l' = Ax_l$, e':
+Avevamo dalla formula di Lagrange che per la risposta libera, cioè la soluzione di $x_l' = Ax_l$, è:
 $$
 	x_l(t) = e^{A(t / t_0)}x_l(t_0)
 $$
@@ -408,7 +446,7 @@ Esistono 2 casi:
 Vediamo questi casi nel dettaglio.
 
 \subsubsection{A diagonalizzabile}
-Potremo ricavare una matrice di cambio di base $T$ tale che $A$ risulti diagonale, cioe':
+Potremo ricavare una matrice di cambio di base $T$ tale che $A$ risulti diagonale, cioè:
 $$
 A = T^{-1} A_D T, \quad A_D = \begin{pmatrix}
 	\lambda_1 & 0 & 0 \\
@@ -432,7 +470,7 @@ A_D^k = \begin{pmatrix}
 $$
 da cui:
 $$
-\hat{x_l}(t) = \mathr{diag} \left\{ ... \right\} \hat{x_l}_0 # fai tutti i conticini
+\hat{x_l}(t) = \mathrm{diag} \left\{ \sum_{k = 0}^\infty \frac{(\lambda_1 t)^k}{k!}, ... , \sum_{k = 0}^\infty \frac{(\lambda_n t)^k}{k!} \right\} \hat{x_l}_0
 = \mathrm{diag} \left\{ e^{\lambda_1 t}, ..., e^{\lambda_n t} \right\} \hat{x_l}_0
 $$
 riportandoci nelle coordinate originali avremo:
@@ -441,12 +479,12 @@ x_l(t) = T^{-1} \hat{x}(t) = T^{-1} \mathrm{diag} \left\{ e^{\lambda_1 t}, ..., 
 $$
 
 Chiamiamo gli $e^{\lambda_i}$ \textbf{modi} del sistema.
-La funzioni di uscita in assenza di derivate dell'ingresso sara' quindi data da una combinazione lineare dei \textit{modi propri} del sistema:
+La funzioni di uscita in assenza di derivate dell'ingresso sarà quindi data da una combinazione lineare dei \textit{modi propri} del sistema:
 $$
 y_l(t) = C T^{-1} \mathrm{diag} \left\{ e^{\lambda_1 t}, ..., e^{\lambda_n t} \right\} T x_l(t_0)
 $$
 
-Notiamo che, come avevamo gia' osservato, sara' vero che $\lambda = \sigma + i \omega \in \mathbb{C}$, e quindi:
+Notiamo che, come avevamo già osservato, sarà vero che $\lambda = \sigma + i \omega \in \mathbb{C}$, e quindi:
 $$
 e^{\lambda t} = e^{\sigma t} \cos(\omega t + \phi)
 $$
@@ -456,16 +494,16 @@ dalla formula di Eulero.
 
 Notiamo che i modi di un sistema rappresentano vari "comportamenti" naturali del sistema, che possono essere esponenziali, oscillatori o una loro combinazione sulla base del autovalore corrispondente $\lambda_i$.
 
-Il comportamento complessivo del sistema sara' quindi dato da una qualche combinazione lineare di questi modi.
+Il comportamento complessivo del sistema sarà quindi dato da una qualche combinazione lineare di questi modi.
 
 \subsubsection{A non diagonalizzabile}
-Nel caso $A$ non sia diagonalizzabile si puo' comunque trasformare nella cosiddetta forma di \textbf{Jordan}.
-Questa avra' una struttura quasi diagonale, con elementi di valore 1 sopra la diagonale # penso?
+Nel caso $A$ non sia diagonalizzabile si può comunque trasformare nella cosiddetta forma di \textbf{Jordan}.
+Questa avrà una struttura quasi diagonale, con entrate di valore 1 immediatamente sopra la diagonale. 
 
 In questo caso i modi assumeranno la forma:
 $$
 t^{\eta - 1}e^{\lambda_i} t
 $$
-dove $t^{\eta - 1}$ sara' un'intero compreso tra $1$ e la massima dimensione dei \textit{miniblocchi di Jordan} associati all'autovalore.
+dove $t^{\eta - 1}$ sarà un'intero compreso tra $1$ e la massima dimensione dei \textit{miniblocchi di Jordan} associati all'autovalore.
 
 \end{document}
