@@ -1,0 +1,471 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Fondamenti di Automatica}
+\author{Luca Seggiani}
+\date{2025}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+% tikz in sans
+\tikzset{every picture/.style={/utils/exec={\sffamily}}}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=Teorema~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=Definizione~\thetcbcounter: #2,
+	#1
+}
+
+% disponi problemi
+\newtcolorbox[auto counter, number within=section]{problem}[2][]{%
+	colback=green!10,
+	colframe=green!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=Problema~\thetcbcounter: #2,
+	#1
+}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+\begin{document}
+
+% sezione (data)
+\section{Lezione del 04-03-25}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+Avevamo ricavato la formula per la \textbf{risposta libera} di un sistema.
+Introduciamo quindi la parte di soluzione legata alla \textbf{risposta forzata} del sistema, cioe' quella legata al termine $Bu$ nell'equazione differenziale:
+$$
+x' = Ax + Bu
+$$
+da cui:
+$$
+x(t) = x_l + x_v = e^{At} x_0 + \int_0^t e^{A(t - \tau)} Bu(\tau) \, d\tau
+$$
+dove la risposta libera e' data dal primo termine:
+$$
+x_l = e^{At} x_0 
+$$
+e la risposta forzata e' data dall'\textit{integrale di convoluzione}:
+$$
+x_v = \int_0^t e^{A(t - \tau)} Bu(\tau) \, d\tau
+$$
+
+\subsection{Caratterizzazione delle variabili di stato}
+Vediamo nel dettaglio come si ricavano le variabili di stato $x'$.
+Riprendiamo la forma generale del sistema a variabili di stato.
+In sostanza avremo una forma differenziale implicita per l'ingresso e l'uscita: 
+$$
+F \left( y(t), ..., y^{(n)}(t), u(t), ..., u^{(p)}(t), t \right) = 0
+$$
+da cui possiamo ricavare la derivata di grado massimo dell'uscita: 
+$$
+y^n(t) = \hat{F} \left( y(t), ..., y^{n-1}(t), u(t), ..., u^p(t), t \right)
+$$
+
+Quello che vorremo fare e' ricondurci alla forma in variabili di stato:
+\[
+	\begin{cases}
+		x' = Ax + Bu \\ 
+		y = Cx + Du
+	\end{cases}
+\]
+a cui siamo abituati.
+
+Il passaggio era quindi quello di riportarci a:
+$$
+x'(t) = \begin{pmatrix}
+x'_1(t) \\
+... \\
+x'_n(t)
+\end{pmatrix}
+= \begin{pmatrix}
+f_1(t) \\
+... \\
+f_n(t)
+\end{pmatrix}
+$$
+e date $x$ e $f$ lineari dire:
+$$
+x'(t) = Ax + Bu
+$$
+e:
+$$
+x = \begin{pmatrix}
+x_1 \\
+... \\
+x_n
+\end{pmatrix}
+= \begin{pmatrix}
+y \\
+... \\
+y^{(n - 1)}
+\end{pmatrix}
+$$
+
+A questo punto la derivata di $x$ sara', assunto $p = 0$ (quindi non ci sono derivate dell'ingresso): 
+$$
+x' = \begin{pmatrix}
+x'_1 \\
+... \\
+x'_n
+\end{pmatrix} = \begin{pmatrix}
+x_2 \\
+... \\
+x_n \\ 
+\hat{F} \left( (y, ..., y^{n - 1}), u, t \right)
+\end{pmatrix}
+= \begin{pmatrix}
+x_2 \\
+... \\
+x_n \\
+\hat{F} (x, u, t)
+\end{pmatrix}
+= \overline{f}(x, u, t)
+$$
+che nel caso lineare si riconduce a:
+\[
+	\begin{cases}	
+x' = \left(\begin{array}{@{}c | cccc@{}}
+	0 & 1 & 0 & ... & 0 \\
+	0 & 0 & 1 & ... & 0 \\
+	... & ... & ... & ... & ... \\
+	0 & 0 & 0 & ... & 1 \\
+	\hline
+	-\alpha_0 & ... & ... & ... & -\alpha_{n - 1}
+\end{array}\right)
+x + \begin{pmatrix}
+0 \\
+... \\
+0 \\
+\beta_0
+\end{pmatrix} u, \quad p = 0 \\ 
+y = \begin{pmatrix}
+	1 & 0 & ... & 0
+\end{pmatrix} x + \begin{pmatrix}
+0
+\end{pmatrix} u
+	\end{cases}
+\] # potrebbe essere \beta_0 = 1, non sono sicuro
+
+# riporta matrici A, B, C, D in forma esplicita
+
+Notiamo che questo processo non e' dissimile a quello adottato ad esempio nello studio dei sistemi meccanici, dove le derivate successive della posizione facevano da variabili di stato (solitamente posizione e velocita'), una di queste variabili faceva da valore di uscita (solitamente la posizione), e la derivata della variabile di stato di ordine piu' alto (solitamente l'accelerazione) era l'unica derivata della variabile di stato che introduceva nuove informazioni nel sistema.
+
+\subsection{Dipendenza dalle derivate della variabile di ingresso}
+Abbiamo posto finora $p = 0$, quindi nessuna derivata della variabili di ingresso.
+Vediamo il caso in cui includiamo tali derivate.
+
+\subsubsection{Caso $\mathbf{p < n}$}
+Vediamo innanzitutto il caso in cui il termine di grado massimo delle variabili di stato dipende dalle derivate della variabile di ingresso, cioe' $0 < p < n$ e:
+$$
+y^{(n)} = \sum_{i=0}^{n-1} - \alpha_i y^{(i)}(t) + \sum_{j=0}^p \beta_j u^{(j)}(t)
+$$
+
+In questo caso la situazione si complica, e ci conviene sfruttare il \textbf{principio di sovrapposizione}.
+Definiamo l'equazione ausiliaria in $z$:
+$$
+z^{(n)}(t) = \sum_{i = 0}^{n - 1} -\alpha_i z^{(i)}(t) + u(t)
+$$
+che rappresenta la risposta del sistema al solo ingresso $u(t)$ (senza derivate superiori).
+Vediamo che questa e' la forma che siamo stati abituati a risolvere finora.
+
+Per il principio di sovrapposizione, varra' allora che:
+$$
+y(t) = \sum_{j = 0}^{p} \beta_j z^{(j)}(t)
+$$
+da cui il sistema finale:
+\[
+	\begin{cases}	
+x' = \left(\begin{array}{@{}c | cccc@{}}
+	0 & 1 & 0 & ... & 0 \\
+	0 & 0 & 1 & ... & 0 \\
+	... & ... & ... & ... & ... \\
+	0 & 0 & 0 & ... & 1 \\
+	\hline
+	-\alpha_0 & ... & ... & ... & -\alpha_{n - 1}
+\end{array}\right)
+x + \begin{pmatrix}
+0 \\
+... \\
+0 \\
+1
+\end{pmatrix} u \\ 
+y = \begin{pmatrix}
+	\beta_0 & ... & \beta_p & 0 & ... & 0
+\end{pmatrix} x + \begin{pmatrix}
+0
+\end{pmatrix} u
+	\end{cases}
+\]
+
+\subsubsection{Caso $\mathbf{p = n}$}
+Vediamo quindi il caso $p = n$. # riguarda
+
+\subsection{Rappresentazioni equivalenti}
+Vediamo che la scelta di variabili di stato non e' unica.
+Potremmo infatti avere:
+\[
+	\begin{cases}
+		x' = Ax + Bu \\
+		y = Cx + Du
+	\end{cases}
+\]
+e definire una matrice $T \in \mathbb{R}^{n \times n}$ invertibile detta \textbf{matrice del cambio di base} tale che:
+$$
+\hat{x} = Tx = 
+\begin{cases}
+	\hat{x}' = \hat{A}\hat{x} + \hat{B}u \\
+	\hat{y} = \hat{C}\hat{x} + \hat{D}u
+\end{cases}
+$$
+
+Ricaviamo le matrici $\hat{A}$, $\hat{B}$, $\hat{C}$ e $\hat{D}$ come:
+$$
+\hat{A} = T A T^{-1}, \quad \hat{B} = TB, \quad \hat{C} = CT^{-1}, \quad \hat{D} = D
+$$ # scopri come e perche
+
+\subsection{Autovalori e modi}
+Avevamo dalla formula di Lagrange che per la risposta libera, cioe' la soluzione di $x_l' = Ax_l$, e':
+$$
+	x_l(t) = e^{A(t / t_0)}x_l(t_0)
+$$
+posta una condizione iniziale a $t = t_0$.
+
+Esistono 2 casi:
+\begin{itemize}
+	\item A \textit{diagonalizzabile};
+	\item A \textit{non diagonalizzabile}.
+\end{itemize}
+
+Vediamo questi casi nel dettaglio.
+
+\subsubsection{A diagonalizzabile}
+Potremo ricavare una matrice di cambio di base $T$ tale che $A$ risulti diagonale, cioe':
+$$
+A = T^{-1} A_D T, \quad A_D = \begin{pmatrix}
+	\lambda_1 & 0 & 0 \\
+	0 & ... & 0 \\
+	0 & 0 & \lambda_n
+\end{pmatrix}
+$$
+con $A_D$ detta \textbf{matrice degli autovettori}, dove le entrate delle diagonali sono gli autovalori $A$.
+
+In questo caso possiamo riscrivere lo stato sfruttando la serie di Taylor:
+$$
+\hat{x_l}(t) = e^{A_Dt} \hat{x_l}_0 = \sum_{k = 0}^\infty \frac{(A_D t)^k}{k!}\hat{x_l}_0
+$$
+dove la forma diagonale di $A_D$ ci permette di calcolare velocemente $A_D^k$:
+$$
+A_D^k = \begin{pmatrix}
+	\lambda_1^k & 0 & 0 \\
+	0 & ... & 0 \\
+	0 & 0 & \lambda_n^k
+\end{pmatrix}
+$$
+da cui:
+$$
+\hat{x_l}(t) = \mathr{diag} \left\{ ... \right\} \hat{x_l}_0 # fai tutti i conticini
+= \mathrm{diag} \left\{ e^{\lambda_1 t}, ..., e^{\lambda_n t} \right\} \hat{x_l}_0
+$$
+riportandoci nelle coordinate originali avremo:
+$$
+x_l(t) = T^{-1} \hat{x}(t) = T^{-1} \mathrm{diag} \left\{ e^{\lambda_1 t}, ..., e^{\lambda_n t} \right\} \hat{x_l}_0 = T^{-1} \mathrm{diag} \left\{ e^{\lambda_1 t}, ..., e^{\lambda_n t} \right\} T x_l(t_0)
+$$
+
+Chiamiamo gli $e^{\lambda_i}$ \textbf{modi} del sistema.
+La funzioni di uscita in assenza di derivate dell'ingresso sara' quindi data da una combinazione lineare dei \textit{modi propri} del sistema:
+$$
+y_l(t) = C T^{-1} \mathrm{diag} \left\{ e^{\lambda_1 t}, ..., e^{\lambda_n t} \right\} T x_l(t_0)
+$$
+
+Notiamo che, come avevamo gia' osservato, sara' vero che $\lambda = \sigma + i \omega \in \mathbb{C}$, e quindi:
+$$
+e^{\lambda t} = e^{\sigma t} \cos(\omega t + \phi)
+$$
+dalla formula di Eulero.
+
+\par\smallskip
+
+Notiamo che i modi di un sistema rappresentano vari "comportamenti" naturali del sistema, che possono essere esponenziali, oscillatori o una loro combinazione sulla base del autovalore corrispondente $\lambda_i$.
+
+Il comportamento complessivo del sistema sara' quindi dato da una qualche combinazione lineare di questi modi.
+
+\subsubsection{A non diagonalizzabile}
+Nel caso $A$ non sia diagonalizzabile si puo' comunque trasformare nella cosiddetta forma di \textbf{Jordan}.
+Questa avra' una struttura quasi diagonale, con elementi di valore 1 sopra la diagonale # penso?
+
+In questo caso i modi assumeranno la forma:
+$$
+t^{\eta - 1}e^{\lambda_i} t
+$$
+dove $t^{\eta - 1}$ sara' un'intero compreso tra $1$ e la massima dimensione dei \textit{miniblocchi di Jordan} associati all'autovalore.
+
+\end{document}

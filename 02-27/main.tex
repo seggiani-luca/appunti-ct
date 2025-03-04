@@ -479,15 +479,20 @@ x(t) = e^{At} x_0
 $$
 
 Stiamo effettivamente elevando un esponenziale ad una matrice (gli analisti avevano ragione!).
-potremo quindi usare lo sviluppo di Taylor per trovare $e^{At}$:
+Potremo quindi usare lo sviluppo di Taylor per trovare $e^{At}$:
 $$
-e^{At} = \sum_{i = 0}^\infty A^i \cdot \frac{t^i}{i!} = 1 + At + A^2 \frac{t^2}{2!} + ... + A^r \frac{t^r}{r!}
+e^{At} = \sum_{i = 0}^\infty A^i \cdot \frac{t^i}{i!} = I + At + A^2 \frac{t^2}{2!} + ... + A^r \frac{t^r}{r!}
 $$
 
-Chiamiamo $e^At$ \textbf{matrice di transizione}, perché determina il \textbf{moto libero del sistema} in assenza di ingresso ($u(t) = 0$):
+Chiamiamo la $A$ in $e^{At}$ \textbf{matrice di transizione}, perché determina il \textbf{moto libero del sistema} in assenza di ingresso ($u(t) = 0$):
 
 $$
 x(t) = \phi(t, t_o, x(t_0), u = 0) = e^A(t- t_0)x(t_0)
+$$
+
+Notiamo poi che nel caso di condizioni iniziali a $t_0 \neq 0$ dovremo traslare la soluzione come:
+$$
+x(t) = Ae^{(t - t_0)} x_0
 $$
 
 \end{document}
