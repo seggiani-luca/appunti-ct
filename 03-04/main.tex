@@ -394,8 +394,44 @@ y = \begin{pmatrix}
 \]
 
 \subsubsection{Caso $\mathbf{p = n}$}
-Vediamo quindi il caso $p = n$. # manca ancora
-
+Vediamo quindi il caso $p = n$. 
+Qui avremo l'equazione differenziale:
+$$
+y^{(n)} (t) = \sum_{i=0}^{n-1} - \alpha_i y^{(i)}(t) + \sum_{j=0}^n \beta_j u^{(j)}(t)
+$$
+e la dimensione di $C$ non sarà abbastanza da contenere tutti i termini $\beta_i$.
+Potremo allora definire la stessa equazione ausiliaria di prima:
+$$
+z^{(n)}(t) = \sum_{i = 0}^{n - 1} -\alpha_i z^{(i)}(t) + u(t)
+$$
+e sostituire, dopo aver preventivamente separato l'$n$-esimo termine:
+$$
+y(t) = \sum_{i = 1}^n \beta_{i - 1} x_i + \beta^n z^{(n)} = \sum_{i = 1}^n \beta_{i - 1} x_i + \beta_n \sum_{i = 1}^{n} -\alpha_{i - 1} z^{(i)}(t) + \beta_n u(t)
+$$
+da cui:
+\[
+	\begin{cases}	
+x' = \left(\begin{array}{@{}c | cccc@{}}
+	0 & 1 & 0 & ... & 0 \\
+	0 & 0 & 1 & ... & 0 \\
+	... & ... & ... & ... & ... \\
+	0 & 0 & 0 & ... & 1 \\
+	\hline
+	-\alpha_0 & ... & ... & ... & -\alpha_{n - 1}
+\end{array}\right)
+x + \begin{pmatrix}
+0 \\
+... \\
+0 \\
+1
+\end{pmatrix} u \\ 
+y = \begin{pmatrix}
+	\beta_0 - \beta_n \alpha_0 & ... & \beta_{n - 1} - \beta_n \alpha_{n - 1}	
+\end{pmatrix} x + \begin{pmatrix}
+\beta_n
+\end{pmatrix} u
+	\end{cases}
+\]
 
 \subsection{Rappresentazioni equivalenti}
 Vediamo che la scelta di variabili di stato non è unica.
