@@ -221,7 +221,7 @@ $$
 e^{At} = I + At + \frac{1}{2}A^2t^2+ ... + \frac{(At)^n}{n!} = \sum_{k = 0}^{+\infty} \frac{(At)^k}{k!} 
 $$
 
-Abbiamo visto che se la matrice $A$ ha autovalori distinti, allora e' diagonalizzabile:
+Abbiamo visto che se la matrice $A$ ha autovalori distinti, allora è diagonalizzabile:
 $$
 A = T^{-1} A_D T, \quad A_D = \begin{pmatrix}
 	\lambda_1 & 0 & 0 \\
@@ -229,7 +229,7 @@ A = T^{-1} A_D T, \quad A_D = \begin{pmatrix}
 	0 & 0 & \lambda_n \\
 \end{pmatrix}
 $$
-e l'esponenziale di matrice e' semplice:
+e l'esponenziale di matrice è semplice:
 $$
 e^{At} = T^{-1} e^{A_D t} T = T^{-1} \begin{pmatrix}
 	e^{\lambda_1 t} & 0 & 0 \\
@@ -238,7 +238,7 @@ e^{At} = T^{-1} e^{A_D t} T = T^{-1} \begin{pmatrix}
 \end{pmatrix} T
 $$
 
-In particolare, se gli autovalori sono complessi e coniugati, si avra':
+In particolare, se gli autovalori sono complessi e coniugati, si avrà:
 $$
 \lambda_i = \sigma_i + j \omega_i, \quad \overline{\lambda_i} = \sigma_i - j \omega_i 
 $$
@@ -254,7 +254,7 @@ C(t) e^{\lambda t} = C(t) = \alpha_0 + \alpha_1 + \alpha_2 t^2 + ... + \alpha_{k
 $$
 
 \subsubsection{Matrice reale, autovalori complessi}
-Se $A$ e' reale ma i suoi autovalori sono complessi, si avra una forma del tipo:
+Se $A$ è reale ma i suoi autovalori sono complessi, si avra una forma del tipo:
 $$
 A_D = \begin{pmatrix}
 	\sigma + j\omega & 0 \\
@@ -262,7 +262,7 @@ A_D = \begin{pmatrix}
 \end{pmatrix}
 $$
 
-Questa forma e' \textit{simile} alla matrice reale $S$:
+Questa forma è \textit{simile} alla matrice reale $S$:
 $$
 S = \begin{pmatrix}
 	\sigma & \omega \\
@@ -272,7 +272,7 @@ $$
 
 \subsubsection{Calcolo degli autovalori}
 Ripassiamo brevemente come calcolare gli autovalori.
-Se $V$ e' autovettore e $\lambda$ l'autovalore associato, allora vale:
+Se $V$ è autovettore e $\lambda$ l'autovalore associato, allora vale:
 $$
 Av = \lambda v \implies (A - \lambda I)v = 0 \implies \mathrm{det} (A - \lambda I) = 0
 $$
@@ -284,11 +284,11 @@ $$
 Avremo quindi che le soluzioni di $\lambda^*$ di $p(\lambda) = 0$ rappresentano gli autovalori di $A$.
 
 \subsection{Forma di Jordan}
-Se gli autovalori sono multipli ma $A$ non e' diagonalizzabile, abbiamo visto, occore sfruttare la \textbf{forma di Jordan} attraverso la trasformazione:
+Se gli autovalori sono multipli ma $A$ non è diagonalizzabile, abbiamo visto, occore sfruttare la \textbf{forma di Jordan} attraverso la trasformazione:
 $$
 J = Q A Q{-1}
 $$
-dove $Q$ e' la matrice degli \textbf{autovettori generalizzati} con:
+dove $Q$ è la matrice degli \textbf{autovettori generalizzati} con:
 $$
 J = \begin{pmatrix}
 	J_1 & 0 & 0 \\
@@ -296,7 +296,7 @@ J = \begin{pmatrix}
 	0 & 0 & J_N
 \end{pmatrix}
 $$
-dove ogni $J_i$ e' detto \textbf{miniblocco di Jordan}:
+dove ogni $J_i$ è detto \textbf{miniblocco di Jordan}:
 $$
 J_i = \begin{pmatrix}
 	\lambda_h & 1 & 0 & ... & 0 \\ 
@@ -307,8 +307,8 @@ J_i = \begin{pmatrix}
 \end{pmatrix}
 $$
 
-Ogni blocco di Jordan ha sulla diagonale lo stesso autovalore, che compare tante volte quanto e' la sua \textit{molteplicita' algebrica}.
-Inoltre, ci sono tanti blocchi $J_i$ associati allo stesso autovattore tante volte quanto e' la sua \textit{molteplicita' geometrica}.
+Ogni blocco di Jordan ha sulla diagonale lo stesso autovalore, che compare tante volte quanto è la sua \textit{molteplicità algebrica}.
+Inoltre, ci sono tanti blocchi $J_i$ associati allo stesso autovattore tante volte quanto è la sua \textit{molteplicità geometrica}.
 
 \par\smallskip
 
@@ -316,7 +316,7 @@ Se riprendiamo la matrice esponenziale abbiamo:
 $$
 e^{At} = e^{QJQ^{-1}t} = Q \left( I + Jt + \frac{J^2 t^2}{2!} + ... + \frac{(Jt)^n}{n!} \right) Q^{-1} = Q e^{Jt} Q^{-1}
 $$
-dove $e^{Jt}$ e' \textit{diagonale a blocchi}:
+dove $e^{Jt}$ è \textit{diagonale a blocchi}:
 $$
 e^{Jt} = \begin{pmatrix}
 e^{J_1 t} & 0 & ... & 0 \\
@@ -335,11 +335,11 @@ e^{J_i t} = e^{ \begin{pmatrix}
 = e^{(\lambda I + J_{0i})t} = e^{\lambda t} e^{J_{0i} t}
 $$
 dove con $J_{0i}$ ci riferiamo alla \textbf{parte nilpotente} di $J_i$.
-Il problema sara' quindi capire la forma di $e^{J_{0i} t}$:
+Il problema sarà quindi capire la forma di $e^{J_{0i} t}$:
 $$
 e^{J_{0i} t} = I + J_{0i}t + \frac{J_{0i}^2}{2!} + ... + \frac{J_{0i}^{q - i} t^{q - 1}}{(q - 1)!}
 $$
-dove ogni coefficiente moltiplicativo di $t^i$ ha la proprieta' di avere le entrate spostate in diagonale, verso l'alto a destra, per cui:
+dove ogni coefficiente moltiplicativo di $t^i$ ha la proprietà di avere le entrate spostate in diagonale, verso l'alto a destra, per cui:
 $$
 e^{J_{0i} t} = \begin{pmatrix}
 	1 & t & \frac{t^2}{2} & ... & \frac{t^{(q - 1)}}{(q - 1)!} \\
@@ -356,7 +356,7 @@ $$
 dove abbiamo finalmente capito il significato dell'intero $k$.
 
 \par\smallskip
-Notiamo che la proprieta' di similarita' che avevamo trovato:
+Notiamo che la proprietà di similarità che avevamo trovato:
 $$
 M = \begin{pmatrix}
 	\sigma + j\omega & 0 \\
@@ -390,12 +390,12 @@ $$
 e via dicendo.
 
 \subsection{Stabilit' nei sistemi lineari stazionari}
-Riprendiamo la definizione di \textit{stabilita'} (3.3 e 3.4).
+Riprendiamo la definizione di \textit{stabilità} (3.3 e 3.4).
 Quello che interessa sono le \textbf{perturbazioni} dello stato.
 
-Per un sistema lineare e stazionario l'origine e' sempre punto di equilibrio per ingresso nullo.
-Se l'origine e' stabile, allora lo e' qualsiasi altro punto di equilibrio.
-Si puo' allore dire che un sistema e' \textbf{stabile} solo guardando alla risposta \textit{libera} del sistema:
+Per un sistema lineare e stazionario l'origine è sempre punto di equilibrio per ingresso nullo.
+Se l'origine è stabile, allora lo è qualsiasi altro punto di equilibrio.
+Si può allore dire che un sistema è \textbf{stabile} solo guardando alla risposta \textit{libera} del sistema:
 $$
 x' = Ax + Bu, \quad u = 0, \quad x(0) = x_0
 $$
@@ -403,25 +403,25 @@ $$
 x(t) = e^{At}x_0
 $$
 
-In particolare, la stabilita' del sistema dipende dai \textit{modi propri} del sistema.
-In particolare, se gli autovalori hanno parte reale $\mathrm{Re}(\lambda_i) < 0$ il sistema e' \textbf{asintoticamente stabile}, mentre se hanno parte reale $\mathrm{Re}(\lambda_i) \leq 0$ e gli $\mathrm{Re}(\lambda_i) = 0$ hanno molteplicita' $\mu =1$ il sistema e' solo \textbf{stabile}.
-Quest'ultimo caso e' propriamente quello delle matrici non diagonalizzabili (quindi messe in forma di Jordan).
+In particolare, la stabilità del sistema dipende dai \textit{modi propri} del sistema.
+In particolare, se gli autovalori hanno parte reale $\mathrm{Re}(\lambda_i) < 0$ il sistema è \textbf{asintoticamente stabile}, mentre se hanno parte reale $\mathrm{Re}(\lambda_i) \leq 0$ e gli $\mathrm{Re}(\lambda_i) = 0$ hanno molteplicità $\mu =1$ il sistema è solo \textbf{stabile}.
+Quest'ultimo caso è propriamente quello delle matrici non diagonalizzabili (quindi messe in forma di Jordan).
 
-Possiamo riassumere la relazione fra stabilita', modi e autovalori come segue:
+Possiamo riassumere la relazione fra stabilità, modi e autovalori come segue:
 \begin{table}[H]
 	\center \rowcolors{2}{white}{black!10}
 	\begin{tabular} { p{3.5cm} | p{5cm} | p{5cm} }
-		\bfseries Stabilita' & \bfseries Modi & \bfseries Autovalori \\
+		\bfseries Stabilità & \bfseries Modi & \bfseries Autovalori \\
 		\hline
-		Stabilita' asintotica & Tendono a zero & $\mathrm{Re}(\lambda_i) < 0$ \\
-	Stabilita' semplice o marginale & Non vanno a infinito, ma almeno uno non converge a zero & $\mathrm{Re}(\lambda_i) \leq 0$, $\exists \lambda_i^* : \mathrm{Re}(\lambda_i^*) = 0$, $\mu = 1$ \\
-Instabilita' & Almeno uno va a infinito & $\mathrm{Re}(\lambda_i) > 0$ o $\exists \lambda_i^* : \mathrm{Re}(\lambda_i^*)$, $\mu_a(\lambda_i^*) \neq \mu_g(\lambda_i^*)$ \\
+		Stabilità asintotica & Tendono a zero & $\mathrm{Re}(\lambda_i) < 0$ \\
+	Stabilità semplice o marginale & Non vanno a infinito, ma almeno uno non converge a zero & $\mathrm{Re}(\lambda_i) \leq 0$, $\exists \lambda_i^* : \mathrm{Re}(\lambda_i^*) = 0$, $\mu = 1$ \\
+Instabilità & Almeno uno va a infinito & $\mathrm{Re}(\lambda_i) > 0$ o $\exists \lambda_i^* : \mathrm{Re}(\lambda_i^*)$, $\mu_a(\lambda_i^*) \neq \mu_g(\lambda_i^*)$ \\
 	\end{tabular}
 \end{table}
 
-\subsubsection{Stabilita' dei sistemi linearizzati}
+\subsubsection{Stabilità dei sistemi linearizzati}
 Avevamo visto che nei sistemi non lineari conviene \textit{linearizzare} trascurando i termini oltre il primo ordine nell'intorno di uno stato di equilibrio noto.
-Se il sistema linearizzato e' \textit{asintoticamente stabile}, si avra' che lo stato di equilibrio del sistema non lineare e' \textbf{stabile}.
-Di contro, se il sistema linearizzato e' \textit{semplicemente stabile} non possiamo concludere nulla sul sistema non lineare (potrebbero esserci instabilita' ai termini superiori).
+Se il sistema linearizzato è \textit{asintoticamente stabile}, si avrà che lo stato di equilibrio del sistema non lineare è \textbf{stabile}.
+Di contro, se il sistema linearizzato è \textit{semplicemente stabile} non possiamo concludere nulla sul sistema non lineare (potrebbero esserci instabilità ai termini superiori).
 
 \end{document}
