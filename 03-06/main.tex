@@ -16,9 +16,6 @@
 \usepackage{hyperref}
 \usepackage{standalone}
 
-% cose fluttuanti
-\usepackage{float}
-
 % imposta il titolo
 \title{Appunti Fondamenti di Automatica}
 \author{Luca Seggiani}
@@ -195,15 +192,141 @@
 
 \begin{document}
 
-\pagestyle{fancy}
-\thispagestyle{empty}
-\renewcommand{\thispagestyle}[1]{}
+% sezione (data)
+\section{Lezione del 06-03-25}
 
-\maketitle
-\input{../02-25/main.tex}
-\input{../02-26/main.tex}
-\input{../02-27/main.tex}
-\input{../03-04/main.tex}
-\input{../03-05/main.tex}
-\input{../03-06/main.tex}
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsection{Forma di Jordan con autovalori complessi e coniugati}
+Nel caso si trovi $A$ matrice reale con autovalori complessi e coniugati, è possibile usare un cambio di coordinate che trasforma la matrice diagonale complessa in una matrice reale diagonale a blocchi.
+
+Questo è il caso che abbiamo già visto di:
+$$
+\begin{pmatrix}
+	\sigma & \omega \\
+	-\omega & \sigma
+\end{pmatrix}
+\sim
+\begin{pmatrix}
+	\sigma + j\omega & 0 \\
+	0 & \sigma - j \omega
+\end{pmatrix}
+$$
+e:
+$$
+\begin{pmatrix}
+	\sigma & \omega & 1 & 0 \\
+	-\omega & \sigma & 0 & 1 \\
+	0 & 0 & \sigma & \omega \\
+	0 & 0 & -\omega & \sigma \\
+\end{pmatrix}
+\sim
+\begin{pmatrix}
+	\sigma + j \omega & 1 & 0 & 0 \\
+	0 & \sigma + j \omega & 0 & 0 \\
+	0 & 0 & \sigma - j \omega & 1 \\
+	0 & 0 & 0 & \sigma - j \omega
+\end{pmatrix} 
+$$
+
+In generale, quindi, abbiamo matrici di Jordan:
+$$
+J_r = \begin{pmatrix}
+	M & I & 0 & ... & 0 \\
+	0 & M & I & ... & 0 \\
+	0 & ... & M & I & 0 \\ 
+	0 & ... &  0 & M & I \\
+	0 & ... & ... & 0 & M
+\end{pmatrix}
+$$
+dove gli $M$ rappresentano i singoli miniblocchi:
+$$
+M = \begin{pmatrix}
+	\sigma & \omega \\
+	-\omega & \sigma
+\end{pmatrix}
+$$
+
+Il numero di blocchi è quindi pari al numero di coppie di autovalori complessi coniugati.
+
+\subsection{Raggiungibilità}
+Abbiamo visto come la proprietà di stabilita dipende solo dalla struttura del sistema, e in particolare dalla sola matrice $A$.
+
+Vediamo come in verità esistono altre proprietà che dipendono dalla struttura del sistema e che ci sono di interesse dal punto di vista della regolazione automatica.
+Una di queste proprietà è la \textbf{raggiungibilità}.
+
+Poniamo di avere un circuito dato da due capacitori in serie ad un resistore:
+# esempio, non ho capito cosa voleva dire
+
+Diamo quindi la definizione:
+\begin{definition}{Raggiungibilità}
+	Dato il sistema dinamico di ordine $n$ con $m$ ingressi e $p$ uscite:
+	\[
+		\begin{cases}
+			x' = Ax + Bu \\
+			y = Cx + Du
+		\end{cases}
+	\]
+		allora uno stato $\overline{x}$ si dice raggiungibile se esistono un istante di tempo finito $\overline{t} > 0$ e un ingresso $\overline{u}$ definito tra $0$ e $\overline{t}$ tali che, detto $\overline{x}_f(t)$ il movimento forzato dello stato generato da $\overline{u}$, risulti che $\overline{x}_f(\overline{t}) = \overline{x}$.
+\end{definition}
+
+La proprieta di raggiungibilità degli stati divide gli stessi in due categorie: stati raggiungibili e stati non raggiungibili.
+
+\subsubsection{Completa raggiungibilità}
+Se tutti gli stati di un sistema sono raggiungibili, allora il sistema è detto \textbf{completamente raggiungibile}.
+
+Si può verificare se un sistema è completamente raggiungible sfruttando la matrice:
+
+$$
+\mathcal{M}_\mathcal{R} = \begin{pmatrix}
+	B & AB & A^B & ... & A^{n - 1}B
+\end{pmatrix}
+$$
+e verificando se:
+$$
+\mathrm{rank}(\mathcal{M}_\mathcal{R}) = n
+$$
+
+Nel caso un sistema non sia completamente raggiungibile si può isolare la parte raggiungibile, cioè definire una trasformazione $T_r$ che ci porti:
+$$
+x' = Ax + Bu, \quad \hat{x} = T_r x \implies \hat{x}' = \hat{A} \hat{x} + \hat{B} u
+$$
+con:
+$$
+\hat{A} = \begin{pmatrix}
+\hat{A}_a & \hat{A}_{ab} \\
+0 & \hat{A}_b
+\end{pmatrix}, \quad
+\hat{B} = \begin{pmatrix}
+	\hat{B}_a \\
+	0
+\end{pmatrix}
+$$
+
+con $\hat{A}_a \in \mathbb{R}^{n_r \times n_r}$ e $\hat{B}_a \in \mathbb{R}^{n_r \times m}$, con $n_r = \mathrm{rank}(\mathcal{M}_\mathcal{R})$.
+
+Posto:
+$$
+\hat{x} = \begin{pmatrix}
+	\hat{x}_r \\ 
+	\hat{x}_{nr}
+\end{pmatrix}
+$$
+si avrà svolgendo le moltiplicazioni che:
+\[
+	\begin{cases}
+		\hat{x}_r' = \hat{A}_a \hat{x}_r + \hat{A}_{ab} \hat{x}_{nr} + \hat{B}_a u\\
+		\hat{x}_{nr}' = \hat{A}_b \hat{x}_{nr}
+	\end{cases}
+\]
+ovvero si divide lo stato in una parte raggiungibile e in una parte non raggiungibile.
+
+\subsubsection{Ricavare la matrice $\mathbf{T_r}$}
+Per ricavare la matrice di trasformazione $T_r$ basterà scegliere $n_r$ colonne linearmente indipendenti di $\mathcal{M}_\mathcal{R}$.
+Ogni stato raggiungibile sarà combinazione lineare di queste colonne.
+Si aggiungono poi $n - n_r$ colonne linearmente indipendenti, prese ad arbitrio.
+
 \end{document}
