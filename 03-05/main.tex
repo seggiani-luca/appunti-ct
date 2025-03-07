@@ -283,6 +283,161 @@ $$
 
 Avremo quindi che le soluzioni di $\lambda^*$ di $p(\lambda) = 0$ rappresentano gli autovalori di $A$.
 
+\subsubsection{Esempio: soluzione di differenziale con derivata prima dell'ingresso}
+Avevamo visto l'equazione differenziale (esempio 4.2.2):
+$$
+y'' + y = 2u + u'
+$$
+da cui avevamo ricavato il sistema:
+\[
+	\begin{cases}
+		\begin{pmatrix}
+			x_1' \\ x_2'
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			0 & 1 \\ 
+			-1 & 0
+		\end{pmatrix}
+		\begin{pmatrix}
+			x_1 \\ x_2
+		\end{pmatrix}
+		+
+		\begin{pmatrix}
+		0 \\ 1
+		\end{pmatrix}
+		u \\ 
+
+		y = 
+		\begin{pmatrix}
+			2 & 1
+		\end{pmatrix}
+		\begin{pmatrix}
+			x_1 \\ x_2
+		\end{pmatrix}
+		+
+		\begin{pmatrix}
+			0
+		\end{pmatrix}
+		u
+	\end{cases}
+\]
+Abbiamo quindi le matrici:
+$$
+	A = \begin{pmatrix}
+			0 & 1 \\ 
+			-1 & 0
+		\end{pmatrix}, \quad 
+	B = \begin{pmatrix}
+		0 \\ 1
+		\end{pmatrix}
+$$
+$$
+	C = \begin{pmatrix}
+			2 & 1
+		\end{pmatrix}, \quad 		
+		\begin{pmatrix}
+			0
+		\end{pmatrix} 
+$$
+
+Vediamo come calcolare una soluzione specifica di questo sistema.
+Per fare ciò sfrutteremo la formula di Lagrange, e quindi l'esponenziale di matrice, il cui calcolo sarà molto semplificato dal calcolo degli autovalori di $A$.
+
+Abbiamo quindi:
+$$
+p(\lambda) = \mathrm{det}(A - \lambda I) = \mathrm{det} \begin{pmatrix}
+	-\lambda & 1 \\ 
+	-1 & -\lambda
+\end{pmatrix}
+\implies 
+\lambda^2 + 1 = 0
+$$
+da cui:
+$$
+\lambda_{1, 2} = \pm j
+$$
+Avremo quindi la matrice diagonale:
+$$
+A \sim \begin{pmatrix}
+	j & 0 \\ 
+	0 & j
+\end{pmatrix} 
+$$
+
+Notiamo che si sarebbe anche potuto notare la matrice simile:
+$$
+A \sim \begin{pmatrix}
+	j & 0 \\ 
+	0 & j
+\end{pmatrix} 
+\sim 
+\begin{pmatrix}
+	0 & 1 \\ 
+	-1 & 0
+\end{pmatrix}
+$$
+
+Troviamo quindi $e^{At}$ come:
+$$
+e^{At} = \begin{pmatrix}
+	e^j & 0 \\ 
+	0 & e^{-j}
+\end{pmatrix} = \begin{pmatrix}
+	\cos(t) + j \sin(t) & 0 \\ 
+	0 & \cos(t) - j \sin(t)
+\end{pmatrix} \sim \begin{pmatrix}
+	\cos(t) && \sin(t) \\ 
+	-\sin(t) && \cos(t)
+\end{pmatrix}
+$$
+
+Possiamo quindi scrivere la formula di Lagrange, assumendo per semplicità $x_0 = 0$ e $u(t) = 1$ costante:
+$$
+x = e^{At} x_0 + \int_0^t e^{A(t - \tau)} B u(\tau) d\tau
+$$
+dove il termine libero $z_l = e^{At} x_0$ va a zero, e rimane quindi:
+$$
+\int_0^t \begin{pmatrix}
+	\cos(t - \tau) && \sin(t - \tau) \\ 
+	-\sin(t - \tau) && \cos(t - \tau)
+\end{pmatrix}
+\begin{pmatrix}
+	0 \\ 1
+\end{pmatrix}
+	d\tau
+=
+\begin{pmatrix}
+\int_0^t \sin(t - \tau) \, d \tau \\
+\int_0^t \cos(t - \tau) \, d \tau
+\end{pmatrix}
+= \begin{pmatrix}
+1 - \cos(t) \\ 
+\sin(t)
+\end{pmatrix}
+$$
+
+Abbiamo quindi trovato un'espressione chiusa per lo stato del sistema sul tempo.
+A questo punto basterà solamente trovare l'uscita come combinazione lineare delle variabili di stato:
+$$
+y = Bx = \begin{pmatrix}
+	2 & 1
+\end{pmatrix}
+\begin{pmatrix}
+1 - \cos(t) \\ 
+\sin(t)
+\end{pmatrix}
+=
+2 - 2\cos(t) + \sin(t)
+$$
+che è l'espressione dell'uscita in funzione del tempo secondo le ipotesi date.
+
+Verifichiamo il risultato anche con un approssimazione numerica in Python:
+
+\begin{center}
+\includegraphics[scale=0.8]{../figures/first-degree-input-diffeq.png}
+\end{center}
+
 \subsection{Forma di Jordan}
 Se gli autovalori sono multipli ma $A$ non è diagonalizzabile, abbiamo visto, occore sfruttare la \textbf{forma di Jordan} attraverso la trasformazione:
 $$

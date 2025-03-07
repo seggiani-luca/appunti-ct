@@ -343,7 +343,72 @@ y = \begin{pmatrix}
 	\end{cases}
 \]
 
+La matrice $A$ viene detta \textit{compagna orizzontale inferiore}, e i suoi autovalori sono coincidenti alle radici del polinomio $\alpha_0 + \alpha_1 \lambda + ... + \alpha_{n - 1} \lambda^{n - 1} + \lambda^n$ (questo risulta chiaro dallo sviluppo di Laplace sull'ultima riga).
+
+\par\smallskip
+
 Notiamo che questo processo non è dissimile a quello adottato ad esempio nello studio dei sistemi meccanici, dove le derivate successive della posizione facevano da variabili di stato (solitamente posizione e velocità), una di queste variabili faceva da valore di uscita (solitamente la posizione), e la derivata della variabile di stato di ordine più alto (solitamente l'accelerazione) era l'unica derivata della variabile di stato che introduceva nuove informazioni nel sistema.
+
+\subsubsection{Esempio numerico: sistema massa-molla-smorzatore}
+Un sistema di questo tipo è stato già studiato nell'esempio 2.3.4, dove avevamo la differenziale che descriveva un carrellino in un sistema molla-smorzatore soggetto ad una forza $F$:
+$$
+F(t) = M \frac{dv}{dt} + Bv + Kx
+$$
+che manipolavamo per ottenere la modellizzazione:
+$$
+A = \begin{pmatrix}
+	0 & 1 \\ 
+	-\frac{K}{M} & -\frac{B}{M}
+\end{pmatrix}, \quad 
+B = \begin{pmatrix}
+	0 \\ \frac{1}{M}
+\end{pmatrix}
+$$
+$$
+C = \begin{pmatrix}
+	1 & 0
+\end{pmatrix}, \quad 
+D = \begin{pmatrix}
+0
+\end{pmatrix}
+$$
+
+Osserviamo che questa è la stessa modellizzazione che avremmo ottenuto applicando il metodo descritto sopra.
+
+Possiamo definire un programma Python che sfrutta la libreria \href{http://scipy.org}{SciPy} per effettuare la simulazione in dominio tempo del sistema:
+\lstset{style=codestyle, language=python}
+\lstinputlisting{../py/state_variable_form/solve_svf.py}
+
+Proviamo allora a simulare il sistema con valori $m = 5 \, \mathrm{kg}$, $k = 3 \, \frac{\mathrm{N}}{\mathrm{m}}$ e $b = 3 \, \frac{\mathrm{N}}{\mathrm{m}^2}$, da cui le matrici:
+$$
+A = \begin{pmatrix}
+	0 & 1 \\ 
+	-0.6 & -0.4
+\end{pmatrix}, \quad 
+B = \begin{pmatrix}
+	0 \\ 0.2
+\end{pmatrix}
+$$
+$$
+C = \begin{pmatrix}
+	1 & 0
+\end{pmatrix}, \quad 
+D = \begin{pmatrix}
+0
+\end{pmatrix}
+$$
+
+Vediamo ad esempio lo scalino unitario applicato all'istante $5 \, \mathrm{s}$:
+\begin{center}
+\includegraphics[scale=0.8]{../figures/mass-spring-damper-response.png}
+\end{center}
+
+Notiamo che allo stato di regime si avrà $x'' = x' = 0$ (assunta $x$ la posizione del carrello).
+In questo caso la differenziale si ridurrà a:
+$$
+Kx = F \implies x = \frac{F}{K}
+$$
+che con i dati forniti dà $\sim 0.33 \, \mathrm{m}$, che come notiamo dalla figura è esattamente il punto attorno a cui il sistema si stabilizza.
 
 \subsection{Dipendenza dalle derivate della variabile di ingresso}
 Abbiamo posto finora $p = 0$, quindi nessuna derivata della variabili di ingresso.
@@ -364,7 +429,22 @@ $$
 che rappresenta la risposta del sistema al solo ingresso $u(t)$ (senza derivate superiori).
 Vediamo che questa è la forma che siamo stati abituati a risolvere finora.
 
-Per il principio di sovrapposizione, varrà allora che:
+Sarà quindi vero che la \textit{funzione forzante} (l'ingresso non scalato e non derivato) $u(t)$ porterà alla \textit{soluzione particolare} $z(t)$, cosa che indichiamo come:
+$$
+\mathcal{H}[u(t)] = z(t) 
+$$
+
+Considerando la linearità del sistema, siamo liberi di moltiplicare e derivare per ricavare le risposte alle funzioni derivate successive dell'ingresso scalate per i $\beta_i$ che avevamo nell'equazione originale:
+\[
+	\begin{cases}
+		\mathcal{H}[\beta_0 u(t)] = \beta_0 z(t) \\ 
+		\mathcal{H}[\beta_1 u'(t)] = \beta_1 z'(t) \\ 
+		... \\
+		\mathcal{H}[\beta_p u^{(p)}(t)] = \beta_p z^{(p)}(t)
+	\end{cases}
+\]
+
+Per ottenere la risposta complessiva del sistema, allora, basterà applicare nuovamente la linearità e prendere la combinazione lineare delle risposte ai singoli ingressi:
 $$
 y(t) = \sum_{j = 0}^{p} \beta_j z^{(j)}(t)
 $$
@@ -392,6 +472,57 @@ y = \begin{pmatrix}
 \end{pmatrix} u
 	\end{cases}
 \]
+
+\subsubsection{Esempio: differenziale con derivata prima dell'ingresso}
+Applichiamo il metodo appena visto per l'equazione differenziale:
+$$
+y'' + y = 2u + u'
+$$
+Notiamo il termine di derivata prima dell'ingresso $u$.
+Riportandoci nella forma $y^{(n)}(t) = \hat{F}$ avremo:
+$$
+y'' = - y + 2u + u'
+$$
+con la formula al primo grado:
+$$
+y'' = -y + u
+$$
+da cui il sistema:
+\[
+	\begin{cases}
+		\begin{pmatrix}
+			x_1' \\ x_2'
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			0 & 1 \\ 
+			-1 & 0
+		\end{pmatrix}
+		\begin{pmatrix}
+			x_1 \\ x_2
+		\end{pmatrix}
+		+
+		\begin{pmatrix}
+		0 \\ 1
+		\end{pmatrix}
+		u \\ 
+
+		y = 
+		\begin{pmatrix}
+			2 & 1
+		\end{pmatrix}
+		\begin{pmatrix}
+			x_1 \\ x_2
+		\end{pmatrix}
+		+
+		\begin{pmatrix}
+			0
+		\end{pmatrix}
+		u
+	\end{cases}
+\]
+che sappiamo poter calcolare usando la formula di Lagrange.
+In seguito vedremo un esempio di calcolo esplicito (esempio 5.0.3) per una certa configurazione di ingressi e stato iniziale.
 
 \subsubsection{Caso $\mathbf{p = n}$}
 Vediamo quindi il caso $p = n$. 

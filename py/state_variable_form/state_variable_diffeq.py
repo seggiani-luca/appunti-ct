@@ -1,6 +1,6 @@
 import numpy as np
-import scipy.signal as signal
 import matplotlib.pyplot as plt
+import solve_svf as svf
 
 # assume SISO
 
@@ -94,11 +94,8 @@ else:
 # initial state
 x0 = np.zeros((1, n))
 
-# setup system
-sys = signal.StateSpace(A, B, C, D)
-
 # solve
-t_out, y_out, x_out = signal.lsim(sys, U=u, T=t, X0=x0)
+x_out, y_out, t_out = svf.solve_svf(A, B, C, D, t, u, x0)
 
 # get constraint
 constraint = np.zeros_like(t_out)
