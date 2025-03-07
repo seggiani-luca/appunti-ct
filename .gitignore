@@ -1,13 +1,13 @@
-#gitignore generato da me (si spera che funzioni!)
-#ignora oggetti eseguibili
+# gitignore generato da me (si spera che funzioni!)
+# ignora oggetti eseguibili
 *.exe
 *.out
 *.o
 
-#ignora file multimediali
+# ignora file multimediali
 *.mp3
 
-#ignora file generazione latex
+# ignora file generazione latex
 *.aux
 *.fdb_latexmk
 *.fls
@@ -15,11 +15,14 @@
 *.synctex.gz
 *.synctex
 
-#ignora archivi senno fai danni
+# ignora archivi senno fai danni
 *.zip
 
-#ignora file relativi alla vm
+# ignora file relativi alla vm
 *.vdi
 *.vbox
 *.vbox-prev
 *.log.*
+
+# ignora cache python
+*.pyc
