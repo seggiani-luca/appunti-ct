@@ -200,7 +200,7 @@
 \pagestyle{fancy}
 
 % testo
-Riprendiamo la trattazione dei sistemi non lineari.
+Riprendiamo la trattazione dei sistemi non lineari sfruttando un esempio:
 
 \subsubsection{Esempio: regolazione della velocità di crociera}
 Poniamo di voler modellizzare il sistema di trazione longitudinale di un automobile, implementando un sistema di controllo che la mantenga a velocità di crociera costante.
@@ -257,7 +257,9 @@ Prese le variabili di stato comuni ai sistemi meccanici $\mathbf{x} = \begin{pma
 \]
 con la condizione iniziale $\mathbf{x}(t_0) = x_0$.
 
-Nelle equazioni non compare $t$, quindi il sistema è tempo invariante. 
+\par\smallskip
+
+Nelle equazioni dell'esempio appena visto non compare $t$, quindi il sistema è tempo invariante. 
 Di contro, il sistema non ricade nelle forme viste prima, ma in una forma più generale:
 \begin{definition}{Forma non lineare generale}
 Introduciamo la forma generica per sistemi non lineari:
@@ -334,9 +336,8 @@ Associando allo stato di equilibrio anche un'uscita di equililbrio $\overline{y}
 	\end{cases}
 \]
 
-\par\smallskip 
-
-Riprendendo l'esempio precedente della regolazione della velocità di crociera, avevamo ricavato il sistema non lineare in forma generale:
+\subsubsection{Esempio: linearizzazione del problema di regolazione della velocità di crociera}
+Riprendendo l'esempio precedente (3.0.1) della regolazione della velocità di crociera, avevamo ricavato il sistema non lineare in forma generale:
 
 $$
 x' = f(x, u) = 
@@ -388,7 +389,7 @@ Da cui il sistema:
 \[
 	\begin{cases}			
 x' = \begin{pmatrix}
-	0 & 0 \\ 
+	0 & 1 \\ 
 	0 & -\frac{\beta}{m}
 \end{pmatrix} x + \begin{pmatrix}
 	0 & 0 \\ 

@@ -275,14 +275,14 @@ La proprieta di raggiungibilità degli stati divide gli stessi in due categorie:
 \subsubsection{Completa raggiungibilità}
 Se tutti gli stati di un sistema sono raggiungibili, allora il sistema è detto \textbf{completamente raggiungibile}.
 
-Si può verificare se un sistema è completamente raggiungible sfruttando la matrice:
+Si può verificare se un sistema è completamente raggiungible sfruttando la matrice (\textit{di raggiungibilità}):
 
 $$
 \mathcal{M}_\mathcal{R} = \begin{pmatrix}
-	B & AB & A^B & ... & A^{n - 1}B
+	B & AB & A^2B & ... & A^{n - 1}B
 \end{pmatrix}
 $$
-e verificando se:
+a volte indicata anche come $\mathcal{C}$ (in quanto nei sistemi continui combacia con la \textit{controllabilità}), e verificando se:
 $$
 \mathrm{rank}(\mathcal{M}_\mathcal{R}) = n
 $$
@@ -303,7 +303,7 @@ $$
 \end{pmatrix}
 $$
 
-con $\hat{A}_a \in \mathbb{R}^{n_r \times n_r}$ e $\hat{B}_a \in \mathbb{R}^{n_r \times m}$, con $n_r = \mathrm{rank}(\mathcal{M}_\mathcal{R})$.
+con $\hat{A}_a \in \mathbb{R}^{n_r \times n_r}$ e $\hat{B}_a \in \mathbb{R}^{n_r \times m}$, e con $n_r = \mathrm{rank}(\mathcal{M}_\mathcal{R})$, $n_r < n$.
 
 Posto:
 $$
