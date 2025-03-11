@@ -277,6 +277,8 @@ $$
 Possiamo quindi calcolare la matrice $\mathcal{M}_\mathcal{R}$:
 $$
 \mathcal{M}_\mathcal{R} = \begin{pmatrix}
+	B & A B
+\end{pmatrix} = \begin{pmatrix}
 	\frac{1}{RC} & -\frac{2}{R^2C^2} \\ 
 	\frac{1}{RC} & -\frac{2}{R^2C^2} \\ 
 \end{pmatrix}
@@ -290,8 +292,8 @@ T_r = \frac{1}{2} \begin{pmatrix}
 	1 & -1
 \end{pmatrix}, \quad
 T_r^{-1} = \begin{pmatrix}
-	-1 & -1 \\ 
-	-1 & 1
+	1 & 1 \\ 
+	1 & -1
 \end{pmatrix}
 $$
 
@@ -308,15 +310,26 @@ $$
 	-1 & -1 \\
 	-1 & 1
 \end{pmatrix} = \begin{pmatrix}
-	\frac{-2}{RC} & 0 \\
+	-\frac{2}{RC} & 0 \\
 	0 & 0
+\end{pmatrix}
+$$
+e in $\hat{B}$:
+$$
+\hat{B} = T_R B = \frac{1}{2} \begin{pmatrix}
+	1 & 1 \\ 
+	1 & -1
+\end{pmatrix} \begin{pmatrix}
+	\frac{1}{RC} \\ \frac{1}{RC}
+\end{pmatrix} = \begin{pmatrix}
+	\frac{1}{RC} \\ 0
 \end{pmatrix}
 $$
 
 Si ricava quindi il sistema:
 \[
 	\begin{cases}
-		\hat{x}_1' = -\frac{2}{RC} (\hat{x}_1 - u) \\
+		\hat{x}_1' = -\frac{1}{RC} (2\hat{x}_1 - u) \\
 		\hat{x}_2' = 0
 	\end{cases}
 \]
@@ -324,6 +337,26 @@ Si ricava quindi il sistema:
 Vediamo che la variabile $x_2$ ha derivata nulla indipendentemente dall'ingresso, ergo uno stato $x_2 \neq x_2(0)$ è impossibile da raggiungere.
 
 Notiamo infine che questa è la stessa trasformazione che avremmo potuto ottenere, ad esempio, imponendo $\hat{x}_2 = v_1 - v_2$.
+Si sarebbe infatti passati dal sistema:
+\[
+	\begin{cases}
+		x_1' = -\frac{1}{RC} v_1 - \frac{1}{RC} v_2 + \frac{1}{RC} u \\	
+		x_2' = -\frac{1}{RC} v_1 - \frac{1}{RC} v_2 + \frac{1}{RC} u \\	
+	\end{cases}, \quad 
+	x_1 = v_1, \ x_2 = v_2
+\]
+al sistema:
+\[
+	\begin{cases}
+		x_1' = -\frac{2}{RC} v_1 + \frac{1}{RC} u \\	
+		x_2' = 0 \\	
+	\end{cases}, \quad 
+	x_1 = v_1, \ x_2 = v_1 - v_2
+\]
+che è esattamente lo stesso di prima.
+
+Dal punto di vista fisico, abbiamo che è semplicemente impossibile variare la tensione $u$ in modo da ottenere cadute di potenziale diverse sui due capacitori, entrambi con capacità $C$.
+L'unico modo per ottenere tale situazione sarebbe quello di rendere variabile almeno uno dei capacitori (vedi i vecchi sintonizzatori radio), o variare direttamente la topologia del circuito. 
 
 \subsubsection{Conclusioni sulla raggiungibilità}
 Abbiamo quindi che, per sistemi LTI, la raggiungibilità corrisponde con la controllabilità (portare il sistema da uno stato qualsiasi all'origine).
