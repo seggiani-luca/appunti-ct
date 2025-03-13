@@ -218,6 +218,79 @@ $$
 x_v = \int_0^t e^{A(t - \tau)} Bu(\tau) \, d\tau
 $$
 
+\subsubsection{Dimostrazione della formula di Lagrange nel caso SISO}
+Diamo, a scopo illustrativo, una dimostrazione della formula di Lagrange nel caso SISO.
+Partiamo dall'equazione differenziale lineare di stato:
+$$
+x' = Ax + Bu
+$$
+che trasformiamo in:
+$$
+x' - Ax = Bu \quad \text{(disomogenea)}
+$$
+$$
+x' - Ax = 0 \quad \text{(omogenea)}
+$$
+dove si è diviso nell'\textbf{omogenea}, da cui ricaveremo la soluzione \textit{generale}, che per quanto ci riguarda abbiamo chiamato \textbf{risposta libera}, e nella \textbf{disomogenea}, da cui ricaveremo la soluzione \textit{particolare}, che ancora abbiamo chiamato \textbf{risposta forzata}.
+
+Partiamo dalla soluzione dell'omogenea.
+Abbiamo che questa è risolvibile per variabili separabili:
+$$
+\frac{dx}{dt} = Ax \implies \frac{dx}{x} = a \, dt \implies \int \frac{dx}{x} = \int A \, dt \implies \ln(x) = At + c
+$$
+da cui la risposta libera:
+$$
+x_l = e^{At} x_0
+$$
+dove $x_0$ serve a far combaciare le condizioni iniziali (deriva dal $+ c$ del termine integrale).
+
+A questo punto possiamo risolvere la disomogenea ponendo la sua soluzione come:
+$$
+x_v = c(t) e^{At}
+$$
+con $c(t)$ qualsiasi che ci interessa trovare.
+Per fare ciò procederemo per sostituzione, ma non prima di aver calcolato $x_v'$:
+$$
+x_v' = c'(t) e^{At} + c(t) e^{At}
+$$
+che sostituiamo quindi nella disomogena:
+$$
+c'(t) e^{At} + c(t) A e^{At} - c(t) A^{At} = Bu \implies c'(t) = e^{-At} Bu 
+$$
+e quindi:
+$$
+c(t) = \int_0^t e^{-A \tau} Bu \, d\tau
+$$
+da cui la risposta forzata:
+$$
+x_v = e^{At} \int_0^t e^{-A\tau} Bu \, d \tau = \int_0^t e^{A(t - \tau)} B u \, d \tau
+$$
+
+Abbiamo quindi ricavato la formula di Lagrange:
+$$
+x = x_l + x_v = e^{At} x_0 + \int_0^t e^{A(t - \tau)} Bu \, d\tau
+$$
+\qed
+
+\subsubsection{Risposta dell'uscita con Lagrange}
+Sfruttiamo quindi la formula di Lagrange per ricavare la risposta dell'uscita del sistema.
+Questa verrà direttamente dall'equazione dell'uscita:
+$$
+y = Cx + Du
+$$
+a cui sostituiamo l'espressione dello stato appena ottenuta, cioè:
+$$
+y = y_l + y_v = C e^{At} x_0 + C \int_0^t e^{A(t - \tau)} Bu \, d\tau + Du
+$$
+che notiamo possiamo ancora dividere nella risposta libera data dal primo termine:
+$$
+y_l = C e^{At} x_0 
+$$
+e la risposta forzata è data da:
+$$
+y_v = C \int_0^t e^{A(t - \tau)} Bu(\tau) \, d\tau + Du
+$$
+
 \subsection{Caratterizzazione delle variabili di stato}
 Vediamo nel dettaglio come si ricavano le variabili di stato $x'$.
 Riprendiamo la forma generale del sistema a variabili di stato.
@@ -342,6 +415,8 @@ y = \begin{pmatrix}
 \end{pmatrix} u
 	\end{cases}
 \]
+
+\qed
 
 La matrice $A$ viene detta \textit{compagna orizzontale inferiore}, e i suoi autovalori sono coincidenti alle radici del polinomio $\alpha_0 + \alpha_1 \lambda + ... + \alpha_{n - 1} \lambda^{n - 1} + \lambda^n$ (questo risulta chiaro dallo sviluppo di Laplace sull'ultima riga).
 
@@ -472,6 +547,7 @@ y = \begin{pmatrix}
 \end{pmatrix} u
 	\end{cases}
 \]
+\qed
 
 \subsubsection{Esempio: differenziale con derivata prima dell'ingresso}
 Applichiamo il metodo appena visto per l'equazione differenziale:
@@ -563,6 +639,7 @@ y = \begin{pmatrix}
 \end{pmatrix} u
 	\end{cases}
 \]
+\qed
 
 \subsection{Rappresentazioni equivalenti}
 Vediamo che la scelta di variabili di stato non è unica.
