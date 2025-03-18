@@ -100,37 +100,37 @@
 \usepackage[table]{xcolor}
 
 \lstdefinestyle{codestyle}{
-		backgroundcolor=\color{black!5}, 
-		commentstyle=\color{codegreen},
-		keywordstyle=\bfseries\color{magenta},
-		numberstyle=\sffamily\tiny\color{black!60},
-		stringstyle=\color{green!50!black},
-		basicstyle=\ttfamily\footnotesize,
-		breakatwhitespace=false,         
-		breaklines=true,                 
-		captionpos=b,                    
-		keepspaces=true,                 
-		numbers=left,                    
-		numbersep=5pt,                  
-		showspaces=false,                
-		showstringspaces=false,
-		showtabs=false,                  
-		tabsize=2
+	backgroundcolor=\color{black!5}, 
+	commentstyle=\color{codegreen},
+	keywordstyle=\bfseries\color{magenta},
+	numberstyle=\sffamily\tiny\color{black!60},
+	stringstyle=\color{green!50!black},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
 }
 
 \lstdefinestyle{shellstyle}{
-		backgroundcolor=\color{black!5}, 
-		basicstyle=\ttfamily\footnotesize\color{black}, 
-		commentstyle=\color{black}, 
-		keywordstyle=\color{black},
-		numberstyle=\color{black!5},
-		stringstyle=\color{black}, 
-		showspaces=false,
-		showstringspaces=false, 
-		showtabs=false, 
-		tabsize=2, 
-		numbers=none, 
-		breaklines=true
+	backgroundcolor=\color{black!5}, 
+	basicstyle=\ttfamily\footnotesize\color{black}, 
+	commentstyle=\color{black}, 
+	keywordstyle=\color{black},
+	numberstyle=\color{black!5},
+	stringstyle=\color{black}, 
+	showspaces=false,
+	showstringspaces=false, 
+	showtabs=false, 
+	tabsize=2, 
+	numbers=none, 
+	breaklines=true
 }
 
 \lstdefinelanguage{javascript}{
@@ -152,14 +152,14 @@
 \usepackage{titlesec}
 
 \titleformat{\section}
-	{\sffamily\Large\bfseries} 
-	{\thesection}{1em}{} 
+{\sffamily\Large\bfseries} 
+{\thesection}{1em}{} 
 \titleformat{\subsection}
-	{\sffamily\large\bfseries}   
-	{\thesubsection}{1em}{} 
+{\sffamily\large\bfseries}   
+{\thesubsection}{1em}{} 
 \titleformat{\subsubsection}
-	{\sffamily\normalsize\bfseries} 
-	{\thesubsubsection}{1em}{}
+{\sffamily\normalsize\bfseries} 
+{\thesubsubsection}{1em}{}
 
 % disponi alberi
 \usepackage{forest}
@@ -206,11 +206,11 @@ Rivediamone le parti:
 	\item \textbf{Impianto:} il sistema che ci interessa controllare, cioè quello che finora avevamo modellizzato in variabili di stato come:
 		\[
 			\begin{cases}		
-			x' = Ax + Bu \\
-			y = Cx + Du
+				x' = Ax + Bu \\
+				y = Cx + Du
 			\end{cases}
 		\]
-		
+
 		Notiamo di aver introdotto (e che approfondiremo) come modellizzazioni simili si possono fare col modello a funzione di trasferimento;
 	\item \textbf{Controllore:} l'elemento che confronta ingresso e segnale di \textit{feedback}, in modo da ricavarne dalla differenza (\textit{errore}) un controllo;
 	\item \textbf{Sensore:} l'elemento che rileva gli effetti, a monte dell'applicazione dei disturbi, dell'impianto controllato generando il segnale di feedback.
@@ -233,21 +233,21 @@ Si possono fare diversi esempi di sistemi governati da controllori in feedback, 
 	\item I sistemi di \textbf{cruise control} nelle moderne automobili rappresentano ancora sistemi con feedback: il sensore che determina il valore di velocità riportato sul tachimetro viene infatti usato anche per fare da segnale di feedback per un controllore, che lo confronta con un segnale di riferimento per realizzare un controllo per l'acceleratore. 
 	\item Riprendendo l'argomento del capoverso precedente, un intero sistema di controllo per la \textbf{guida autonoma} può essere rappresentato da un sistema con feedback.
 		La sezione del cruise control vista sopra potrebbe infatti rappresentare la parte \textit{longitudinale} del controllo (azione sull'acceleratore), mentre un sistema simile (magari basato su accelerometri o altri sensori di rotazione e accelerazione laterale) può rappresentare la parte \textit{laterale} del controllo (azione sul volante).
-		
+
 		Notiamo come un sistema di questo tipo (nella forma più semplice, a 2 controlli) è MIMO: in questo caso il modello che abbiamo presentato adotta l'approccio di separare le parti MIMO in più sistemi SISO.
 		Il più spesso possibile si vorranno infatti eliminare le interidpendenze fra più parti di un solo sistema MIMO, in modo da ricavare diversi sistemi SISO tra di loro indipendenti, di più facile gestione.
 
 	\item I sistemi di gestione \textbf{bancaria} possono darci un esempio di come i controlli possono applicarsi a contesti non solo industriali, meccanici o elettronici.	Infatti, posto un certo obiettivo economico proposto, le operazioni di manager e funzionari verranno influenzate dagli indici e dai risultati economici correnti della banca, a formare quello che è effettivamente un ciclo di controllo in feedback.
-	
+
 		Sistemi di questo tipo si ritrovano in più enti economici, commerciali e politici, nell'ottica della gestione di sistemi arbitrariamente complessi. Si pensi ancora al procedimento che potrebbe adottare l'agenzia delle entrate in modo da ottenere le entrate nazionali proposte previa misura del PIL nazionale e altri indicatori economici, o ancora dei cicli che si possono formare negli organi legislativi semplicemente confrontando gli obiettivi posti con i risultati effettivamente ricavati dai tribunali/dal mondo reale, ecc...
 \end{itemize}
 
 \subsection{Trasformata di Laplace}
 Introduciamo una \textit{trasformata integrale}, detta \textbf{trasformata di Laplace}, che ci sarà utile a risolvere equazioni differenziali:
-\begin{definition}{Funzione trasformata di Laplace}
+\begin{definition}{Trasformata di Laplace}
 	Definiamo la trasformata di Laplace di una funzione $f(t)$, definita per $t \geq 0$ e L-trasformabile, come la funzione nella variabile $s = \sigma + i \omega$:
 	$$
-	\mathcal{L} [f] (s) = \int_{0^-}^{+\infty} f(t) e^{-st} \, dt
+	\mathcal{L} [f] (s) = \int_{0}^{+\infty} f(t) e^{-st} \, dt
 	$$
 \end{definition}
 
@@ -255,7 +255,7 @@ La definizione di L-trasformabilità verrà data fra poco.
 
 \par\smallskip
 
-Notiamo  che in questi appunti si è deciso mantenere separate le definizioni di \textit{funzione} trasformata di Laplace ricavata da una funzione in dominio tempo, e \textit{applicazione} che porta una funzione in dominio tempo alla sua funzione trasformata di Laplace. Lo stesso discorso vale per l'antitrasformazione.
+Notiamo che in questi appunti si è deciso mantenere separate le definizioni di \textit{funzione} trasformata di Laplace ricavata da una funzione in dominio tempo, e \textit{trasformazione} che porta una funzione in dominio tempo alla sua trasformata di Laplace. Lo stesso discorso vale per l'antitrasformazione.
 
 \par\smallskip
 
@@ -266,7 +266,7 @@ L'idea fondamentale delle trasformate integrali è quella di portare il problema
 
 Visto che le equazioni algebriche sono di più facile risoluzione rispetto alle equazioni differenziali, basterà trovare la soluzione in tale dominio e ricondursi nuovamente al dominio tempo, per trovare la soluzione al problema iniziale.
 
-Le funzioni particolari che ci permetterano di passare da un dominio all'altro saranno, a punto, la \textbf{trasformata} e la (ben più complessa) \textbf{antitrasformata} di Laplace.
+Le funzioni particolari che ci permetterano di passare da un dominio all'altro saranno, a punto, la \textbf{trasformazione} e la (ben più complessa) \textbf{antitrasformazione} di Laplace.
 
 \subsubsection{Numeri complessi}
 Notiamo che l'argomento della trasformata di Laplace ($s = \sigma + i \omega$) appartiene al campo complesso $\mathbb{C}$, e facciamo un breve ripasso sui numeri complessi.
@@ -286,16 +286,16 @@ $$
 \phi = \mathrm{atan2}(\omega, \sigma)
 $$
 
-\subsubsection{Applicazione trasformata di Laplace}
-Possiamo quindi definire la trasformata di Laplace, in termini di applicazione, come segue:
-\begin{definition}{Applicazione trasformata di Laplace}
-	Chiamiamo trasformata di Laplace l'applicazione $\mathcal{L}\{f(t)\} : f(t) \rightarrow F(s)$ definita come:
+\subsubsection{Trasformazione di Laplace}
+Possiamo quindi definire la trasformazione di Laplace, che è un applicazione, come segue:
+\begin{definition}{Trasformazione di Laplace}
+	Chiamiamo trasformazione di Laplace l'applicazione $\mathcal{L}\{f(t)\} : f(t) \rightarrow F(s)$ definita come:
 	$$
-		f(t) \rightarrow^{\mathcal{L}} = \int_{0^-}^{+\infty} f(t) e^{-st} \, dt = F(s)
+	f(t) \rightarrow^{\mathcal{L}} = \int_{0}^{+\infty} f(t) e^{-st} \, dt = F(s)
 	$$
 	per ogni $f(t)$ definita in $t \geq 0$ e L-trasformabile.
 \end{definition}
-cioè, semplicemente l'applicazione che porta una $f(t)$ in dominio tempo alla sua funzione trasformata di Laplace $F(s)$ nel dominio di Laplace (definizione 9.1).
+cioè, semplicemente l'applicazione che porta una $f(t)$ in dominio tempo alla sua trasformata di Laplace $F(s)$ nel dominio di Laplace (definizione 9.1).
 
 \subsubsection{L-trasformabilità}
 Facciamo alcuni chiarimenti sulla L-trasformabilità (che abbiamo assunto come ipotesi).
@@ -303,20 +303,20 @@ Abbiamo infatti che, oltre alla condizione di appartenenza di $t$ a $\mathbb{R}^
 
 \begin{definition}{L-trasformabilità}
 	Una funzione $f(t)$ è L-trasformabile, cioè trasformabile secondo Laplace, se rispetta le condizioni:
-\begin{itemize}
-	\item $f(t)$ è \textbf{continua a tratti}, cioè contiene solo discontinuità del prim'ordine o eliminabili;
-	\item $f(t)$ è di \textit{ordine esponenziale}, cioè rispetta:
-$$
-|f(t)e^{-\alpha t}| \leq M
-$$
-per qualche $M$ e $\alpha$.
-\end{itemize}
+	\begin{itemize}
+		\item $f(t)$ è \textbf{continua a tratti}, cioè contiene solo discontinuità del prim'ordine o eliminabili;
+		\item $f(t)$ è di \textbf{ordine esponenziale}, cioè rispetta:
+			$$
+			|f(t)e^{-\alpha t}| \leq M
+			$$
+			per qualche $M, \alpha \in \mathbb{R}^+$.
+	\end{itemize}
 \end{definition}
 
 \subsubsection{Ascissa di convergenza}
 Notiamo che l'ultima condizione di L-trasformabilità non serve ad altro che a verificare la definizione dell'integrale:
 $$
-\int_{0^-}^{+\infty} |f(t)e^{-st}| \, dt < \infty, \quad \forall s \in I
+\int_{0}^{+\infty} |f(t)e^{-st}| \, dt < \infty, \quad \forall s \in I
 $$
 
 Allora si verifica subito che se l'integrale converge per un certo $s_0 \in \mathbb{C}$ allora converge per tutti gli $\mathrm{Re}(s) > \mathrm{Re}(s_0)$, poiché:
@@ -329,7 +329,7 @@ Chiamiamo allora \textbf{ascissa di convergenza} il valore minimo della parte re
 \begin{definition}{Ascissa di convergenza}
 	Data una funzione $f(t)$, chiamiamo ascissa di convergenza $\alpha$ il valore:
 	$$
-		\alpha = \mathrm{inf} \left\{ \sigma \in \mathbb{R} : \int_{0^-}^{+\infty} |f(t)e^{-\sigma t}| \, dt < \infty \right\}
+	\alpha = \mathrm{inf} \left\{ \sigma \in \mathbb{R} : \int_{0}^{+\infty} |f(t)e^{-\sigma t}| \, dt < \infty \right\}
 	$$
 \end{definition}
 
@@ -366,22 +366,23 @@ Distinguiamo infatti:
 	\item \textbf{Poli} del sistema dinamico: le radici di $D(s)$.
 \end{itemize}
 
-\subsubsection{Applicazione antitrasformata di Laplace}
-Come avevamo definito la funzione trasformata di Laplace (definizione 9.1), possiamo definire la funzione antitrasformata, detta anche \textit{Integrale di Bromwich}:
+\subsubsection{Antitrasformata di Laplace}
+Come avevamo definito la trasformata di Laplace (definizione 9.1), possiamo definire la funzione antitrasformata, detta anche \textit{Integrale di Bromwich}:
 \begin{definition}{Integrale di Bromwich}
 	Definiamo integrale di Bromwhich l'integrale:
 	$$
-		f(t) = \frac{1}{2 \pi i} \int_{\gamma - i \infty}^{\gamma + i \infty} F(s) e^{st} \, ds
+	f(t) = \frac{1}{2 \pi i} \int_{\gamma - i \infty}^{\gamma + i \infty} F(s) e^{st} \, ds
 	$$
 \end{definition}
 
-A questo punto l'applicazione inversa alla trasformata di laplace non sarà altro che l'applicazione dell'integrale di Bromwhich, cioè:
-\begin{definition}{Applicazione antitrasformata di Laplace}
-	Chiamiamo antitrasformata di Laplace l'applicazione $\mathcal{L}^{-1}\{F(s)\} : F(s) \rightarrow f(t)$ definita come:
+\subsubsection{Antitrasformazione di Laplace}
+A questo punto l'applicazione inversa alla trasformazione di Laplace non sarà altro che l'applicazione dell'integrale di Bromwich, cioè:
+\begin{definition}{Antitrasformazione di Laplace}
+	Chiamiamo antitrasformazione di Laplace l'applicazione $\mathcal{L}^{-1}\{F(s)\} : F(s) \rightarrow f(t)$ definita come:
 	$$
 	F(s) \rightarrow^{\mathcal{L}^{-1}} = 	
-		\frac{1}{2 \pi i} \int_{\gamma - i \infty}^{\gamma + i \infty} F(s) e^{st} \, ds = f(t)
-		$$
+	\frac{1}{2 \pi i} \int_{\gamma - i \infty}^{\gamma + i \infty} F(s) e^{st} \, ds = f(t)
+	$$
 \end{definition}
 cioè, semplicemente l'applicazione che porta una $F(S)$ in dominio di Laplace alla sua $f(t)$ nel dominio tempo data dall'integrale di Bromwich (definizione 9.5).
 
@@ -390,91 +391,150 @@ cioè, semplicemente l'applicazione che porta una $F(S)$ in dominio di Laplace a
 Abbiamo che questa applicazione è in genere difficile da calcolare, e si preferisce, come accennato prima, ricondurci a fratti semplici la cui antitrasformata è nota (solitamente perché sono facili da ricavere come trasformati di Laplace, cioè agendo direttamente e non attraverso l'inversa).
 
 \subsection{Trasformate di funzioni elementari}
-Nota la teoria della trasformata di Laplace, vediamo le trasformate di alcune funzioni elementari:
-\begin{itemize}
-	\item \textbf{Impulso}, o \textit{delta}, \textbf{di Dirac:} definiamo tale funzione (più propriamente, \textit{distribuzione}) come:
-		$$
-			\delta(t - t_0) = \lim_{\epsilon \rightarrow 0} \delta_\epsilon (t - t_0)
-		$$
-		con $\delta_e$:
-		$$
-			\delta_\epsilon =
-				\begin{cases}
-						0, \quad t < 0 \\
-						\frac{1}{\epsilon}, \quad 0 \geq t \geq \epsilon \\
-						0, \quad t > \epsilon
-				\end{cases}
-		$$
-		cioè l'impulso unitario centrato su $t_0$.
+Nota la teoria della trasformata di Laplace, vediamo le trasformate di alcune funzioni elementari.
 
-		Proprietà importanti del delta di Dirac sono:
-		\begin{enumerate}
-			\item L'\textbf{integrale}:		
-				$$
-				\int_{-\infty}^{+\infty} \delta(t - t_0) \, dt = 1
-				$$
-			\item La \textbf{proprietà di campionamento}:	
-				$$
-				f(t) \delta(t - t_0) = f(t_0) \delta(t - t_0)
-				$$
-		\end{enumerate}
+\subsubsection{Delta di Dirac}
+Definiamo l'\textbf{impulso}, o \textit{delta di Dirac}, come segue.
+\begin{definition}{Delta di Dirac}
+	Chiamiamo delta di Dirac la distribuzione:
+	$$
+	\delta(t - t_0) = \lim_{\epsilon \rightarrow 0} \delta_\epsilon (t - t_0)
+	$$
+	con $\delta_e$:
+	$$
+	\delta_\epsilon =
+	\begin{cases}
+		0, \quad t < 0 \\
+		\frac{1}{\epsilon}, \quad 0 \geq t \geq \epsilon \\
+		0, \quad t > \epsilon
+	\end{cases}
+	$$
+\end{definition}
+cioè l'impulso unitario centrato su $t_0$.
 
-		Vogliamo poi notare il \textbf{prodotto di convoluzione}:
+Proprietà importanti della delta di Dirac sono:
+\begin{enumerate}
+	\item L'\textbf{integrale}:		
+		$$
+		\int_{-\infty}^{+\infty} \delta(t - t_0) \, dt = 1
+		$$
+		che diamo per scontato, in quanto non sarebbe in verità possibile trovare una funzione analitica che rispetta tale proprietà (da qui si parla di \textit{distribuzione}, non funzione).
+	\item La \textbf{proprietà di campionamento}:	
+		$$
+		f(t) \delta(t - t_0) = f(t_0) \delta(t - t_0)
+		$$
+		che si dimostra impostando l'integrale (che assomiglia a una convoluzione ma non vi ricade completamente):
+		$$
+		\int_{-\infty}^\infty f(t) \delta_\epsilon (t - t_0) \, dt
+		$$
+		Notiamo subito che l'integrale ha valore $\neq 0$ solo nell'intervallo $[t_0, t_0 + \epsilon]$, e quindi:
+		$$
+		= \int_{t_0}^{t_0 + \epsilon} \frac{f(t)}{\epsilon} \, dt = \frac{F(t)}{\epsilon} \Bigg|^{t_0 + \epsilon}_{t_0} = \frac{F(t_0 + \epsilon) - F(t_0)}{\epsilon}
+		$$
+		per una qualche primitiva $F$. Passando al limite $\epsilon \rightarrow 0$, si ha:
+		$$
+		\lim_{\epsilon \rightarrow 0} \frac{F(t_0 + \epsilon) - F(t_0)}{\epsilon} = f(t_0)
+		$$
+		Questo significa che vale:
+		$$
+		\int_{-\infty}^{\infty} f(t) \delta(t - t_0) = \int_{-\infty}^{\infty} f(t_0) \delta(t - t_0)
+		$$
+		e visto che la delta di Dirac è definita $\neq 0$ effettivamente in un unico punto in $\mathbb{R}$, dovrà valere la tesi. \qed
+	\item Il fatto che la delta di Dirac rappresenta l'\textit{elemento neutro} del \textbf{prodotto di convoluzione}:
 		$$
 		(f * g)(t) = \int_{-\infty}^{\infty} f(\tau) g(t - \tau) \, d\tau
 		$$
-		con $g(t) = \delta(t - t_0)$:
+		presa infatti $g(t) = \delta(t - t_0)$ si ha:
 		$$
-		\int_0^{+\infty} f(t) \delta (t - t_0) \, dt = \int_0^{+\infty} f(t_0) \delta(t - t_0) dt = f(t_0) \int_0^{+\infty} \delta (t - t_0) \, dt = f(t_0)
+		= \int_{-\infty}^{\infty} f(\tau) \delta_\epsilon (\tau - t + t_0) \, d\tau = \int_{t - t_0}^{t - t_0 + \epsilon} \frac{f(\tau)}{\epsilon} \, d\tau = \frac{F(t)}{\epsilon} \Bigg|^{t - t_0 + \epsilon}_{t - t_0} = \frac{F(t - t_0 + \epsilon) - F(t - t_0)}{\epsilon}
 		$$
-		applicando le due proprietà viste sopra.
+		Passando al limite $\epsilon \rightarrow 0$:
+		$$
+		\lim_{\epsilon \rightarrow \infty} \frac{F(t - t_0 + \epsilon) - F(t - t_0)}{\epsilon} = f(t - t_0)
+		$$
+		cioè si ottiene la stessa funzione $f$ scostata di un valore $t_0$, lo stesso di cui è scostata $\sigma$, da cui la tesi. \qed
+\end{enumerate}
 
-		Calcoliamo quindi la \textbf{trasformata di Laplace} come:
-		$$
-		\mathcal{L}\{\delta(t - t_0)\} = \int_{0}^{+\infty} \delta(t - t_0) e^{-st} \, dt = \int_{0}^{+\infty} \delta(t - t_0) e^{-s t_0} \, dt 
-		$$
-		$$
-		= e^{-s t_0} \int_0^{+\infty} \delta(t - t_0) \, dt = e^{-s t_0}
-		$$
-		in particolare, con $t_0 = 0$ si ha:
-		$$
-		\mathcal{L}\{\delta(t)\} = e^0 = 1
-		$$
+Diamo quindi la trasformata di Laplace:
+\begin{theorem}{Trasformata di Laplace della delta di Dirac}
+	Per la delta di Dirac $\delta(t - t_0)$ scostata di $t_0$, vale:
+	$$
+	\mathcal{L}\{\delta(t - t_0)\} = e^{-s t_0}
+	$$
+\end{theorem}
+La dimostrazione è per calcolo diretto, applicando la proprietà di campionamento: 
+$$
+\mathcal{L}\{\delta(t - t_0)\} = \int_{0}^{+\infty} \delta(t - t_0) e^{-st} \, dt = \int_{0}^{+\infty} \delta(t - t_0) e^{-s t_0} \, dt 
+$$
+$$
+= e^{-s t_0} \int_0^{+\infty} \delta(t - t_0) \, dt = e^{-s t_0}
+$$\qed
 
-	\item \textbf{Gradino}  \textit{di Heaviside}: definiamo tale funzione come:
-		$$
-			H(t - t_0) = 
-				\begin{cases}
-					0, \quad t_0 < 0 \\
-					1, \quad t_0 \geq 0
-				\end{cases}
-		$$
-		
-		In questo caso la \textbf{trasformata di Laplace} sarà: 
-		$$
-		\mathcal{L}\{H(t)\} = \int_{-t_0}^{+\infty} H(\tau) e^{-s(\tau + t_0)} \, dt = e^{-s t_0} \int_0^{+ \infty} H(\tau)e^{-st} \, d\tau 
-		$$
-		$$
-		= \frac{-e^{-s\tau}}{s} \Bigg|^{+\infty}_0 \cdot e^{-s t_0} = \frac{e^{-s t_0}}{s}
-		$$
-		operando il cambio di variabili $t = \tau + t_0$.
+Notiamo che in particolare, con $t_0 = 0$ si ha:
+$$
+\mathcal{L}\{\delta(t)\} = e^0 = 1
+$$
 
-		Notiamo che questa è la seconda volta che incontriamo il termine $e^{-s t_0}$. Vedremo che questo termine equivale infatti a un \textbf{ritardo} $t_0$.
-		Inoltre, notiamo come questa forma assomiglia a $\frac{1}{s}$, che avevamo chiamato anche \textbf{integratore} (esempio 2.1.3).
+\subsubsection{Gradino di Heaviside}
+Definiamo la funzione \textbf{gradino di Heaviside}.
+\begin{definition}{Gradino di Heaviside}
+	Chiamiamo gradino di Heaviside la funzione:
+	$$
+	H(t - t_0) = 
+	\begin{cases}
+		0, \quad t_0 < 0 \\
+		1, \quad t_0 \geq 0
+	\end{cases}
+	$$
+\end{definition}
 
-	\item \textbf{Esponenziale:} vediamo infine la funzione:
+Tra le proprietà del gradino di Heaviside, notiamo che la sua derivata è la delta di Dirac, cioè:
+$$
+\frac{d}{dt}H(t - t_0) = \delta(t - t_0)
+$$
+Questo si dà senza dimostrazione, in quanto abbiamo visto trattare la distribuzione di Dirac non è immediato con gli strumenti analitici che abbiamo a disposizione.
+
+Diamo quindi la trasformata di Laplace:
+\begin{theorem}{Trasformata di Laplace del gradino di Heaviside}
+	Per il gradino di Heaviside $H(t - t_0)$ scostato di $t_0$, vale:
+	$$
+	\mathcal{L}\{H(t)\} = \frac{e^{-s t_0}}{s}
+	$$
+\end{theorem}
+La dimostrazione è nuovamente per calcolo diretto, cioè:
+$$
+\mathcal{L}\{H(t)\} = \int_{0}^{+\infty} H(t - t_0) e^{-st} \, dt =\int_{t_0}^{+\infty} e^{-st} \, dt 
+$$
+operando il cambio di variabili $\tau = t - t_0$, con $\tau |_{t = t_0} = t_0 - t_0 = 0$, si ha:
+$$
+= \int_0^{+\infty} e^{-s(\tau + t_0)} \, d\tau = \int_0^{+\infty} e^{-s\tau} e^{-s t_0} \, d\tau = e^{-s t_0} \int_0^{+\infty} e^{-s \tau} d\tau = e^{-s t_0} \cdot -\frac{e^{-s \tau}}{s} \Bigg|^{+\infty}_0 = \frac{e^{-s t_0}}{s}
+$$
+\qed
+
+Notiamo che questa è la seconda volta che incontriamo il termine $e^{-s t_0}$. Vedremo che questo termine equivale infatti a un \textbf{ritardo} $t_0$.
+Inoltre, notiamo come questa forma assomiglia a $\frac{1}{s}$, che avevamo chiamato anche termine \textbf{integratore} nel dominio di Laplace (esempio 2.1.3).
+
+\subsubsection{Esponenziale}
+Vvediamo infine la funzione esponenziale:
 		$$
 		f(t) = H(t) e^{at}
 		$$
 		dove il termine $H(t)$ rappresenta il gradino di Heaviside definito nel paragrafo precedente.
 		Avremo che, dalla natura della trasformata di Laplace stessa, la moltiplicazione per il gradino sarà tipica di tutte le funzioni che incontreremo.
-		
+
 		La \textbf{trasformata di Laplace} sarà allora:
+		\begin{theorem}{Trasformata di Laplace dell'esponenziale}
+			Per un esponenziale troncato dal gradino $H(t)e^{at}$ vale:
+		$$
+		\mathcal{L} \{ H(t) e^{at} \} = \frac{1}{s - a}
+		$$
+		\end{theorem}
+		La dimostrazione si fa nuovamente per calcolo diretto:
 		$$
 		\mathcal{L} \{ H(t) e^{at} \} = \int_0^{+ \infty} e^{at} e^{-st} \, dt = \int_0^{+\infty} e^{(a - s)t} \, dt = \left( \frac{e^{(a - s)t}}{a - s} \Bigg|^{+\infty}_0 \right) = \frac{1}{s - a}
 		$$
+		\qed
 
 		Sappiamo quindi come trovare la trasformata (e quindi antitrasformare) la funzione che abbiamo detto descrive tutti i modi dei sistemi dinamici, ammesso non aver ancora visto il comportamento in caso di fenomeni oscillanti (cioè esponenti complessi).
-\end{itemize}
 
 \end{document}
