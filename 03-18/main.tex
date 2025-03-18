@@ -1,0 +1,480 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Fondamenti di Automatica}
+\author{Luca Seggiani}
+\date{2025}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+% tikz in sans
+\tikzset{every picture/.style={/utils/exec={\sffamily}}}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=Teorema~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=Definizione~\thetcbcounter: #2,
+	#1
+}
+
+% disponi problemi
+\newtcolorbox[auto counter, number within=section]{problem}[2][]{%
+	colback=green!10,
+	colframe=green!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=Problema~\thetcbcounter: #2,
+	#1
+}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+\begin{document}
+
+% sezione (data)
+\section{Lezione del 18-03-25}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+Abbiamo introdotto alla scorsa lezione il modello di \textit{controllo in feedback}.
+Rivediamone le parti:
+\begin{itemize}
+	\item \textbf{Impianto:} il sistema che ci interessa controllare, cioè quello che finora avevamo modellizzato in variabili di stato come:
+		\[
+			\begin{cases}		
+			x' = Ax + Bu \\
+			y = Cx + Du
+			\end{cases}
+		\]
+		
+		Notiamo di aver introdotto (e che approfondiremo) come modellizzazioni simili si possono fare col modello a funzione di trasferimento;
+	\item \textbf{Controllore:} l'elemento che confronta ingresso e segnale di \textit{feedback}, in modo da ricavarne dalla differenza (\textit{errore}) un controllo;
+	\item \textbf{Sensore:} l'elemento che rileva gli effetti, a monte dell'applicazione dei disturbi, dell'impianto controllato generando il segnale di feedback.
+\end{itemize}
+
+Notiamo come i disturbi vengono messi in \textit{uscita} all'impianto, cioè si prende come uscita finale $y$, detta $\overline{y}$ l'uscita modellizzata dell'impianto, sarà:
+$$
+y = \overline{y} + w
+$$
+con $w$ disturbi.
+
+Notiamo che nessuno ci nega di prendere un disturbo a livello di ingresso: in ogni casò, però, possiamo modellizzare tutti i disturbi come "cumulativi" e presi alla fine della catena ingresso-controllore-impianto-uscita (cioè appena prima dell'uscita).
+
+\subsubsection{Esempi di sistemi in feedback}
+Si possono fare diversi esempi di sistemi governati da controllori in feedback, in svariati ambiti dell'industria, dei trasporti o della vita quotidiana.
+
+\begin{itemize}
+	\item Un caso che abbiamo già visto è quello del mantenimento del livello di un liquido in un serbatoio attraverso un \textbf{galleggiante}: che agisca su una valvola o faccia da ingresso a un controllore elettronico, il galleggiante rappresenta infatti un vero e proprio sensore, che genera un feedback su cui il controllore si basa per ricavare un segnale di controllo (azionare una valvola);
+	\item I \textbf{termostati}, sia meccanici (a barrette di metallo deformate dalla temperatura) che elettronici (a termometro e controllore elettronico), rappresentano sistemi con feedback: il termometro stesso rappresenta la variabile di feedback, che viene usata per far "combaciare" l'uscita del sistema (la temperatura) ad un certo segnale di riferimento;
+	\item I sistemi di \textbf{cruise control} nelle moderne automobili rappresentano ancora sistemi con feedback: il sensore che determina il valore di velocità riportato sul tachimetro viene infatti usato anche per fare da segnale di feedback per un controllore, che lo confronta con un segnale di riferimento per realizzare un controllo per l'acceleratore. 
+	\item Riprendendo l'argomento del capoverso precedente, un intero sistema di controllo per la \textbf{guida autonoma} può essere rappresentato da un sistema con feedback.
+		La sezione del cruise control vista sopra potrebbe infatti rappresentare la parte \textit{longitudinale} del controllo (azione sull'acceleratore), mentre un sistema simile (magari basato su accelerometri o altri sensori di rotazione e accelerazione laterale) può rappresentare la parte \textit{laterale} del controllo (azione sul volante).
+		
+		Notiamo come un sistema di questo tipo (nella forma più semplice, a 2 controlli) è MIMO: in questo caso il modello che abbiamo presentato adotta l'approccio di separare le parti MIMO in più sistemi SISO.
+		Il più spesso possibile si vorranno infatti eliminare le interidpendenze fra più parti di un solo sistema MIMO, in modo da ricavare diversi sistemi SISO tra di loro indipendenti, di più facile gestione.
+
+	\item I sistemi di gestione \textbf{bancaria} possono darci un esempio di come i controlli possono applicarsi a contesti non solo industriali, meccanici o elettronici.	Infatti, posto un certo obiettivo economico proposto, le operazioni di manager e funzionari verranno influenzate dagli indici e dai risultati economici correnti della banca, a formare quello che è effettivamente un ciclo di controllo in feedback.
+	
+		Sistemi di questo tipo si ritrovano in più enti economici, commerciali e politici, nell'ottica della gestione di sistemi arbitrariamente complessi. Si pensi ancora al procedimento che potrebbe adottare l'agenzia delle entrate in modo da ottenere le entrate nazionali proposte previa misura del PIL nazionale e altri indicatori economici, o ancora dei cicli che si possono formare negli organi legislativi semplicemente confrontando gli obiettivi posti con i risultati effettivamente ricavati dai tribunali/dal mondo reale, ecc...
+\end{itemize}
+
+\subsection{Trasformata di Laplace}
+Introduciamo una \textit{trasformata integrale}, detta \textbf{trasformata di Laplace}, che ci sarà utile a risolvere equazioni differenziali:
+\begin{definition}{Funzione trasformata di Laplace}
+	Definiamo la trasformata di Laplace di una funzione $f(t)$, definita per $t \geq 0$ e L-trasformabile, come la funzione nella variabile $s = \sigma + i \omega$:
+	$$
+	\mathcal{L} [f] (s) = \int_{0^-}^{+\infty} f(t) e^{-st} \, dt
+	$$
+\end{definition}
+
+La definizione di L-trasformabilità verrà data fra poco.
+
+\par\smallskip
+
+Notiamo  che in questi appunti si è deciso mantenere separate le definizioni di \textit{funzione} trasformata di Laplace ricavata da una funzione in dominio tempo, e \textit{applicazione} che porta una funzione in dominio tempo alla sua funzione trasformata di Laplace. Lo stesso discorso vale per l'antitrasformazione.
+
+\par\smallskip
+
+Le trasformate integrali tornano utili in diversi campi dell'ingegneria.
+Ricordiamo infatti, oltre alla trasformata di Laplace, la \textit{trasformata di Fourier} e la \textit{trasformata Zeta}.
+
+L'idea fondamentale delle trasformate integrali è quella di portare il problema dal \textbf{dominio tempo}, cioè espresso attraverso il linguaggio delle \textit{equazioni differenziali}, a un dominio diverso (che per noi sarà il \textbf{dominio s} o il \textit{dominio di Laplace}), che esprime lo stesso problema attraverso il linguaggio delle \textit{equazioni algebriche}.
+
+Visto che le equazioni algebriche sono di più facile risoluzione rispetto alle equazioni differenziali, basterà trovare la soluzione in tale dominio e ricondursi nuovamente al dominio tempo, per trovare la soluzione al problema iniziale.
+
+Le funzioni particolari che ci permetterano di passare da un dominio all'altro saranno, a punto, la \textbf{trasformata} e la (ben più complessa) \textbf{antitrasformata} di Laplace.
+
+\subsubsection{Numeri complessi}
+Notiamo che l'argomento della trasformata di Laplace ($s = \sigma + i \omega$) appartiene al campo complesso $\mathbb{C}$, e facciamo un breve ripasso sui numeri complessi.
+
+Ricordiamo di avere a disposizione due forme, dette \textbf{cartesiana} e \textbf{polare}:
+$$
+s = \sigma + j \omega \text{ (cartesiana) }, \quad s = \rho e^{j \phi} \text{ (polare)} 
+$$
+
+Note le formule di trasformazione:
+$$
+\sigma = \rho \cos(\phi), \quad 
+\omega = \rho \sin(\phi)
+$$
+$$
+\rho = \sqrt{\sigma^2 + \omega^2}, \quad
+\phi = \mathrm{atan2}(\omega, \sigma)
+$$
+
+\subsubsection{Applicazione trasformata di Laplace}
+Possiamo quindi definire la trasformata di Laplace, in termini di applicazione, come segue:
+\begin{definition}{Applicazione trasformata di Laplace}
+	Chiamiamo trasformata di Laplace l'applicazione $\mathcal{L}\{f(t)\} : f(t) \rightarrow F(s)$ definita come:
+	$$
+		f(t) \rightarrow^{\mathcal{L}} = \int_{0^-}^{+\infty} f(t) e^{-st} \, dt = F(s)
+	$$
+	per ogni $f(t)$ definita in $t \geq 0$ e L-trasformabile.
+\end{definition}
+cioè, semplicemente l'applicazione che porta una $f(t)$ in dominio tempo alla sua funzione trasformata di Laplace $F(s)$ nel dominio di Laplace (definizione 9.1).
+
+\subsubsection{L-trasformabilità}
+Facciamo alcuni chiarimenti sulla L-trasformabilità (che abbiamo assunto come ipotesi).
+Abbiamo infatti che, oltre alla condizione di appartenenza di $t$ a $\mathbb{R}^+$, la trasformata di Laplace richiede anche alcune condizioni riguardo a $f(t)$:
+
+\begin{definition}{L-trasformabilità}
+	Una funzione $f(t)$ è L-trasformabile, cioè trasformabile secondo Laplace, se rispetta le condizioni:
+\begin{itemize}
+	\item $f(t)$ è \textbf{continua a tratti}, cioè contiene solo discontinuità del prim'ordine o eliminabili;
+	\item $f(t)$ è di \textit{ordine esponenziale}, cioè rispetta:
+$$
+|f(t)e^{-\alpha t}| \leq M
+$$
+per qualche $M$ e $\alpha$.
+\end{itemize}
+\end{definition}
+
+\subsubsection{Ascissa di convergenza}
+Notiamo che l'ultima condizione di L-trasformabilità non serve ad altro che a verificare la definizione dell'integrale:
+$$
+\int_{0^-}^{+\infty} |f(t)e^{-st}| \, dt < \infty, \quad \forall s \in I
+$$
+
+Allora si verifica subito che se l'integrale converge per un certo $s_0 \in \mathbb{C}$ allora converge per tutti gli $\mathrm{Re}(s) > \mathrm{Re}(s_0)$, poiché:
+$$
+|e^{-sx}| = e^{-\mathrm{Re}(s) x}
+$$
+e la parte complessa darà solo termini oscillanti.
+
+Chiamiamo allora \textbf{ascissa di convergenza} il valore minimo della parte reale $\sigma$ per cui l'integrale della trasformata di Laplace converge, cioè:
+\begin{definition}{Ascissa di convergenza}
+	Data una funzione $f(t)$, chiamiamo ascissa di convergenza $\alpha$ il valore:
+	$$
+		\alpha = \mathrm{inf} \left\{ \sigma \in \mathbb{R} : \int_{0^-}^{+\infty} |f(t)e^{-\sigma t}| \, dt < \infty \right\}
+	$$
+\end{definition}
+
+\par\smallskip
+
+Nei casi pratici abbiamo che la trasformata di Laplace esiste quasi sempre.
+Ad esempio. per le esponenziali $f(t) = t^n$, si ha:
+$$
+|t^n| < e^{(n + 1)t}
+$$
+che ci permette di modellizzare rampe, parabole, ecc...
+Per funzioni più complesse possiamo stare tranquilli quando queste sono limitate (seni, coseni, ecc...) o comunque limitate da una qualche esponenziale (ad esempio gli esponenziali stessi).
+
+\subsubsection{Trasformata di Laplace sul piano complesso}
+Notiamo che la trasformata di Laplace è una funzione estendibile in variabile complessa di argomento complesso, cioè si può definire su tutto il piano complesso (tolti i punti di singolarità).
+
+In genere, avremo che le trasformate che calcoliamo si potranno esprimere in forma rapporto di polinomi come:
+$$
+F(s) = \frac{N(s)}{D(s)}
+$$
+con $s$ variabile complessa e, come dicevamo, $F(s) \in \mathbb{C}$.
+Questa sarà la forma che, possiamo anticipare, vorremo ricavare e ricondurre ai \textit{fratti semplici} per procedere all'antitrasformazione.
+
+\subsubsection{Singolarità della trasformata di Laplace}
+Di particolare interesse sono gli zeri della forma 
+$
+F(s) = \frac{N(s)}{D(s)}
+$
+appena introdotta.
+
+Distinguiamo infatti:
+\begin{itemize}
+	\item \textbf{Zeri} del sistema dinamico: le radici di $F(s)$;
+	\item \textbf{Poli} del sistema dinamico: le radici di $D(s)$.
+\end{itemize}
+
+\subsubsection{Applicazione antitrasformata di Laplace}
+Come avevamo definito la funzione trasformata di Laplace (definizione 9.1), possiamo definire la funzione antitrasformata, detta anche \textit{Integrale di Bromwich}:
+\begin{definition}{Integrale di Bromwich}
+	Definiamo integrale di Bromwhich l'integrale:
+	$$
+		f(t) = \frac{1}{2 \pi i} \int_{\gamma - i \infty}^{\gamma + i \infty} F(s) e^{st} \, ds
+	$$
+\end{definition}
+
+A questo punto l'applicazione inversa alla trasformata di laplace non sarà altro che l'applicazione dell'integrale di Bromwhich, cioè:
+\begin{definition}{Applicazione antitrasformata di Laplace}
+	Chiamiamo antitrasformata di Laplace l'applicazione $\mathcal{L}^{-1}\{F(s)\} : F(s) \rightarrow f(t)$ definita come:
+	$$
+	F(s) \rightarrow^{\mathcal{L}^{-1}} = 	
+		\frac{1}{2 \pi i} \int_{\gamma - i \infty}^{\gamma + i \infty} F(s) e^{st} \, ds = f(t)
+		$$
+\end{definition}
+cioè, semplicemente l'applicazione che porta una $F(S)$ in dominio di Laplace alla sua $f(t)$ nel dominio tempo data dall'integrale di Bromwich (definizione 9.5).
+
+\par\smallskip
+
+Abbiamo che questa applicazione è in genere difficile da calcolare, e si preferisce, come accennato prima, ricondurci a fratti semplici la cui antitrasformata è nota (solitamente perché sono facili da ricavere come trasformati di Laplace, cioè agendo direttamente e non attraverso l'inversa).
+
+\subsection{Trasformate di funzioni elementari}
+Nota la teoria della trasformata di Laplace, vediamo le trasformate di alcune funzioni elementari:
+\begin{itemize}
+	\item \textbf{Impulso}, o \textit{delta}, \textbf{di Dirac:} definiamo tale funzione (più propriamente, \textit{distribuzione}) come:
+		$$
+			\delta(t - t_0) = \lim_{\epsilon \rightarrow 0} \delta_\epsilon (t - t_0)
+		$$
+		con $\delta_e$:
+		$$
+			\delta_\epsilon =
+				\begin{cases}
+						0, \quad t < 0 \\
+						\frac{1}{\epsilon}, \quad 0 \geq t \geq \epsilon \\
+						0, \quad t > \epsilon
+				\end{cases}
+		$$
+		cioè l'impulso unitario centrato su $t_0$.
+
+		Proprietà importanti del delta di Dirac sono:
+		\begin{enumerate}
+			\item L'\textbf{integrale}:		
+				$$
+				\int_{-\infty}^{+\infty} \delta(t - t_0) \, dt = 1
+				$$
+			\item La \textbf{proprietà di campionamento}:	
+				$$
+				f(t) \delta(t - t_0) = f(t_0) \delta(t - t_0)
+				$$
+		\end{enumerate}
+
+		Vogliamo poi notare il \textbf{prodotto di convoluzione}:
+		$$
+		(f * g)(t) = \int_{-\infty}^{\infty} f(\tau) g(t - \tau) \, d\tau
+		$$
+		con $g(t) = \delta(t - t_0)$:
+		$$
+		\int_0^{+\infty} f(t) \delta (t - t_0) \, dt = \int_0^{+\infty} f(t_0) \delta(t - t_0) dt = f(t_0) \int_0^{+\infty} \delta (t - t_0) \, dt = f(t_0)
+		$$
+		applicando le due proprietà viste sopra.
+
+		Calcoliamo quindi la \textbf{trasformata di Laplace} come:
+		$$
+		\mathcal{L}\{\delta(t - t_0)\} = \int_{0}^{+\infty} \delta(t - t_0) e^{-st} \, dt = \int_{0}^{+\infty} \delta(t - t_0) e^{-s t_0} \, dt 
+		$$
+		$$
+		= e^{-s t_0} \int_0^{+\infty} \delta(t - t_0) \, dt = e^{-s t_0}
+		$$
+		in particolare, con $t_0 = 0$ si ha:
+		$$
+		\mathcal{L}\{\delta(t)\} = e^0 = 1
+		$$
+
+	\item \textbf{Gradino}  \textit{di Heaviside}: definiamo tale funzione come:
+		$$
+			H(t - t_0) = 
+				\begin{cases}
+					0, \quad t_0 < 0 \\
+					1, \quad t_0 \geq 0
+				\end{cases}
+		$$
+		
+		In questo caso la \textbf{trasformata di Laplace} sarà: 
+		$$
+		\mathcal{L}\{H(t)\} = \int_{-t_0}^{+\infty} H(\tau) e^{-s(\tau + t_0)} \, dt = e^{-s t_0} \int_0^{+ \infty} H(\tau)e^{-st} \, d\tau 
+		$$
+		$$
+		= \frac{-e^{-s\tau}}{s} \Bigg|^{+\infty}_0 \cdot e^{-s t_0} = \frac{e^{-s t_0}}{s}
+		$$
+		operando il cambio di variabili $t = \tau + t_0$.
+
+		Notiamo che questa è la seconda volta che incontriamo il termine $e^{-s t_0}$. Vedremo che questo termine equivale infatti a un \textbf{ritardo} $t_0$.
+		Inoltre, notiamo come questa forma assomiglia a $\frac{1}{s}$, che avevamo chiamato anche \textbf{integratore} (esempio 2.1.3).
+
+	\item \textbf{Esponenziale:} vediamo infine la funzione:
+		$$
+		f(t) = H(t) e^{at}
+		$$
+		dove il termine $H(t)$ rappresenta il gradino di Heaviside definito nel paragrafo precedente.
+		Avremo che, dalla natura della trasformata di Laplace stessa, la moltiplicazione per il gradino sarà tipica di tutte le funzioni che incontreremo.
+		
+		La \textbf{trasformata di Laplace} sarà allora:
+		$$
+		\mathcal{L} \{ H(t) e^{at} \} = \int_0^{+ \infty} e^{at} e^{-st} \, dt = \int_0^{+\infty} e^{(a - s)t} \, dt = \left( \frac{e^{(a - s)t}}{a - s} \Bigg|^{+\infty}_0 \right) = \frac{1}{s - a}
+		$$
+
+		Sappiamo quindi come trovare la trasformata (e quindi antitrasformare) la funzione che abbiamo detto descrive tutti i modi dei sistemi dinamici, ammesso non aver ancora visto il comportamento in caso di fenomeni oscillanti (cioè esponenti complessi).
+\end{itemize}
+
+\end{document}
