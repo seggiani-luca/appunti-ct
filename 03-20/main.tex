@@ -220,14 +220,32 @@ Vediamo alcune proprietà della trasformata di Laplace introdotta alla scorsa le
 		$$
 		\mathcal{L}\{ f(t - t_0) \} = e^{-s t_0} F(s)
 		$$
-		Questo si dimostra da:
+
+		Occorre fare una precisazione.
+		Avevamo preso, più o meno informalmente, come ipotesi per la definizione della trasformata di Laplace che $f$ fosse nulla per $t \leq 0$.
+		Ergo potevamo esprimere equivalentemente qualsiasi funzione di cui si voleva calcolare la trasformata di Laplace come:
 		$$
-		\mathcal{L}\{f(t - t_0)\} = \int_0^{+\infty} f(t - t_0) \cdot e^{-s t} \, dt = \int_{-t_0}^{+\infty} f(\tau) \cdot e^{-s(\tau + t_0)} \, d\tau 
+		\mathcal{L}\{ f(t) \} = \mathcal{L}\{ H(t)f(t) \}
 		$$
+		Allo stesso modo, prendendo la traslazione $t' \rightarrow t - t_0$, vorremo assumere che l'argomento della trasformata sia "troncato" come:
 		$$
-		= e^{-s t_0} \int_0^{+ \infty} f(\tau) \cdot e^{-s \tau} \, d\tau = e^{-s t_0} \cdot F(s)
-		$$ # ci dovrebbe essere heaviside di mezzo, così è malposta
-		operando il cambio di variabile $\tau = t - t_0$. \qed
+		\mathcal{L}\{ f(t - t_0) \} = \mathcal{L}\{ H(t - t_0)f(t - t_0) \}
+		$$
+		Sarà questa la forma che assumeremo per tutte le translate $f(t - t_0)$ da qui in poi.
+
+
+		Dimostriamo quindi la proprietà, ricordando quanto abbiamo appena detto:
+		$$
+		\mathcal{L}\{f(t - t_0)\} = \int_0^{+\infty} f(t - t_0) \cdot e^{-s t} \, dt = \int_{t_0}^{+\infty} f(t - t_0) \cdot e^{-s t} \, dt 
+		$$
+		da cui operando il cambio di variabile $\tau = t - t_0$: 
+		$$
+		= \int_0^{+\infty} f(\tau) \cdot e^{-s(\tau + t_0)} \, d\tau 
+		= e^{-s t_0} \int_0^{+ \infty} f(\tau) \cdot e^{-s \tau} \, d\tau 
+		= e^{-s t_0} F(s)
+		$$ 
+		cioè la tesi. \qed
+
 	\item \textbf{Cambio di scala:} prendiamo il "cambio di scala" alla variabile temporale $f(at)$. Avremo che il risultatò dipenderà dalla L-trasformata di $f$, che avevamo chiamato $F$, come:
 		$$
 			\mathcal{L}\{f(at)\} = \frac{1}{a} \cdot F\left(\frac{s}{a}\right) 
@@ -237,37 +255,67 @@ Vediamo alcune proprietà della trasformata di Laplace introdotta alla scorsa le
 		\mathcal{L}\{f(at) \} = \int_0^{+ \infty} f(at) e^{-st} \, dt = \int_0^{+ \infty} f(\tau) e^{-s \frac{\tau}{a}} \frac{d\tau}{a}
 		$$
 		$$
-		= \frac{1}{a} \int_0^{+ \infty} f(\tau) e^{-s \frac{\tau}{a}} \, d\tau = \frac{1}{a} \cdot F\left( \frac{s}{a} \right)
+		= \frac{1}{a} \int_0^{+ \infty} f(\tau) e^{-\frac{s}{a} \tau} \, d\tau = \frac{1}{a} \cdot F\left( \frac{s}{a} \right)
 		$$
+		dove notiamo che la $a$ divide la variabile $s$, non $t$. \qed
 	\item \textbf{Derivazione in s:} vale la proprietà rispetto alle derivate su $s$:
 		$$
-			\mathcal{L}(t \cdot f(t)) = - \frac{d F(s)}{ds}
+			\mathcal{L}\{t \cdot f(t)\} = - \frac{d F(s)}{ds}
 		$$
-		Per la derivazione a catena si ha quindi:
+		Questo è immediato calcolando prima il termine destro:
+		$$
+			\mathcal{L}\{t \cdot f(t)\} = \int_0^{+\infty} t \cdot f(t) \, e^{-st} \, dt
+		$$
+		E svolgendo la derivata a destra:
+		$$
+			\frac{d}{ds} \int_0^{+\infty} f(t) e^{-st} \, dt = \int_0^{+\infty} f(t) \frac{d}{ds}e^{-st} \, dt = -\int_0^{+\infty} t \cdot f(t) \, e^{-st} \, dt
+		$$ 
+		da cui la tesi. \qed
+
+		Potremmo quindi notare la regola per la derivazione a catena:
 		$$
 			\mathcal{L}\{t^n \cdot f(t)\} = (-1)^n \frac{d^n F(s)}{ds^n}
 		$$
-		e quindi riguardo al gradino:
+		data semplicemente dall'applicazione ripetuta della proprietà di derivazione in $s$:
+		
+		Vediamo, ad esempio, riguardo al gradino (che ricordiamo essere $\mathcal{L}\{H(t)\} = \frac{1}{s}$):
 		$$
 		\mathcal{L}\left\{ \frac{t^k}{k!} \cdot H(t) \right\} = \frac{1}{s^{k + 1}}
 		$$
-	\item \textbf{Traslazione in s:} vale rispetto alla traslazione su s:
+	\item \textbf{Traslazione in s:} notiamo infine che vale rispetto alla traslazione su s:
 		$$
-		F(s - a) = \mathcal{L}\{ e^{at}\cdot f(t) \}
+		\mathcal{L}\{ e^{at} \cdot f(t) \} = F(s - a) 
 		$$
+		questo si dimostra semplicemente calcolando il termine destro:
+		$$
+		\mathcal{L}\{ e^{at} \cdot f(t) \} = \int_0^{+\infty} e^{at} \cdot f(t) \, e^{-st} \, dt = \int_0^{+\infty} f(t) e^{-(s - a)t} \, dt = F(s - a)
+		$$ 
+		da cui la tesi. \qed
 \end{enumerate}
 
-# dimostra tutte quest ultime
-
 \subsubsection{Sinusoide}
-Usiamo la proprietà di linearità appena trovata per calcolare l'L-trasformata di $f(t) = H(t)\sin(\omega t)$.
+Usiamo la proprietà di linearità appena trovata (la prima nella lista di proprietà dello scorso paragrafo) per calcolare l'L-trasformata di $f(t) = H(t)\sin(\omega t)$.
+
+Ciò che vogliamo dimostrare è il seguente risultato:
+\begin{theorem}{Trasformata di Laplace del seno}
+	Per una sinusoide $\sin(\omega t)$ vale:
+	$$
+		\mathcal{L}\{ H(t) \sin(\omega t) \} = \frac{\omega}{s^2 + \omega^2}
+	$$
+\end{theorem}
+
 Avremo che, dalla formula di Eulero:
 $$
 \mathcal{L}\{\sin(\omega t)\} = \mathcal{L}\left\{ \frac{e^{j \omega t} - e^{- j \omega t}}{2j} \right\}
 $$
+cioè:
+$$
+\frac{e^{j \omega t} - e^{-j \omega t}}{2j} = \frac{ \cos(\omega t) + j \sin(\omega t) - \cos(\omega t) + j \sin(\omega t) }{2j} = \frac{2j \sin(\omega t)}{2j} = \sin(\omega t)
+$$
+
 Potremo allora applicare la linearità:
 $$
-= \frac{1}{2j} \mathcal{L}\{e^{j \omega t}\} - \frac{1}{2j} \mathcal{L}\{e^{-j \omega t}\}
+\mathcal{L}\left\{ \frac{e^{j \omega t} - e^{- j \omega t}}{2j} \right\} = \frac{1}{2j} \mathcal{L}\{e^{j \omega t}\} - \frac{1}{2j} \mathcal{L}\{e^{-j \omega t}\}
 $$
 da cui si continua con semplici calcoli (attraverso la trasformata dell'esponenziale vista alla scorsa lezione):
 $$
@@ -276,13 +324,24 @@ $$ \qed
 
 \subsubsection{Cosinusoide}
 Valgono considerazioni analoghe per la funzione $f(t) = H(t) \cos(\omega t)$.
+
+Ciò che vogliamo dimostrare è il seguente risultato:
+\begin{theorem}{Trasformata di Laplace del coseno}
+	Per una cosinusoide $\cos(\omega t)$ vale:
+	$$
+		\mathcal{L}\{ H(t) \cos(\omega t) \} = \frac{s}{s^2 + \omega^2}
+	$$
+\end{theorem}
+
 Avremo che, dalla formula di Eulero:
 $$
 \mathcal{L}\{\sin(\omega t)\} = \mathcal{L}\left\{ \frac{e^{j \omega t} - e^{- j \omega t}}{2} \right\}
 $$
+con un calcolo simile al precedente.
+
 Potremo allora applicare la linearità:
 $$
-= \frac{1}{2} \mathcal{L}\{e^{j \omega t}\} - \frac{1}{2} \mathcal{L}\{e^{-j \omega t}\}
+\mathcal{L}\left\{ \frac{e^{j \omega t} - e^{- j \omega t}}{2} \right\} = \frac{1}{2} \mathcal{L}\{e^{j \omega t}\} - \frac{1}{2} \mathcal{L}\{e^{-j \omega t}\}
 $$
 da cui:
 $$
@@ -290,20 +349,32 @@ $$
 $$ \qed
 
 \subsubsection{Sinusoidi/cosinusoidi con scostamento}
-Nel caso di scostamento dato da un termine $\phi$, cioè $f(t) = \sin(\omega t + \phi)$, avremo dall'applicazione delle formule di addizione degli angoli:
+Nel caso di scostamento dato da un termine $\phi$, cioè $f(t) = \sin(\omega t + \phi)$, potremo dire:
+\begin{theorem}{Trasformata di Laplace del seno con scostamento di fase}
+	Per una sinusoide scostata di fase $\phi$, cioè $\sin(\omega t + \phi)$, vale:
+	$$
+	\mathcal{L}\{ \sin(\omega t + \phi) \} = \frac{\omega \cos(\phi) + s \sin(\phi)}{s^2 + \omega^2}
+	$$
+\end{theorem}
+
+Per la dimostrazione, avremo innanzitutto dall'applicazione delle formule di addizione degli angoli:
 $$
-\mathcal{L}(\sin(\omega t + \phi)) = \mathcal{L}( \sin(\omega t) \cdot \cos(\phi) + \cos(\omega t) \cdot \sin(\phi) ) = \cos(\phi) \cdot \mathcal{L} \{ \sin(\omega t) \} + \sin(\phi) \cdot \mathcal{L}(\cos (\omega t))
+\mathcal{L}\{\sin(\omega t + \phi)\} = \mathcal{L}\{ \sin(\omega t) \cdot \cos(\phi) + \cos(\omega t) \cdot \sin(\phi) \} 
 $$
-e dalle formule appena trovate::
 $$
-= \cos(\phi) \cdot \frac{w}{s^2 + \omega ^2} + \sin(\phi) \cdot \frac{s}{s^2 + \omega ^2} = 
+= \cos(\phi) \cdot \mathcal{L} \{ \sin(\omega t) \} + \sin(\phi) \cdot \mathcal{L}(\cos (\omega t))
 $$
+e dalle formule appena trovate sul seno/coseno:
+$$
+= \cos(\phi) \cdot \frac{w}{s^2 + \omega ^2} + \sin(\phi) \cdot \frac{s}{s^2 + \omega ^2} = \frac{\omega \cos(\phi) + s \sin(\phi)}{s^2 + \omega^2}
+$$
+cioè la tesi. \qed
 
 \subsection{Operazioni integro-differenziali con Laplace}
-La comodità della trasformata di Laplace è che ci permette di esprimere per via algebrica gli operatori integro-differenziali.
+La comodità della trasformata di Laplace è che ci permette di esprimere per via algebrica gli operatori integro-differenziali, nonchè il prodotto di convoluzione fra due funzioni.
 
 \subsubsection{Derivata con Laplace}
-Vale che:
+Si ha che:
 \begin{theorem}{Derivata con Laplace}
 	Per una certa funzione $f$, sotto larghe ipotesi, vale:
 	$$
@@ -318,7 +389,8 @@ $$
 e applicando:
 $$
 \mathcal{L}\left\{ \frac{df}{dt} \right\} = \int_0^{+\infty} \frac{df}{dt} \cdot e^{-st} \, dt = f(t) \cdot e^{-(st)} \Big|_0^{+\infty} - \int_0^{+ \infty} -s \cdot f(t) \cdot e^{-st} \, dt = s F(s) - f(0)
-$$ \qed
+$$ 
+che è la tesi. \qed
 
 Una nota importante è il valore della funzione in $0$.
 Nel caso di funzioni discontinue (come ad esempio il gradino) si deve infatti scegliere fra $0^-$ e $0^+$, cioè:
@@ -341,10 +413,10 @@ Notiamo infatti che:
 $$
 \mathcal{L}\left\{ \frac{d}{dt} H(t) \right\} = s \cdot \frac{1}{s} - f(0^-) = 1 = \mathcal{L}(\sigma(t))
 $$
-assunto $t_0 = 0$.
+assunto $t_0 = 0$ scostando a destra o a sinistra chiaramente comparrà il termine di ritardo $e^{-s t-0}$.
 
 \subsubsection{Integrale con Laplace}
-Vale che:
+Si ha che:
 \begin{theorem}{Integrale con Laplace}
 Per una certa funzione $f$, sotto larghe ipotesi, vale:
 $$
