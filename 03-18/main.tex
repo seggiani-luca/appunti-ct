@@ -511,11 +511,16 @@ $$
 $$
 \qed
 
+Che nuovamente, per un tempo $t_0=0$ dà:
+$$
+\mathcal{L}\{H(t)\} = \frac{e^0}{s} = \frac{1}{s}
+$$
+
 Notiamo che questa è la seconda volta che incontriamo il termine $e^{-s t_0}$. Vedremo che questo termine equivale infatti a un \textbf{ritardo} $t_0$.
 Inoltre, notiamo come questa forma assomiglia a $\frac{1}{s}$, che avevamo chiamato anche termine \textbf{integratore} nel dominio di Laplace (esempio 2.1.3).
 
 \subsubsection{Esponenziale}
-Vvediamo infine la funzione esponenziale:
+Vediamo infine la funzione esponenziale:
 		$$
 		f(t) = H(t) e^{at}
 		$$
@@ -531,7 +536,7 @@ Vvediamo infine la funzione esponenziale:
 		\end{theorem}
 		La dimostrazione si fa nuovamente per calcolo diretto:
 		$$
-		\mathcal{L} \{ H(t) e^{at} \} = \int_0^{+ \infty} e^{at} e^{-st} \, dt = \int_0^{+\infty} e^{(a - s)t} \, dt = \left( \frac{e^{(a - s)t}}{a - s} \Bigg|^{+\infty}_0 \right) = \frac{1}{s - a}
+		\mathcal{L} \{ H(t) e^{at} \} = \int_0^{+ \infty} e^{at} e^{-st} \, dt = \int_0^{+\infty} e^{(a - s)t} \, dt =  \frac{e^{(a - s)t}}{a - s} \Bigg|^{+\infty}_0 = \frac{1}{s - a}
 		$$
 		\qed
 
