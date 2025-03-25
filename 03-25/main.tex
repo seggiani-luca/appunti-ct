@@ -205,7 +205,7 @@ Proseguiamo con la discussione delle proprietà della trasformata di Laplace.
 \subsubsection{Teorema del valor iniziale}
 Un utile teorema per il calcolo del valore iniziale di una funzione a partire dal suo sviluppo di Taylor è il seguente:
 \begin{theorem}{Teorema del valor iniziale}
-	Per una funzione $f$ con trasformata di Laplace $F$ vale:
+	Per una funzione $g$ con trasformata di Laplace $G$ vale:
 	$$
 	\lim_{t \rightarrow 0} f(t) = \lim_{s \rightarrow \infty} (s \cdot G(s))
 	$$
@@ -220,27 +220,32 @@ $$
 f(t) = f(t_0) + f' (t_0) t + ... + \frac{f^{(k)}(t_0)}{k!}t^k
 $$
 
-Notiamo che da Laplace noi già conosciamo i vari $\frac{t^k}{k!}$ come:
+Notiamo di aver già calcolato la trasformata di Laplace dei i vari $\frac{t^k}{k!}$ come (sezione 10.1, proprietà 4):
 $$
 \mathcal{L} \left\{ \frac{t^k}{k!} \cdot H(t) \right\} = \frac{1}{s^{k + 1}}
 $$
 e quindi:
 $$
-G(s) = f(t_0) \frac{1}{s} + ... + f^{(k)}(t_0) \frac{1}{s^{k + 1}}
+G(s) = f(t_0) \frac{1}{s} + f'(t_0) \frac{1}{s^2} ... + f^{(k)}(t_0) \frac{1}{s^{k + 1}}
 $$
 
-Varrà allora che:
+Preso $s \cdot G(s)$:
+$$
+s \cdot G(s) = f(t_0) + f'(t_0) \frac{1}{s^1} ... + f^{(k)}(t_0) \frac{1}{s^k}
+$$
+varrà allora che:
 $$
 \lim_{t \rightarrow 0} f(t) = \lim_{s \rightarrow \infty} (s \cdot G(s))
 $$
-questo è uno dei cosiddetti \textbf{legami globali} fra la funzione $f$ e la sua trasformata di Laplace $F$. \qed
+in quanto solo il termine a coefficiente $f(t_0)$ non decade a 0. \qed
 
+Questo è uno dei cosiddetti \textbf{legami globali} fra la funzione $f$ e la sua trasformata di Laplace $F$. 
 Possiamo sfruttare questo legame per avere informazioni riguardo al valore iniziale di $f$: basterà prendere il limite di $s \cdot G(s)$ ad infinito.
 
 \subsubsection{Teorema del valor finale}
 Possiamo ricavare un risultato simile per il valore finale semplicemente scambiando i punti di limite:
 \begin{theorem}{Teorema del valor finale}
-	Per una funzione $f$ con trasformata di Laplace $F$ vale:
+	Per una funzione $f$ con trasformata di Laplace $G$ vale:
 	$$
 	\lim_{t \rightarrow \infty} f(t) = \lim_{s \rightarrow 0} (s \cdot G(s))
 	$$
@@ -249,15 +254,19 @@ Con condizione di validità che $\lim_{t \rightarrow \infty} f(t)$ esista finito
 
 Possiamo dimostrare il risultato partendo dalla trasformata di Laplace della derivata di $f$, cioè:
 $$
-\mathcal{L}\left\{ \frac{df}{dt}(t) \right\} = \int_0^{+\infty} \frac{df}{dt}(t) \cdot e^{-st} \, dt = sG(s) - f(0)
+\mathcal{L}\left\{ \frac{d}{dt}f(t) \right\} = \int_0^{+\infty} \frac{df}{dt}(t) \cdot e^{-st} \, dt = sG(s) - f(0)
 $$
-Prendendo $s \rightarrow 0$, si ha:
+Prendendo il limite per $s \rightarrow 0$, si ha:
 $$
-\int_0^{+\infty} \frac{df}{dt}(t) \, dt = \lim_{s \rightarrow 0} sG(s) - f(0)
+\lim_{s \rightarrow 0} \left[ \int_0^{+\infty} \frac{d}{dt}f(t) \cdot e^{-st} \, dt \right] = \lim_{s \rightarrow 0} \left[ sG(s) - f(0) \right] 
 $$
-a questo punto basta accorgersi che $\int_0^{+\infty} \frac{df}{dt}(t) \, dt = \lim_{t \rightarrow \infty} f(t) - f(0)$, e quindi:
+e visto che:
 $$
-\lim_{t \rightarrow \infty} f(t) - f(0) = \lim_{s \rightarrow 0} sG(s) - f(0) 
+\lim_{s \rightarrow 0} \left[ \int_0^{+\infty} \frac{d}{dt}f(t) \cdot e^{-st} \, dt \right] = \lim_{s \rightarrow 0} \left[ \int_0^{+\infty} \frac{d}{dt} f(t) \right] = \lim_{s \rightarrow 0} \left[ f(t) - f(0) \right]
+$$
+si ha:
+$$
+\lim_{t \rightarrow \infty} \left[ f(t) - f(0) \right] = \lim_{s \rightarrow 0} \left[ sG(s) - f(0) \right] 
 \implies 
 \lim_{t \rightarrow \infty} f(t) = \lim_{s \rightarrow 0} sG(s) 
 $$
@@ -277,9 +286,18 @@ Si potrà allora riscrivere $G(s)$ come la somma dei residui polari:
 $$
 G(s) = \frac{k_1}{(s - s_1)^h} + \frac{k_2}{(s - s_1)^{h - 1}} ... + \frac{k_h}{(s - s_1)} + T(s)
 $$
-dove $T(s)$ rappresenta i residui polari dei poli in $R(s)$, nella speranza che i singoli termini $\frac{k_i}{(s - s_1)^{h - i}}$ siano facili da antitrasformare (solitamente in esponenziali o componenti oscillatorie).
+dove $T(s)$ rappresenta i residui polari dei poli in $R(s)$.
+La speranza è che i singoli termini $\frac{k_i}{(s - s_1)^{h - i + 1}}$ siano facili da antitrasformare (speranza solitamente sodisfatta, visto che danno componenti esponenziali o oscillatorie).
 
 \subsubsection{Teorema dei residui}
+Un risultato particolarmente utile per il calcolo dei $k_i$ è il \textbf{teorema dei residui} per poli multipli di molteplicità $i$.
+\begin{theorem}{Teorema dei residui}
+Il coefficiente del fratto semplice di molteplicità $h - i + 1$ associato al polo $s_1$ della trasformata $G(s)$ è:	
+$$
+k_i = \lim_{s \rightarrow s_1} \frac{1}{(i - 1)!} \frac{d^{(i - 1)} (s - s_1)^h \cdot G(s) }{ds^{(i - 1)}}
+$$
+\end{theorem}
+
 Riprendendo l'ultima formula dello scorso paragrafo, moltiplicando a sinistra e a destra per $(s - s_1)^h$ si ottiene:
 $$
 (s - s_1)^h \cdot G(s) = k_1 + k_2 (s - s_1) + ... k_h (s - s_1)^{h - 1} + T(s) (s - s_1)^h 
@@ -292,12 +310,11 @@ Derivando nuovamente si ottiene $k_2$:
 $$
 \lim_{s \rightarrow s_1} \frac{d}{ds} (s - s_1)^h \cdot G(s) = k_2 + ... + k_h (h - 1) (s - s_1)^{h - 2} + h T(s) (s - s_1)^{h - 1} = k_2
 $$
-
 Continuando ad iterare si ottiene quindi:
 $$
-k_i = \lim_{s \rightarrow s_1} \frac{1}{(i - 1)!} \frac{d^{i - 1} (s - s_1)^h \cdot G(s) }{ds^{i - 1}}
+k_i = \lim_{s \rightarrow s_1} \frac{1}{(i - 1)!} \frac{d^{(i - 1)} (s - s_1)^h \cdot G(s) }{ds^{(i - 1)}}
 $$
-che ricordiamo come il \textbf{teorema dei residui} per residui di molteplicità $i$.
+che è la tesi. \qed
 
 \subsubsection{Esempio: scomposizione con poli multipli}
 Vediamo un esempio pratico di applicazione.
@@ -338,16 +355,40 @@ G(s) = \frac{1}{8(s + 3)} - \frac{1}{8(s + 1)} + \frac{1}{4(s + 1)^2} + \frac{1}
 $$
 da cui l'antitrasformata:
 $$
-g(t) = \frac{1}{8}e^{-3t} -\frac{1}{8}e^{-t} + \frac{1}{4} t e^{-t} + \frac{1}{2} t^2 e^{-t}
+g(t) = \frac{1}{8}e^{-3t} -\frac{1}{8}e^{-t} + \frac{1}{4} t e^{-t} + \frac{1}{4} t^2 e^{-t}
 $$
-
+ricordando che $\mathcal{L}\left\{ \frac{1}{s^k} \right\} = \frac{t^{k - 1}}{k!}$, e quindi dal $k \geq 2$ in poi compaiono termini fattoriali (come ad esempio nel termine di molteplicità 3 di questo esempio).
 
 \subsubsection{Esempio: scomposizione con poli complessi coniugati}
 Vediamo un altro esempio, con la $G(s)$:
 $$
 G(s) = \frac{1}{(s^2 + 1)^2} = \frac{1}{(s + j)^2 (s - j)^2} = \frac{A}{s + j}+ \frac{A^*}{s - j} + \frac{B}{(s + j)^2} + \frac{B^*}{(s - j)^2}
 $$
-dove notiamo che \textit{i coniugati dei residui sono i residui dei coniuigati}.
+dove notiamo che \textit{i coniugati dei residui sono i residui dei coniugati}.
+Quest'ultima affermazione merita un attimo di discussione.
+Riducendoci al caso $i = h$ (i casi a molteplicità diversa non modificano la situazione in quanto aggiungono solo termini non complessi) si può definire la funzione residuo $\mathrm{Res}$:
+$$
+\mathrm{Res}(G, s_1) = \lim_{s \rightarrow s_1} (s - s_1) \cdot G(s)
+$$
+il coniugato di questa sarà:
+$$
+\left( \mathrm{Res}(G, s_1) \right)^* = \left( \lim_{s \rightarrow s_1} (s - s_1) \cdot G(s) \right)^* = \lim_{s \rightarrow s_1} (s - s_1)^* G^*(s)
+$$
+$$
+= \lim_{s \rightarrow s_1} (s^* - s_1^*) G(s^*) = \lim_{s \rightarrow s_1*} (s - s_1^*) G(s) 
+$$
+fatta l'ipotesi (non banale):
+$$
+G(s^*) = G^*(s)
+$$
+Fortunatamente, se rispetta alcune (larghe) ipotesi, $G$ rispetta tale condizione.
+Ci possiamo quindi accorgere che quello che abbiamo trovato non è altro che il residuo in $s_1^*$, cioè:
+$$
+\mathrm{Res}(G, s_1^*) = \lim_{s \rightarrow s_1^*} (s - s_1^*) \cdot G(s)
+$$
+da cui la tesi. \qed
+
+\par\smallskip
 
 Troviamo quindi i residui:
 $$
@@ -372,7 +413,7 @@ G(s) = \frac{j}{4(s + j)} - \frac{j}{4(s - j)} - \frac{1}{4(s + j)^2} - \frac{1}
 $$
 da cui l'antitrasformata:
 $$
-g(t) = \frac{j}{4} \left( e^{-jt} - e^{jt} \right) \cdot H(t) - \frac{1}{4}t \left( e^{-jt} + e^{jt} \right) \cdot H(t) = \frac{1}{2} \left( \sin(t) - \cos(t) \right) \cdot H(t) 
+g(t) = \frac{j}{4} \left( e^{-jt} - e^{jt} \right) \cdot H(t) - \frac{1}{4}t \left( e^{-jt} + e^{jt} \right) \cdot H(t) = \frac{1}{2} \left( \sin(t) - t \cos(t) \right) \cdot H(t) 
 $$
 
 \subsection{Risposta all'impulso}
@@ -393,6 +434,7 @@ con $h(t)$ la risposta del sistema a $\delta(t)$, ricordando lo schema:
 		\node at (3, 0.8) {$y(t)$};
 	\end{tikzpicture}
 \end{center}
+dove si è notato stato iniziale nullo.
 
 Notiamo che questo metodo fornisce solamente la relazione ingresso/uscita.
 L'utilità sta nel fatto che la risposta all'impulso può essere usata per determinare come il sistema risponde ad altri ingressi arbitrari ($u(t)$), attraverso la convoluzione:
@@ -433,14 +475,29 @@ $$
 
 \subsection{Diagrammi a blocchi}
 I diagrammi a blocchi sono una rappresentazione standard e uniforme di sistemi e sottosistemi interconnessi con funzioni di trasferimento.
-Permettono l'identificazione di ingressi, usciti ed elementi dinamici, e quind risultano utili concettualmente in fase di progettazione e analisi.
+Permettono l'identificazione di ingressi, usciti ed elementi dinamici, e quindi risultano utili concettualmente in fase di progettazione e analisi.
 
 Nel dettaglio, studieremo 3 tipi di schemi particolari, e introdurremo la cosiddetta \textbf{algebra dei blocchi}.
 
 \subsubsection{Connessione in serie}
 La connessione in serie avviene quando più sistemi, rappresentati da una particolare funzione di trasferimento, sono connessi fra di loro ingressi ad uscite, o come si vede dal grafico:
 
-# grafico e -> [ G1(s) ] - u -> [ G2(s) ] -> y
+\begin{center}
+	\begin{tikzpicture}
+		\draw (0,0) rectangle (2, 1);
+		\draw (4,0) rectangle (6, 1);
+		\draw[-stealth] (-2, 0.5) -> (0, 0.5);
+		\draw[-stealth] (2, 0.5) -> (4, 0.5);
+		\draw[-stealth] (6, 0.5) -> (8, 0.5);
+
+		\node at (1, 0.5) {$G_1(s)$};
+		\node at (5, 0.5) {$G_2(s)$};
+		
+		\node at (-1, 0.8) {$e$};
+		\node at (3, 0.8) {$u$};
+		\node at (7, 0.8) {$y$};
+	\end{tikzpicture}
+\end{center}
 
 Avremo allora che vale:
 \[
@@ -454,10 +511,43 @@ $$
 Y(s) = G_2(s)G_1(s)E(s) \implies G(s) = G_1(s) G_2(s)
 $$
 
+Da cui il risultato generale:
+\begin{theorem}{Connessione in serie}
+	Sottoinsiemi con funzioni di trasferimento $G_1(s)$, $...$, $G_n(s)$ posti in serie formano un unico sistema con funzione di trasferimento:
+	$$
+		G_{eq}(s) = G_1(s) ... G_n(s)
+	$$
+\end{theorem}
+
 \subsubsection{Connessione in parallelo}
 La connessione in parallelo avviene quando più sistemi, rappresentati da una particolare funzione di trasferimento, sono connessi a un unico ingresso e un unica uscita (in un sommatore), o come si vede dal grafico:
 
-# grafico r -> G1(s) \\ G2(s) \\ G3(s) -> somm. -> y
+\begin{center}
+	\begin{tikzpicture}
+		\draw (0,0) rectangle (2, 1);
+		\draw (0,-1.5) rectangle (2, -0.5);
+		\draw (0,1.5) rectangle (2, 2.5);
+		
+		\draw (-2, 0.5) -- (-1, 0.5);
+		\draw (-1, 2) -- (-1, -1);
+		\draw[-stealth] (-1, 2) -> (0, 2);
+		\draw[-stealth] (-1, 0.5) -> (0, 0.5);
+		\draw[-stealth] (-1, -1) -> (0, -1);
+
+		\draw[-stealth] (3, 0.5) -> (4, 0.5);
+		\draw (3, 2) -- (3, -1);
+		\draw (2, 2) -> (3, 2);
+		\draw (2, 0.5) -> (3, 0.5);
+		\draw (2, -1) -> (3, -1);
+
+		\node at (1, 2) {$G_1(s)$};
+		\node at (1, 0.5) {$G_2(s)$};
+		\node at (1, -1) {$G_3(s)$};
+		
+		\node at (-2, 0.8) {$e$};
+		\node at (4, 0.8) {$u$};
+	\end{tikzpicture}
+\end{center}
 
 In questo caso varrà:
 $$
@@ -468,12 +558,47 @@ $$
 G(s) = G_1(s) + G_2(s) + G_3(s)
 $$
 
+\begin{theorem}{Connessione in parallelo}
+	Sottoinsiemi con funzioni di trasferimento $G_1(s)$, $...$, $G_n(s)$ posti in parallelo formano un unico sistema con funzione di trasferimento:
+	$$
+		G_{eq}(s) = G_1(s) + ... + G_n(s)
+	$$
+\end{theorem}
+
 \subsubsection{Connessione in retroazione}
 Vediamo un costrutto tipico dell'automatica: l'\textbf{anello di controllo}:
 
-# grafico r -> somm^+_- - e -> G1(s) -> y
-										 y_m		G2(s)	<- torna in retroazione al somm.
+\begin{center}
+	\begin{tikzpicture}
+		\draw (0,0) rectangle (2, 1);
+		\draw (0,-1.5) rectangle (2, -0.5);
+			
+		\draw (-2, 0.5) -- (-1, 0.5);
+		\draw[stealth-] (-1, 0.4) -- (-1, -1);
+		\draw[-stealth] (-1, 0.5) -> (0, 0.5);
+		\draw (-1, -1) -- (0, -1);
 
+		\draw[-stealth] (3, 0.5) -> (4, 0.5);
+		\draw (3, 0.5) -- (3, -1);
+		\draw (2, 0.5) -> (3, 0.5);
+		\draw[stealth-] (2, -1) -> (3, -1);
+
+		\draw[fill=white] (-1, 0.5) circle (0.1);
+		\node at (-0.75, 0.75) {$+$};
+		\node at (-0.75, 0.25) {$-$};
+
+		\node at (1, 0.5) {$G_1(s)$};
+		\node at (1, -1) {$G_2(s)$};
+		
+		\node at (-2, 0.8) {$r$};
+		\node at (-0.35, 0.8) {$e$};
+		\node at (3, 0.8) {$y$};
+		\node at (-1.5, -0.5) {$y_m$};
+		\node at (4, 0.8) {$u$};
+	\end{tikzpicture}
+\end{center}
+
+Notiamo che lo schema non rappresenta altro che una descrizione matematica del modello presentato nella sezione 8.4.
 In questo caso vale:
 \[
 	\begin{cases}	

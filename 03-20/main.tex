@@ -276,12 +276,35 @@ Vediamo alcune proprietà della trasformata di Laplace introdotta alla scorsa le
 		$$
 			\mathcal{L}\{t^n \cdot f(t)\} = (-1)^n \frac{d^n F(s)}{ds^n}
 		$$
-		data semplicemente dall'applicazione ripetuta della proprietà di derivazione in $s$:
+		data semplicemente dall'applicazione ripetuta della proprietà di derivazione in $s$.
 		
-		Vediamo, ad esempio, riguardo al gradino (che ricordiamo essere $\mathcal{L}\{H(t)\} = \frac{1}{s}$):
+		Vediamo una forma che ci sarà di particolare interesse, che possiammo intendere come una versione generalizzata del gradino (che ricordiamo avere $\mathcal{L}\{H(t)\} = \frac{1}{s}$):
 		$$
 		\mathcal{L}\left\{ \frac{t^k}{k!} \cdot H(t) \right\} = \frac{1}{s^{k + 1}}
 		$$
+		Questo si deriva applicando direttamente la regola di derivazione in $s$:
+		$$
+		\mathcal{L} \{ t^k \cdot H(t) \} = (-1)^k \frac{d^k}{ds^k} \left( \frac{1}{s} \right)
+		$$
+		Notiamo che dalla regola di derivazione dell'inversa si ha l'andamento:
+		$$
+		\frac{d}{ds} \frac{1}{s} = - \frac{1}{s^2}, \quad \frac{d}{ds} \left( -\frac{1}{s^2} \right) = \frac{2}{s^3}, \quad ... \quad \frac{d^k}{ds^k} \frac{1}{s} = (-1)^k \frac{k!}{s^{k + 1}} 
+		$$
+		dove il termine $(-1)^n$ che compare si annulla con quello presente nella regola di derivazione in $s$.
+		Riarrangiando ($k!$ si può portare fuori, l'operatore laplaciano $\mathcal{L}$ è lineare), quindi, si ottiene esattamente la tesi. \qed
+		
+		Un modo alternativo di dimostrare lo stesso risultato è tramite l'applicazione ripetuta della legge di integrazione per parti.
+		Al primo passaggio si ha:
+		$$
+		\mathcal{L} \left\{ \frac{t^k}{k!} \cdot H(t) \right\} = \int_0^{+\infty} \frac{t^k}{k!} e^{-st} \, dt = t^{k - 1} e^{-st} \Big|^{+\infty}_0 + \int_0^{+\infty} \frac{t^{k - 1}e^{-st}}{s} \, dt
+		$$
+		dove il termine $t^{k - 1} e^{-st} \big|^{+\infty}_0$ si annulla. 
+		Vediamo quindi che per il grado $k$ si ripete il procedimento $k$ volte ottenendo:
+		$$
+		\rightsquigarrow^k \int_0^{+\infty} \frac{e^{-st}}{s^k} \, dt = \frac{1}{s^{k + 1}}
+		$$
+		che è nuovamente la tesi. \qed
+
 	\item \textbf{Traslazione in s:} notiamo infine che vale rispetto alla traslazione su s:
 		$$
 		\mathcal{L}\{ e^{at} \cdot f(t) \} = F(s - a) 
