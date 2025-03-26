@@ -16,8 +16,8 @@ val1 = 1.0
 val2 = -2.0
 
 # simulation
-l_bound = -10
-h_bound = 30
+l_bound = -5
+h_bound = 10
 
 # input function
 def u(t):
@@ -35,9 +35,17 @@ t_eval = np.linspace(l_bound, h_bound, 100)
 # solve ode
 sol = solve_ivp(ode, t_span, [v0], t_eval=t_eval)
 
+# get tc value 
+v_tc = np.interp(tc, sol.t, sol.y[0])
+
 # plot solution
-plt.plot(sol.t, sol.y[0], label="v(t)")
+plt.plot(sol.t, sol.y[0], label="y(t)")
 plt.plot(sol.t, u(sol.t), label="u(t)", linestyle="dashed")
+
+# plot tc value
+plt.axvline(tc, linestyle="dotted", color="red")
+plt.scatter(tc, v_tc, color="red", label=f"y({tc}) ≈ {v_tc:.2f}", zorder=3)
+
 plt.xlabel="Time"
 plt.legend()
 plt.grid()
