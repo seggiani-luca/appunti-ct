@@ -100,37 +100,37 @@
 \usepackage[table]{xcolor}
 
 \lstdefinestyle{codestyle}{
-		backgroundcolor=\color{black!5}, 
-		commentstyle=\color{codegreen},
-		keywordstyle=\bfseries\color{magenta},
-		numberstyle=\sffamily\tiny\color{black!60},
-		stringstyle=\color{green!50!black},
-		basicstyle=\ttfamily\footnotesize,
-		breakatwhitespace=false,         
-		breaklines=true,                 
-		captionpos=b,                    
-		keepspaces=true,                 
-		numbers=left,                    
-		numbersep=5pt,                  
-		showspaces=false,                
-		showstringspaces=false,
-		showtabs=false,                  
-		tabsize=2
+	backgroundcolor=\color{black!5}, 
+	commentstyle=\color{codegreen},
+	keywordstyle=\bfseries\color{magenta},
+	numberstyle=\sffamily\tiny\color{black!60},
+	stringstyle=\color{green!50!black},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
 }
 
 \lstdefinestyle{shellstyle}{
-		backgroundcolor=\color{black!5}, 
-		basicstyle=\ttfamily\footnotesize\color{black}, 
-		commentstyle=\color{black}, 
-		keywordstyle=\color{black},
-		numberstyle=\color{black!5},
-		stringstyle=\color{black}, 
-		showspaces=false,
-		showstringspaces=false, 
-		showtabs=false, 
-		tabsize=2, 
-		numbers=none, 
-		breaklines=true
+	backgroundcolor=\color{black!5}, 
+	basicstyle=\ttfamily\footnotesize\color{black}, 
+	commentstyle=\color{black}, 
+	keywordstyle=\color{black},
+	numberstyle=\color{black!5},
+	stringstyle=\color{black}, 
+	showspaces=false,
+	showstringspaces=false, 
+	showtabs=false, 
+	tabsize=2, 
+	numbers=none, 
+	breaklines=true
 }
 
 \lstdefinelanguage{javascript}{
@@ -152,14 +152,14 @@
 \usepackage{titlesec}
 
 \titleformat{\section}
-	{\sffamily\Large\bfseries} 
-	{\thesection}{1em}{} 
+{\sffamily\Large\bfseries} 
+{\thesection}{1em}{} 
 \titleformat{\subsection}
-	{\sffamily\large\bfseries}   
-	{\thesubsection}{1em}{} 
+{\sffamily\large\bfseries}   
+{\thesubsection}{1em}{} 
 \titleformat{\subsubsection}
-	{\sffamily\normalsize\bfseries} 
-	{\thesubsubsection}{1em}{}
+{\sffamily\normalsize\bfseries} 
+{\thesubsubsection}{1em}{}
 
 % disponi alberi
 \usepackage{forest}
@@ -281,13 +281,47 @@ $$
 
 In particolare, avremo che il valore di $y(T)$ al tempo caratteristico $T$ sarà approssimativamente il $63.2 \%$ del valore del guadagno statico $G(0)$.
 
-Possiamo tracciare un grafico dell'andamento di $y(t)$ in Python, evidenziando il valore raggiunto in $t = T$:
-\begin{center}
-	\includegraphics[scale=0.62]{../figures/first_degree_step_response.png}
-\end{center}
+Potremmo chiederci il perché di una costante apparentemente così arbitraria.
+Ipotizzando che al tempo $T$ si raggiunga una qualche frazione del guadagno $G(0)$, allora, impostiamo:
+$$
+y(T) = k \cdot G(0) \implies k = \frac{y(T)}{G(0)} = \frac{\frac{b_0}{a_0} \left( 1 - e^{-\frac{a_0}{a_1} \cdot \frac{a_1}{a_0}} \right) }{\frac{b_0}{a_0}} = 1 - e^{-1} \approx 0.632
+$$
+che è esattamente la costante di prima.
+Possiamo generalizzare questo procedimento a multipli arbitrari di $T$, $\mu T$:
+$$
+y(\mu T) = k \cdot G(0) \implies k = \frac{y(\mu T)}{G(0)} = \frac{\frac{b_0}{a_0} \left( 1 - e^{-\frac{a_0}{a_1} \cdot \mu \frac{a_1}{a_0}} \right) }{\frac{b_0}{a_0}} = 1 - e^{-\mu} 
+$$
+ricavando quindi una funzione:
+$$
+p(\mu) = 1 - e^{-\mu}
+$$
+per la percentuale $p(\mu)$ di guadagno raggiunta al multiplo $\mu$-esimo del tempo caratteristico $T$. 
+Questa valore ottiene i seguenti valori per un insieme di $\mu$ selezionato:
+\begin{table}[H]
+	\center \rowcolors{2}{white}{black!10}
+	\begin{tabular} { c | c }
+		$\mu$ & $p(\mu)$ \\
+		\hline 
+		0 & 0 \\ 
+		1 & $63.2 \% $ \\
+		2 & $86.5 \% $ \\
+		3 & $95 \% $ \\
+		4 & $98.2 \% $ \\
+	\end{tabular}
+\end{table}
+che chiaramente tende, ma non raggiunge mai, il $100 \%$ nel limite a infinito.
+
+\noindent
+\begin{minipage}{\textwidth}
+	Possiamo quindi tracciare un grafico dell'andamento di $y(t)$ in Python, evidenziando il valore raggiunto in $t = T$:
+	\begin{center}
+		\includegraphics[scale=0.62]{../figures/first_degree_step_response.png}
+	\end{center}
+	che risulta effettivamente abbastanza vicino al $\sim 63.2 \%$.
+\end{minipage}
 
 \subsubsection{Tempo di assestamento}
-Un'altro valore di interesse è il \textbf{tempo di assestamento} al percentile $i$, inteso come il tempo che serve a un sistema dinamico per rimanere una fascia $\pm i \%$ attorno al valore di regime.
+Un'altro valore di interesse è il \textbf{tempo di assestamento} alla percentuale $i$, inteso come il tempo che serve a un sistema dinamico per rimanere una fascia $\pm i \%$ attorno al valore di regime.
 
 Ad esempio, se vogliamo calcolare il tempo di assestamento al $5\%$, possiamo dire:
 $$
@@ -297,6 +331,7 @@ da cui:
 $$
 t_{ss} = T \cdot \ln(20) \approx 3T
 $$
+cioè 3 volte il tempo caratterstico, come risultava abbastanza chiaro dalla tabella del paragrafo precedente.
 
 \subsection{Forme di Bode e di Evans}
 Vediamo un'altra equazione differenziale, dove adesso compare la derivata dell'ingresso:
@@ -315,21 +350,36 @@ $$
 Nota questa funzione di trasferimento, possiamo riportare due forme standard di riscrittura, che ne evidenziano proprietà diverse:
 \begin{itemize}
 	\item \textbf{Forma di Bode:} evidenzia le costanti tempo del sistema dinamico.
-$$
-G(s) = \frac{b_0}{a_0} \frac{1 + s \cdot \frac{b_1}{b_0}}{1 + s \cdot \frac{a_1}{a_0}} = G(0) \cdot \frac{1 + s \cdot \tau_z}{1 + s \cdot \tau}
-$$
-Notiamo che l'effetto della derivata dell'ingresso è stato quello di portare un termine $s$ al numeratore, e quindi quello di introdurre uno zero (a $-\frac{b_0}{b_1}$)nella funzione di trasferimento (zero per cui abbiamo introdotto il tempo caratteristico $\tau_z$).
+		$$
+		G(s) = \frac{b_0}{a_0} \frac{1 + s \cdot \frac{b_1}{b_0}}{1 + s \cdot \frac{a_1}{a_0}} = G(0) \cdot \frac{1 + s \cdot \tau_z}{1 + s \cdot \tau}
+		$$
+		Notiamo che l'effetto della derivata dell'ingresso è stato quello di portare un termine $s$ al numeratore, e quindi quello di introdurre uno zero (a $-\frac{b_0}{b_1}$) nella funzione di trasferimento (zero per cui abbiamo introdotto il tempo caratteristico $\tau_z$).
 	\item \textbf{Forma di Evans:} evidenzia le singolarità dinamiche del sistema, ovvero poli e zeri:
 		$$
-		G(s) = \frac{b_1}{a_1} \frac{s + \frac{b_0}{b_1}}{s + \frac{a_0}{a_1}}
+		G(s) = \frac{b_1}{a_1} \cdot \frac{s + \frac{b_0}{b_1}}{s + \frac{a_0}{a_1}}
 		$$
 \end{itemize}
+
+Ad esempio, riguardo alla funzione di trasferimento dell'esempio 12.1.1, che ricordiamo essere:
+$$
+G(s) = \frac{\frac{b_0}{a_0}}{s + \frac{a_0}{a_1}}
+$$
+possiamo dire che si trova già in \textit{forma di Evans}, in quanto al denominatore è esplicitato l'unico polo.
+
+Per ricavare la forma di Bode, invece, vorremo esporre il termine tempo caratteristico $\tau = \frac{a_1}{a_0}$:
+$$
+G(s) = \frac{b_0}{a_0} \cdot \frac{1}{1 + s \cdot \frac{a_1}{a_0}}
+$$
+che è nuovamente:
+$$
+= G(0) \cdot \frac{1}{1 + s \cdot \tau}
+$$
 
 \subsection{Sistemi del secondo ordine}
 Abbiamo visto finora sistemi del primo ordine risolti tramite la trasformata di Laplace.
 Vediamo adesso il caso dei sistemi del secondo ordine, che ci permettono di modellizzare una vasta gamma di fenomeni di interesse ingegneristico:
 $$
-s_2 \frac{d^2 y}{dt^2} + a_1 \frac{dy}{dt} + a_0 y = b_0 u
+a_2 \frac{d^2 y}{dt^2} + a_1 \frac{dy}{dt} + a_0 y = b_0 u
 $$
 complicando la situazione con condizioni iniziali non nulle ($y(0), y'(0) \neq 0$).
 
@@ -353,75 +403,106 @@ dove riconosciamo che il primo termine rappresenta la \textbf{risposta libera} e
 
 Decidiamo di concentrarci sulla risposta forzata, ricavando la funzione di trasferimento:
 $$
-G(s) = \frac{Y(s)}{U(s)} = \frac{b_0}{a_0 + a_1 s + a_2 s^2}
+G(s) = \frac{Y(s)}{U(s)} = \frac{b_0}{a_2 s^2 + a_1 s + a_0} = \frac{ \frac{b_0}{a_2} }{s^2 + \frac{a_1}{a_2}s + \frac{a_0}{a_2}}
 $$
 da cui i poli al denominatore:
 $$
-p{1, 2} = \frac{-a_1 \pm \sqrt{a_1^2 - 4 a_0 a_2}}{2 a_2}
+p_{1, 2} = - \frac{-a_1 \pm \sqrt{a_1^2 - 4 a_0 a_2}}{2 a_2}
+$$
+da cui notiamo che 1) non ci interessa di considerare per i polinomi il polinomio monico, in quanto la loro posizione non cambierà e 2) prendiamo il segno $-$, in quanto vogliamo scrivere:
+$$
+G(s) = \frac{ \frac{b_0}{a_2} }{(s + p_1) (s + p_2)}
 $$
 
-Potremmo quindi individuare il \textbf{determinante}:
+Potremo quindi individuare il \textbf{determinante}:
 $$
-\Delta = \frac{a_1^2}{4} - a_0a_2
+\Delta = a_1^2 - 4a_0a_2
 $$
 sulla base del quale distinguiamo 3 situazioni:
 \begin{itemize}
 	\item $\Delta > 0$, si hanno 2 poli \textbf{reali distinti}.
-
-		In questo caso possiamo adottare la \textbf{forma di Bode}:
-		$$
-		G(s) = G(0) \cdot \frac{1}{(1 + s \cdot T_1)(1 + s \cdot T_2)}
-		$$
-		con:
-		$$
-		G(0) = \frac{b_0}{a_0}, \quad T_1 = \frac{1}{p_1}, \quad T_2 = \frac{1}{p_2}
-		$$
-
-		Altrimenti, si può adottare la \textbf{forma di Evans}:
-		$$
-		G(s) = \frac{\frac{b_0}{a_2}}{(s + p_1)(s + p_2)}
-		$$
-
-		Notiamo inoltre le proprietà:
-		\[
-			\begin{cases}
-		p_1 \cdot p_2 = \frac{1}{T_1 \cdot T_2} = \frac{a_0}{a_2} \\
-		p_1 + p_2 = -\frac{a_1}{a_2}
-			\end{cases}
-		\]
-
-		Vediamo quindi la risposta al gradino:
-		$$
-		Y(s) = G(s) \cdot U(s) = \frac{\frac{b_0}{a_2}}{(s + \frac{1}{T_1})(s + \frac{1}{T_2}) \cdot s} = \frac{A}{s} + \frac{B}{s + \frac{1}{T_1}} + \frac{C}{s + \frac{1}{T_2}}
-		$$
-		dove si è adottata questa forma \textit{"ibrida"} di Evans, dove manteniamo esplicite le costanti tempo.
-
-	Calcoliamo quindi i residui:
-	$$
-	A = \lim_{s \rightarrow 0} \frac{\frac{b_0}{a_2}}{(s + \frac{1}{T_1})(s + \frac{1}{T_2})} = \frac{b_0}{a_2} \cdot T_1 \cdot T_2 = \frac{b_0 \cdot a_2}{a_2 \cdot a_0} = \frac{b_0}{a_0} = G(0)
-	$$
-	sfruttando le due proprietà riportate prima.
-	Si ha poi:
-	$$
-	B = \lim_{s \rightarrow - \frac{1}{T_1}} \frac{\frac{b_0}{a_2}}{s (s + \frac{1}{T_2})} 
-	= \frac{b_0}{a_2} \cdot \frac{1}{-\frac{1}{T_1} (\frac{1}{T_2} - \frac{1}{T_1})} 
-	= \frac{b_0 \cdot T_1^2 T_2}{a_2 (T_2 - T_1)} 
-	= \frac{T_1}{T_2 - T_1} \cdot G(0)
-	$$
-	$$
-	C = \lim_{s \rightarrow - \frac{1}{T_2}} \frac{\frac{b_0}{a_2}}{s (s + \frac{1}{T_1})} 
-	= \frac{b_0}{a_2} \cdot \frac{1}{-\frac{1}{T_2} (\frac{1}{T_1} - \frac{1}{T_2})} 
-	= \frac{b_0 \cdot T_1 T_2^2}{a_2 (T_2 - T_1)} 
-	= -\frac{T_2}{T_2 - T_1} \cdot G(0)
-	$$
-
-	Calcoliamo quindi l'antitrasformata:
-	$$
-	y(t) = \mathcal{L}^{-1} \{ G(s) \cdot U(s) \} = G(0) \cdot \left( 1 + \frac{T_1 e^{\frac{-t}{T_1}} - T_2 e^{\frac{-t}{T_2}}}{T_2 - T_1} \right) \cdot H(t)
-	$$
-
 	\item $\Delta = 0$, si hanno 2 poli \textbf{reali coincidenti};
 	\item $\Delta < 0$, si hanno 2 poli \textbf{complessi coniugati};
 \end{itemize}
+Vediamo nel dettaglio queste situazioni.
+
+\subsubsection{$\mathbf{\Delta > 0}$, 2 poli reali distinti}
+Risulta immediato che:
+$$G(0) = \frac{b_0}{a_0}$$
+e definiamo poi:
+$$
+\quad T_1 = \frac{1}{p_1}, \quad T_2 = \frac{1}{p_2}
+$$
+
+Vogliamo innanzitutto vedere come portarci nelle forme di Bode e di Evans.
+Prima di tutto, però, dimostriamo due importanti proprietà:
+\begin{enumerate}
+	\item $p_1 \cdot p_2 = \frac{1}{T_1 \cdot T_2} = \frac{a_0}{a_2}$ \par\smallskip 
+		Il lato sinistro è chiaro dalla definizione di $T_1$ e $T_2$.
+		Per dimostrare il lato destro calcoliamo direttamente $p_1 \cdot p_2$:
+		$$
+		p_1 \cdot p_2 = \left( - \frac{-a_1 + \sqrt{a_1^2 - 4 a_0 a_2}}{2 a_2} \right) \left( - \frac{-a_1 - \sqrt{a_1^2 - 4 a_0 a_2}}{2 a_2} \right)
+		$$
+		$$
+		= \frac{1}{4a_2^2} \left( a_1^2 - a_1^2 + 4a_2a_0 \right) = \frac{a_2 a_0}{a_2^2} = \frac{a_0}{a_2}
+		$$ \qed
+		
+	\item $p_1 + p_2 = \frac{1}{T_1} + \frac{1}{T_2} = \frac{a_1}{a_2}$ \par\smallskip
+		Anche qui il lato sinistro è chiaro dalla definizione di $T_1$ e $T_2$.
+		Per dimostrare il lato destro procediamo nuovamente per calcolo diretto:
+		$$
+		p_1 + p_2 = - \frac{-a_1 + \sqrt{a_1^2 - 4 a_0 a_2}}{2 a_2} + \left( - \frac{-a_1 - \sqrt{a_1^2 - 4 a_0 a_2}}{2 a_2} \right) = \frac{a_1}{2 a_2} + \frac{a_1}{2 a_2} = \frac{a_1}{a_2}
+		$$ \qed
+\end{enumerate}
+
+Vediamo allora le forme standard:
+\begin{itemize}
+	\item \textbf{Forma di Bode:} è analoga a quella vista nel caso lineare, cioè:
+	$$
+	G(s) = G(0) \cdot \frac{1}{(1 + s \cdot T_1)(1 + s \cdot T_2)}
+	$$
+	la validità di questa si ricava a moltiplicando e dividendo per $T_1 T_2$ e applicando la proprietà 1:
+	$$
+	= \frac{b_0}{a_0} \cdot \frac{1}{T_1 T_2 (\frac{1}{T_1} + s)(\frac{1}{T_2} + s)} = \frac{b_0}{a_0} = \frac{b_0}{a_0} \cdot \frac{a_0}{a_2} \cdot \frac{1}{(s + p_1)(s + p_2)} = \frac{\frac{b_0}{a_2}}{(s + p_1)(s + p_2)}
+	$$ 
+	che riconosciamo essere la forma che abbiamo usato finora.
+	\qed
+	\item \textbf{Forma di Evans:} è la forma a poli espliciti che avevamo già trovato:
+	$$
+	G(s) = \frac{\frac{b_0}{a_2}}{(s + p_1)(s + p_2)}
+	$$
+\end{itemize}
+
+\par\medskip
+
+Vediamo quindi la \textbf{risposta al gradino}:
+$$
+Y(s) = G(s) \cdot U(s) = \frac{\frac{b_0}{a_2}}{(s + \frac{1}{T_1})(s + \frac{1}{T_2}) \cdot s} = \frac{A}{s} + \frac{B}{s + \frac{1}{T_1}} + \frac{C}{s + \frac{1}{T_2}}
+$$
+dove si è adottata questa forma \textit{"ibrida"} di Evans, dove manteniamo esplicite le costanti tempo.
+
+Calcoliamo quindi i residui:
+$$
+A = \lim_{s \rightarrow 0} \frac{\frac{b_0}{a_2}}{(s + \frac{1}{T_1})(s + \frac{1}{T_2})} = \frac{b_0}{a_2} \cdot T_1 \cdot T_2 = \frac{b_0 \cdot a_2}{a_2 \cdot a_0} = \frac{b_0}{a_0} = G(0)
+$$
+sfruttando la proprietà 1 riportata prima.
+Si ha poi:
+$$
+B = \lim_{s \rightarrow - \frac{1}{T_1}} \frac{\frac{b_0}{a_2}}{s (s + \frac{1}{T_2})} 
+= \frac{b_0}{a_2} \cdot \frac{1}{-\frac{1}{T_1} (\frac{1}{T_2} - \frac{1}{T_1})} 
+= \frac{b_0 \cdot T_1^2 T_2}{a_2 (T_2 - T_1)} 
+= \frac{T_1}{T_2 - T_1} \cdot G(0)
+$$
+$$
+C = \lim_{s \rightarrow - \frac{1}{T_2}} \frac{\frac{b_0}{a_2}}{s (s + \frac{1}{T_1})} 
+= \frac{b_0}{a_2} \cdot \frac{1}{-\frac{1}{T_2} (\frac{1}{T_1} - \frac{1}{T_2})} 
+= \frac{b_0 \cdot T_1 T_2^2}{a_2 (T_2 - T_1)} 
+= -\frac{T_2}{T_2 - T_1} \cdot G(0)
+$$
+
+Calcoliamo quindi l'antitrasformata:
+$$
+y(t) = \mathcal{L}^{-1} \{ G(s) \cdot U(s) \} = G(0) \cdot \left( 1 + \frac{T_1 e^{-\frac{t}{T_1}} - T_2 e^{-\frac{t}{T_2}}}{T_2 - T_1} \right) \cdot H(t)
+$$
 
 \end{document}
