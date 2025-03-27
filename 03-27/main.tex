@@ -204,11 +204,29 @@
 Vediamo il caso di poli reali coincidenti, cioè $p_1 = p_2$.
 Notiamo che questo caso è puramente teorico, in quanto la risposta di un sistema reale sarà necessariamente leggermente sottosmorzata o leggermente sovrasmorzata.
 
-Si ha quindi l'unica proprietà:
+Potremo quindi dire:
+$$
+p_1 = p_2 = p, \quad T )= \frac{1}{p}
+$$
+e si avrà quindi l'unica proprietà:
 $$
 T^2 = \frac{1}{p^2} = \frac{a_2}{a_0}
 $$
 che deriva direttamente dalle precedenti.
+
+Le forme standard saranno allora le seguenti:
+\begin{itemize}
+	\item \textbf{Forma di Bode:} questa si ricaverà moltiplicando sopra e sotto per $T^2$ e applicando la proprietà:
+$$
+G(s) = \frac{ \frac{b_0}{a_2} }{(s + \frac{1}{T})^2} = \frac{ \frac{b_0}{a_0} T^2 }{(1 + s T)^2} = \frac{ \frac{b_0}{a_2} \cdot \frac{a_2}{a_0} }{(1 + sT)^2} = G(0) \cdot \frac{1}{(1 + sT)^2}  
+$$
+che mette ancora in evidenza il guadagno $G(0)$.
+	\item \textbf{Forma di Evans:} è la stessa che abbiamo usato finora, cioè:
+$$
+G(s) = \frac{ \frac{b_0}{a_2} }{ (s + p)^2 }
+$$
+sull'unico polo $p$.
+\end{itemize}
 
 Vediamo quindi la \textbf{risposta al gradino}, adottando la stessa forma \textit{"ibrida"} di Evans della scorsa lezione:
 $$
@@ -251,7 +269,7 @@ con:
 $$
 \alpha = -\frac{a_1}{2a_2}, \quad \beta = \sqrt{ \frac{a_0}{a_2} - \left( \frac{a_1}{2 a_2} \right)^2 } = \sqrt{ \frac{a_0}{a_2} \left( 1 - \frac{a_1^2}{4 a_2 a_0} \right) }
 $$
-che derivano direttamente da $p_1$ e $p_2$ come li avevamo definiti con la formula quadratica (portando $2 a_2$ dentro per $\beta$).
+che derivano direttamente da $p_1$ e $p_2$ come li avevamo definiti con la formula quadratica (portando $2 a_2$ dentro per $\beta$, che è il termine radicale col radicando cambiato di segno).
 
 Possiamo ricavare due valori fisicamente significativi, che sono la \textbf{pulsazione di risonanza}:
 $$
@@ -266,24 +284,38 @@ sapendo che questa situazione darà solitamente comportamenti oscillatori smorza
 Varrà allora, rispetto ai poli:
 \[
 	\begin{cases}
-		\alpha = -\xi \omega \\
-		\beta = \omega \sqrt{1 - \xi^2}
+		\alpha = -\xi \omega = - \frac{a_1}{2 \sqrt{a_0 a_2}} \sqrt{ \frac{a_0}{a_2} } = -\frac{a_1}{2 a_2} \\
+		\beta = \omega \sqrt{1 - \xi^2} = \sqrt{ \frac{a_0}{a_2} } \sqrt{ 1 - \frac{a_1^2}{4 a_0 a_2} } = \sqrt{ \frac{a_0}{a_2} \left( 1 - \frac{a_1^2}{4 a_0 a_2} \right) }
 	\end{cases}
 \]
 
 Potremo quindi adottare le forme standard:
 \begin{itemize}
-	\item \textbf{Forma di Bode:}
+	\item \textbf{Forma di Bode:} questa sarà:
 $$
-G(s) = \frac{ G(0) }{ \frac{1}{\omega} \cdot s^2 + 2 \frac{\xi}{\omega} \cdot s + 1 }
+G(s) = G(0) \cdot \frac{ 1 }{ \frac{1}{\omega^2} \cdot s^2 + 2 \frac{\xi}{\omega} \cdot s + 1 }
 $$
-	\item \textbf{Forma di Evans:}
+notando che:
+\[
+	\begin{cases}
+		2 \frac{\xi}{\omega} = 2 \frac{a_1}{2 \sqrt{a_0 a_2}} \cdot \sqrt{\frac{a_2}{a_0}} = \frac{a_1}{a_0} \\
+		\frac{1}{\omega^2} = \frac{a_2}{a_0}
+	\end{cases}
+\]
+e quindi:
 $$
-G(s) = \frac{ G(0) \cdot \omega^2 }{ s^2 + 2 \xi \omega \cdot s + \omega^2 }
+G(s) = \frac{ G(0) }{ \frac{1}{\omega^2} \cdot s^2 + 2 \frac{\xi}{\omega} \cdot s + 1 } = \frac{ \frac{b_0}{a_0} }{ 1 + \frac{a_1}{a_0} s + \frac{a_2}{a_0} s^2} = \frac{b_0}{a_0 + a_1 s + a_2 s^2}
 $$
+cioè equivale alla forma standard.
+	\item \textbf{Forma di Evans:} questa sarà:
+$$
+G(s) = \frac{ \frac{b_0}{a_2} }{ s^2 + 2 \xi \omega \cdot s + \omega^2 }
+$$
+cioè la stessa di sopra moltiplicata sopra e sotto per $\omega^2$.
 \end{itemize}
 
-# non so se la risolverà, nel caso risolvila
+Vediamo quindi la \textbf{risposta al gradino}:
+
 
 \subsubsection{Esempio: modello a quarto di automobile}
 Prendiamo come esempio di sistema del secondo ordine quello del \textbf{quarto di automobile}, inteso come il sistema formato dalla massa dell'automobile $M_s$, che agisce sulla sospensione (di costante elastica $k_s$) e sull'ammortizzatore (di smorzamento $c$), a loro volta collegati al pneumatico di massa $M_n$, che agisce anch'esso da sospensione (di costante elastica $k_p$) per il collegamento alla strada.
