@@ -1,0 +1,339 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Fondamenti di Automatica}
+\author{Luca Seggiani}
+\date{2025}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+% tikz in sans
+\tikzset{every picture/.style={/utils/exec={\sffamily}}}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=Teorema~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=Definizione~\thetcbcounter: #2,
+	#1
+}
+
+% disponi problemi
+\newtcolorbox[auto counter, number within=section]{problem}[2][]{%
+	colback=green!10,
+	colframe=green!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=Problema~\thetcbcounter: #2,
+	#1
+}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+\begin{document}
+
+% sezione (data)
+\section{Lezione del 27-03-25}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsubsection{$\mathbf \Delta = 0$, poli reali coincidenti}
+Vediamo il caso di poli reali coincidenti, cioè $p_1 = p_2$.
+Notiamo che questo caso è puramente teorico, in quanto la risposta di un sistema reale sarà necessariamente leggermente sottosmorzata o leggermente sovrasmorzata.
+
+Si ha quindi l'unica proprietà:
+$$
+T^2 = \frac{1}{p^2} = \frac{a_2}{a_0}
+$$
+che deriva direttamente dalle precedenti.
+
+Vediamo quindi la \textbf{risposta al gradino}, adottando la stessa forma \textit{"ibrida"} di Evans della scorsa lezione:
+$$
+Y(s) = G(s) \cdot U(s) = \frac{ \frac{b_0}{a_2} }{ \left( s + \frac{1}{T} \right)^2 } \cdot \frac{1}{s} = \frac{A}{s} + \frac{B}{s + \frac{1}{T}} + \frac{C}{\left( s + \frac{1}{T} \right)^2}
+$$
+
+Calcoliamo quindi i residui:
+$$
+A = \lim_{s \rightarrow 0} \frac{ \frac{b_0}{a_2} }{ \left( s + \frac{1}{T} \right)^2 } = \frac{b_0 \cdot T^2}{a_2} = \frac{b_0}{a_0} = G(0)
+$$
+$$
+C = \lim_{s \rightarrow - \frac{1}{T}} \frac{b_0}{a_2} \cdot \frac{1}{s} = - \frac{b_0 \cdot T}{a_2} = - \frac{b_0}{a_0} \cdot \frac{a_0}{a_2} \cdot T = - G(0) \cdot \frac{T}{T^2} = -\frac{G(0)}{T}
+$$
+Per calcolare il residuo in $B$ sfruttiamo la proprietà che troviamo sempre, dall'annullamento dei termini in $s^2$ di $A$ e $B$ al numeratore:
+$$
+A + B = 0 \implies B = -A = -G(0)
+$$
+
+Calcoliamo quindi l'antitrasformata:
+$$
+y(t) = \mathcal{L}^{-1} \{G(s) \cdot U(s)\} = G(0) \cdot \left( 1 - e^{-\frac{t}{T}} \left( 1 + \frac{t}{T} \right) \right) \cdot H(t)
+$$
+dove per il termine quadrato si ha:
+$$
+\mathcal{L}^{-1} \left\{ \frac{ k }{ \left( s + \frac{1}{T} \right)^2 } \right\} = k \, t e^{-\frac{t}{T}}
+$$
+sfruttando la proprietà:
+$$
+F(s - a) = \mathcal{L} \{ e^{at} \cdot f(t) \}
+$$
+presa $f(t) = \frac{1}{s^2}$ e $a = -\frac{1}{T}$.
+
+\subsubsection{$\mathbf \Delta < 0$, poli complessi coniugati}
+Vediamo infine il caso con poli complessi coniugati.
+Avremo quindi che questi rispettano la forma:
+$$
+p_{1,2} =  - \left( \alpha \pm i \beta \right)
+$$
+con:
+$$
+\alpha = -\frac{a_1}{2a_2}, \quad \beta = \sqrt{ \frac{a_0}{a_2} - \left( \frac{a_1}{2 a_2} \right)^2 } = \sqrt{ \frac{a_0}{a_2} \left( 1 - \frac{a_1^2}{4 a_2 a_0} \right) }
+$$
+che derivano direttamente da $p_1$ e $p_2$ come li avevamo definiti con la formula quadratica (portando $2 a_2$ dentro per $\beta$).
+
+Possiamo ricavare due valori fisicamente significativi, che sono la \textbf{pulsazione di risonanza}:
+$$
+\omega = \sqrt{\frac{a_0}{a_2}}
+$$
+e lo \textbf{smorzamento}:
+$$
+\xi = \frac{a_1}{2 \sqrt{a_0 a_2}}
+$$
+sapendo che questa situazione darà solitamente comportamenti oscillatori smorzati o meno (non smorzati se $a_1 = 0$).
+
+Varrà allora, rispetto ai poli:
+\[
+	\begin{cases}
+		\alpha = -\xi \omega \\
+		\beta = \omega \sqrt{1 - \xi^2}
+	\end{cases}
+\]
+
+Potremo quindi adottare le forme standard:
+\begin{itemize}
+	\item \textbf{Forma di Bode:}
+$$
+G(s) = \frac{ G(0) }{ \frac{1}{\omega} \cdot s^2 + 2 \frac{\xi}{\omega} \cdot s + 1 }
+$$
+	\item \textbf{Forma di Evans:}
+$$
+G(s) = \frac{ G(0) \cdot \omega^2 }{ s^2 + 2 \xi \omega \cdot s + \omega^2 }
+$$
+\end{itemize}
+
+# non so se la risolverà, nel caso risolvila
+
+\subsubsection{Esempio: modello a quarto di automobile}
+Prendiamo come esempio di sistema del secondo ordine quello del \textbf{quarto di automobile}, inteso come il sistema formato dalla massa dell'automobile $M_s$, che agisce sulla sospensione (di costante elastica $k_s$) e sull'ammortizzatore (di smorzamento $c$), a loro volta collegati al pneumatico di massa $M_n$, che agisce anch'esso da sospensione (di costante elastica $k_p$) per il collegamento alla strada.
+
+Prendiamo $x_s$ come la posizione verticale dell'auto, $x_n$ come la posizione verticale del pneumatico, e $x_f$ come la posizione verticale della strada (che \textit{varia} mentre la vettura si muove sul tracciato stradale, in base alle asperità stesse dell'asfalto).
+
+Possiamo riportare la costante elastica del pneumatico (di per sé complicata da calcolare, e comunque solitamente abbastanza grande da essere considerata come perfettamente solida) alla sospensione, considerando quindi la sola costante elastica $k_s$ della sospensione.
+
+Prendiamo quindi la posizione verticale dell'automobile $x_s$ come l'uscita del sistema, e la posizione verticale della strada $x_f$ come l'entrata.
+
+Chiamando poi $L_r$ la lunghezza della molla a riposo, potremmo impostare l'equazione differenziale come:
+$$
+M_s \frac{d^2 x_s}{dt^2} = c \frac{d ( x_f - x_s )}{dt} + k_s (x_f - x_s) + k_s L_r - M_s g
+$$
+dove il termine $k_s L_r$ deriva effettivamente dal fatto che la molla della sospensione risponde alla variazione della lunghezza a riposo della molla:
+$$
+F_s \propto  L_r - (x_s - x_f) = x_f - x_s + L_r
+$$
+mentre tutti i termini derivati non risentono di questa $L_r$ e quindi chiaramente la ignorano.
+
+Dividiamo quindi la differenziale in una soluzione particolare, o di equilibrio, $\overline{x}_s$, e in una soluzione generale $\Delta x_s$:
+$$
+x_s = \Delta x_s + \overline{x}_s
+$$
+La condizione di equilibrio di questo sistema sarà quindi, imponendo derivate nulle:
+$$
+\overline{x}_s = L_r - \frac{M_s g}{k_s}
+$$
+
+Potremo allora prendere l'omogenea per il calcolo della soluzione generale:
+$$
+M_s \frac{d^2 \Delta x_s}{dt^2} = c \frac{d ( x_f - \Delta x_s )}{dt} + k_s (x_f - \Delta x_s)
+$$
+Raggruppando ingressi e uscite (rispettivamente, $\Delta x_s$ e $x_f$) si ha:
+$$
+M_s \frac{d^2 \Delta x_s}{dt^2} + c \frac{d \Delta x_s}{dt} + k_s \Delta x_s = c \frac{dx_f}{dt} + k_s x_f
+$$
+da cui, portandosi, al dominio di Laplace:
+$$
+\left( s^2 M_s + cs + k_s \right) \Delta x_s = ( cs + k_s ) x_f
+$$
+troviamo la funzione di trasferimento $G(s)$:
+$$
+G(s) = \frac{\Delta x_s}{x_f} = \frac{c s + k_s}{s^2 M_s + c s + k_s}
+$$
+
+La funzione di trasferimento ha uno zero e due poli.
+Possiamo intanto ricavarci pulsazione ($\omega$) e smorzamento ($\xi$):
+$$
+\omega = \frac{k_s}{M_s}, \quad \xi = \frac{c}{2 \sqrt{k_s M_s}}
+$$
+
+\end{document}
