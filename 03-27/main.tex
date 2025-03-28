@@ -259,6 +259,17 @@ F(s - a) = \mathcal{L} \{ e^{at} \cdot f(t) \}
 $$
 presa $f(t) = \frac{1}{s^2}$ e $a = -\frac{1}{T}$.
 
+\noindent
+\begin{minipage}{\textwidth}
+vediamo il grafico di una classica funzione $y(t)$ di questo tipo, che viene detta anche \textbf{criticamente smorzata}:
+\begin{center}
+	\includegraphics[scale=0.66]{../figures/second_degree_critical.png}
+\end{center}
+\end{minipage}
+
+Questa rappresenta, in particolare, il caso ideale in cui l'uscita segue il segnale in entrata il più velocemente possibile.
+Sistemi dinamici di secondo grado come le sospensioni delle automobili vengono solitamente tarati per essere il più vicini allo smorzamento critico possibile (nel caso particolare delle automobili, si tende ad un leggero sottosmorzamento per aumentare il comfort).
+
 \subsubsection{$\mathbf \Delta < 0$, poli complessi coniugati}
 Vediamo infine il caso con poli complessi coniugati.
 Avremo quindi che questi rispettano la forma:
@@ -281,7 +292,9 @@ $$
 $$
 sapendo che questa situazione darà solitamente comportamenti oscillatori smorzati o meno (non smorzati se $a_1 = 0$).
 
-Varrà allora, rispetto ai poli:
+In particolare, la pulsazione di risonanza rappresenta la pulsazione che si avrebbe senza smorzamento, mentre la pulsazione effettiva sarà più piccola a seconda dello smorzamento effettivo. 
+
+Varrà infatti, rispetto ai poli:
 \[
 	\begin{cases}
 		\alpha = -\xi \omega = - \frac{a_1}{2 \sqrt{a_0 a_2}} \sqrt{ \frac{a_0}{a_2} } = -\frac{a_1}{2 a_2} \\
@@ -314,8 +327,56 @@ $$
 cioè la stessa di sopra moltiplicata sopra e sotto per $\omega^2$.
 \end{itemize}
 
-Vediamo quindi la \textbf{risposta al gradino}:
+Vediamo quindi la \textbf{risposta al gradino}.
+Per fare ciò, notiamo che la trasformata di Laplace risulterà:
+$$
+Y(s) = G(s) \cdot U(s) = \frac{\frac{b_0}{a_2}}{s (s + p_1) (s + p_2)}
+$$
+con il solito $p_{1, 2} = -(\alpha \pm i \beta)$.
+Si avrà quindi la forma:
+$$
+= \frac{A}{s} + \frac{B}{s + p_1} + \frac{B^*}{s + p_2}
+$$
+Con residui coniugati $B$ e $B^*$.
+Il calcolo di $A$ è piuttosto facile:
+$$
+A = \lim_{s \rightarrow 0} \frac{ \frac{b_0}{a_2} }{ (s + p_1) (s + p_2) } = \frac{ \frac{b_0}{a_2} }{p_1 p_2} = \frac{b_0}{a_2} \cdot \frac{a_2}{a_0} = \frac{b_0}{a_0} = G(0)
+$$
+visto che:
+$$
+p_1 p_2 = \alpha^2 + \beta^2 = \frac{a_1^2}{4 a_2^2} + \frac{a_0}{a_2} \left( 1 - \frac{a_1^2}{4 a_0 a_2} \right) = \frac{a_0}{a_2}
+$$
 
+Lo stesso non si può dire per $B$ o $B^*$.
+Decidiamo allora di impostare direttamente la forma $y(t)$:
+$$
+y(t) = \frac{b_0}{a_0} \left( 1 + A e^{\alpha t} \cos{\omega t} + B e^{\alpha t} \sin{\omega t} \right)
+$$
+che sarà in ogni caso combinazione lineare delle soluzioni che potremmo trovare dall'antitrasformata $\mathcal{L}^{-1} \left\{ Y(s) \right\}$.
+Imponiamo quindi le condizioni iniziali $y(0) = 0$ e $y'(0) = 0$:
+\[
+	\begin{cases}
+		y(0) =  \frac{b_0}{a_0} \left( 1 + A e^{\alpha t} \cos{\beta t} + B e^{\alpha t} \sin{\beta t} \right)
+		= \frac{b_0}{a_0} \left( 1 + A \right) \\
+		y'(0) = \frac{b_0}{a_0} \left( \alpha B \cos(\beta t) - \beta B e^{\alpha t} \sin(\beta t) + C \alpha e^{\alpha t}\sin(\beta t) + \beta C e^{\alpha t} \cos(\beta t) \right)
+		= \frac{b_0}{a_0} \left( -\alpha + \beta C \right)
+	\end{cases}
+\]
+$$
+	\implies A = -1, \quad C = \frac{\alpha}{\beta}
+$$
+da cui l'equazione finale:
+$$
+y\left(t\right)=\frac{b_{0}}{a_{0}}\left(1-e^{\alpha t}\cos\left(\beta t\right)+\frac{\alpha}{\beta}e^{\alpha t}\sin\left(\beta t\right)\right)
+$$
+
+\noindent
+\begin{minipage}{\textwidth}
+vediamo il grafico di una classica funzione $y(t)$ di questo tipo, che viene detta anche \textbf{sottosmorzata}:
+\begin{center}
+	\includegraphics[scale=0.66]{../figures/second_degree_underdamped.png}
+\end{center}
+\end{minipage}
 
 \subsubsection{Esempio: modello a quarto di automobile}
 Prendiamo come esempio di sistema del secondo ordine quello del \textbf{quarto di automobile}, inteso come il sistema formato dalla massa dell'automobile $M_s$, che agisce sulla sospensione (di costante elastica $k_s$) e sull'ammortizzatore (di smorzamento $c$), a loro volta collegati al pneumatico di massa $M_n$, che agisce anch'esso da sospensione (di costante elastica $k_p$) per il collegamento alla strada.
@@ -367,5 +428,7 @@ Possiamo intanto ricavarci pulsazione ($\omega$) e smorzamento ($\xi$):
 $$
 \omega = \frac{k_s}{M_s}, \quad \xi = \frac{c}{2 \sqrt{k_s M_s}}
 $$
+
+# finisci bellino
 
 \end{document}
