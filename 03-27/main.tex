@@ -350,24 +350,24 @@ $$
 Lo stesso non si può dire per $B$ o $B^*$.
 Decidiamo allora di impostare direttamente la forma $y(t)$:
 $$
-y(t) = \frac{b_0}{a_0} \left( 1 + A e^{\alpha t} \cos{\omega t} + B e^{\alpha t} \sin{\omega t} \right)
+y(t) = \frac{b_0}{a_0} \left( 1 + C e^{\alpha t} \cos{\omega t} + D e^{\alpha t} \sin{\omega t} \right)
 $$
 che sarà in ogni caso combinazione lineare delle soluzioni che potremmo trovare dall'antitrasformata $\mathcal{L}^{-1} \left\{ Y(s) \right\}$.
 Imponiamo quindi le condizioni iniziali $y(0) = 0$ e $y'(0) = 0$:
 \[
 	\begin{cases}
-		y(0) =  \frac{b_0}{a_0} \left( 1 + A e^{\alpha t} \cos{\beta t} + B e^{\alpha t} \sin{\beta t} \right)
-		= \frac{b_0}{a_0} \left( 1 + A \right) \\
-		y'(0) = \frac{b_0}{a_0} \left( \alpha B \cos(\beta t) - \beta B e^{\alpha t} \sin(\beta t) + C \alpha e^{\alpha t}\sin(\beta t) + \beta C e^{\alpha t} \cos(\beta t) \right)
-		= \frac{b_0}{a_0} \left( -\alpha + \beta C \right)
+		y(0) =  \frac{b_0}{a_0} \left( 1 + C e^{\alpha t} \cos{\beta t} + D e^{\alpha t} \sin{\beta t} \right)
+		= \frac{b_0}{a_0} \left( 1 + C \right) \\
+		y'(0) = \frac{b_0}{a_0} \left( \alpha C \cos(\beta t) - \beta C e^{\alpha t} \sin(\beta t) + D \alpha e^{\alpha t}\sin(\beta t) + \beta D e^{\alpha t} \cos(\beta t) \right)
+		= \frac{b_0}{a_0} \left( -\alpha + \beta D \right)
 	\end{cases}
 \]
 $$
-	\implies A = -1, \quad C = \frac{\alpha}{\beta}
+	\implies C = -1, \quad D = \frac{\alpha}{\beta}
 $$
 da cui l'equazione finale:
 $$
-y\left(t\right)=\frac{b_{0}}{a_{0}}\left(1-e^{\alpha t}\cos\left(\beta t\right)+\frac{\alpha}{\beta}e^{\alpha t}\sin\left(\beta t\right)\right)
+y\left(t\right)=\frac{b_{0}}{a_{0}}\left(1-e^{\alpha t}\cos\left(\beta t\right)+\frac{\alpha}{\beta}e^{\alpha t}\sin\left(\beta t\right)\right) \cdot H(t)
 $$
 
 \noindent
@@ -381,7 +381,7 @@ vediamo il grafico di una classica funzione $y(t)$ di questo tipo, che viene det
 \subsubsection{Esempio: modello a quarto di automobile}
 Prendiamo come esempio di sistema del secondo ordine quello del \textbf{quarto di automobile}.
 
-Il sistema va inteso inteso come formato dalla massa dell'automobile $M_s$, che agisce sulla sospensione (di costante elastica $k_s$) e sull'ammortizzatore (di smorzamento $c$), a loro volta collegati alla ruota di massa $M_n$, il cui pneumatico che agisce anch'esso da sospensione (di costante elastica $k_p$) per il collegamento alla strada.
+Il sistema va inteso inteso come formato dalla massa dell'automobile $M_s$, che agisce sulla sospensione (di costante elastica $k_s$) e sull'ammortizzatore (di smorzamento $c$), a loro volta collegati alla ruota di massa $M_n$, il cui pneumatico agisce anch'esso da sospensione (di costante elastica $k_p$) per il collegamento alla strada.
 Prendiamo $x_s$ come la posizione verticale dell'auto, $x_n$ come la posizione verticale della ruota, e $x_f$ come la posizione verticale della strada (che \textit{varia} mentre la vettura si muove sul tracciato stradale, in base alle asperità stesse dell'asfalto).
 
 Possiamo riportare la costante elastica del pneumatico (di per sé complicata da calcolare, e comunque solitamente abbastanza grande da essere considerata come perfettamente solida) alla sospensione, considerando quindi la sola costante elastica $k_s$ della sospensione.
@@ -455,7 +455,7 @@ $$
 $$
 da cui potremo ricavare la risposta come spiegato nelle ultime 3 sezioni.
 
-In particolare, abbiamo detto che le sospensioni autombilistiche sono solitamente sottosmorzate, da cui potremo ricavare i termini di smorzamento e pulsazione effettivi come:
+In particolare, abbiamo detto che le sospensioni automobilistiche sono solitamente sottosmorzate, da cui potremo ricavare i termini di smorzamento e pulsazione effettivi come:
 \[
 	\begin{cases}
 		\alpha = -\xi \omega\\
@@ -476,7 +476,7 @@ Vorremo quindi imporre a $g(t)$ le condizioni iniziali $y(0) = 0$ e $y'(0) = 1$,
 $$
 A = 0, \quad B = \frac{1}{\beta}
 $$
-da cui:
+e: 
 $$
 g(t) = \frac{1}{\beta} e^{\alpha t} \sin(\beta t)
 $$
