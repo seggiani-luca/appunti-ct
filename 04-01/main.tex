@@ -305,7 +305,7 @@ Vediamo quindi come si può svolgere una derivazione (con 2 procedimenti leggerm
 	\[
 		\begin{cases}
 			1 + B = 0 \\ 
-			2 \omega \xi + C
+			2 \omega \xi + C = 0
 		\end{cases} \implies
 		\begin{cases}
 			B = -1 \\ 
@@ -474,50 +474,7 @@ Concludiamo il discorso sui sistemi sottosmorzati considerando il comportamento 
 
 Da dove notiamo che a valori di smorzamento maggiori si ha minore sovraelongamento, ma anche maggiore tempo di salita.
 
-\subsection{Stabilità nel modello a funzione di trasferimento}
-Abbiamo lavorato finora col modello a funzione di trasferimento, definita come:
-$$
-G(s) = \frac{\sum_{i = 0}^m b_i s^i}{\sum_{i = 0}^n a_i s^i} = \frac{ b_m (s - z_1) (s - z_2) ... (s - z_m) }{ a_n (s - p_1) (s - p_2) ... (s - p_n) }
-$$
-con $z_i$ gli $m$ \textit{zeri}, $p_i$ gli $n$ \textit{poli}, e $n > m$.
-
-Di questa avevamo individuato le due forme:
-\begin{itemize}
-	\item \textbf{Forma di Evans:} evidenzia poli e zeri:
-		$$
-G(s) = \frac{\sum_{i = 0}^m b_i s^i}{\sum_{i = 0}^n a_i s^i} = \frac{ b_m (s - z_1) (s - z_2) ... (s - z_m) }{ a_n (s - p_1) (s - p_2) ... (s - p_n) }
-		$$
-	\item \textbf{Forma di Bode:} evidenzia le costanti tempo: 
-		$$
-G(s) = K \frac{ (\tau_a s + 1) (\tau_b s + 1) ... (\tau_i s + 1) }{ (\tau_1 s + 1) (\tau_2 s + 1) ... (\tau_n s + 1) }
-		$$
-\end{itemize}
-
-Definiamo quindi formalmente \textbf{poli}:
-\begin{definition}{Polo}
-	Un polo $a_i$ di una funzione di trasferimento $G(s)$ è un valore di $s$ per cui $G(s)$ tende ad infinito:
-	$$
-	F(s) = \frac{g(s)}{\prod_{i = 1}^x (s - a_i)^n_i}
-	$$
-	con $n_i$ ordine del polo.
-\end{definition}
-e \textbf{zeri}:
-\begin{definition}{Zeri}
-	Uno zero $a_i$ di una funzione di trasferimento $G(s)$ è un valore di $s$ per cui $G(s)$ tende a zero: 
-	$$
-	F(s) = \frac{\prod_{i = 1}^x (s - a_i)^m_i}{g(s)}
-	$$
-	con $m_i$ ordine dello zero.
-\end{definition}
-
-Quello che ci interesserà nella valutazione della \textbf{stabilità} dei sistemi sarà la posizione dei poli nel piano complesso.
-In particolare, come avevamo detto per i modi nel modello a variabili di stato, poli a componente \textit{reale negativa} danno \textbf{stabilità asintotica}, poli a componente \textit{reale nulla} danno \textbf{stabilità marginale}, e poli a componente \textit{reale positiva} dano \textbf{instabilità}.
-Inoltre la componente \textit{complessa} dà informazioni sull'oscillazione del sistema, con \textbf{oscillazioni smorzate} a componente \textit{complessa e reale non nulle}, e \textbf{oscillazioni continue} a componente \textit{reale nulla}.
-
-Gli zeri, invece, non hanno effetto sulla stabilità.
-Gli zeri a parte reale positiva hanno invece l'effetto di \textit{invertire} la risposta al gradino, almeno sul breve termine.
-
-\subsubsection{Conversione da spazio di stato a funzione di trasferimento}
+\subsection{Passaggio da forma di stato a funzione di trasferimento}
 Dovrebbe ormai essere chiaro che lo spazio di stato e la funzione di trasferimento rappresentano due modi di modelizzare lo stesso tipo di fenomeni.
 Vediamo quindi come passare dall'uno all'altro.
 
@@ -594,7 +551,7 @@ b_0
 \]
 
 Dimostriamo che le due forme sono effettivamente equivalenti.
-Vogliamo partire dalla forma in variabili di stato è usare la formula dello scorso paragrafo per ricavare la funzione di trasferimento $G(s)$.
+Vogliamo partire dalla forma in variabili di stato e usare la formula dello scorso paragrafo per ricavare la funzione di trasferimento $G(s)$.
 Abbiamo quindi:
 $$
 G(s) = C(sI - A)^{-1} B + D
@@ -681,7 +638,7 @@ $$
 \end{pmatrix}
 $$
 
-Sostitendo nella formula abbiamo quindi:
+Sostituendo nella formula abbiamo quindi:
 $$
 G(s) = C(sI - A)^{-1} B + D = 
 $$
