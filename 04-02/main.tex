@@ -339,14 +339,20 @@ Y(s) = G(s) U(s) = \frac{\gamma}{m \left( s + \frac{\beta}{m} \right)} \frac{1}{
 $$
 che antitransforma in:
 $$
-y(t) = \alpha_1 e^{-\frac{\beta}{m} t} + \alpha_2 \cdot H(t)
+y(t) = \left( \alpha_1 e^{-\frac{\beta}{m} t} + \alpha_2 \right) \cdot H(t)
 $$
 con:
 $$
 \alpha_1 = - \frac{\gamma}{\beta}, \quad \alpha_2 = \frac{\gamma}{\beta}
 $$
-che è la classica risposta al gradino di un sistema del prim'ordine:
-# boh grafico
+
+\noindent
+\begin{minipage}{\textwidth}
+Abbiamo quindi che la risposta è la classica risposta al gradino di un sistema del prim'ordine:
+\begin{center}
+	\includegraphics[scale=0.28]{../figures/crociera_first_order.png}
+\end{center}
+\end{minipage}
 
 \subsubsection{Poli del sistema ed equazione caratteristica}
 Si ha che i \textbf{poli} del sistema in forma a variabili di stato sono un \textit{sottoinsieme} degli \textbf{autovalori} della matrice $A$, in quanto li troviamo come radici dell'equazione:
@@ -358,9 +364,11 @@ $$
 p_2(s) = \det(A - \lambda I)
 $$
 
-Diciamo sottoinsieme in quanto potrebbe esserci semplificazione fra numeratore e denominatore della funzione di trasferimento.
+Diciamo \textit{sottoinsieme} in quanto potrebbe esserci semplificazione fra numeratore e denominatore della funzione di trasferimento.
 Quindi, non tutti gli autovalori della matrice $A$ diventeranno poli della funzione di trasferimento.
 In particolare, dalla definizione di raggiungbilità ed osservabilità che avevamo dato, abbiamo che per ogni funzione di trasferimento $g_{ij}(s)$, i poli della funzione di trasferimento sono tutti e soli i poli (modi) raggiungibili dall'ingresso $u_j$ ed osservabili dall'uscita $y_i$.
+
+Questo discorso tornerà utile quando discuteremo la differenza fra stabilità e \textit{BIBO} stabilità.
 
 \subsection{Stabilità nel modello a funzione di trasferimento}
 Abbiamo lavorato finora col modello a funzione di trasferimento, definita come:
@@ -423,13 +431,32 @@ Per parlare propriamente di stabilità, in relazione all'ingresso, nei modelli a
 
 Si ha che, per sistemi lineari, la stabilità BIBO si ha se e solo se i poli della funzione di trasferimento hanno tutti parte reale $< 0$.
 Notiamo che la stabilità BIBO, al confronto della stabilità semplice che avevamo valutato finora, non dipende soltanto dallo stato interno del sistema, ma dalla \textbf{risposta forzata}.
-Possono infatti esistere esempi di sistemi BIBO stabili ma non internamente stabili, e viceversa.
 
 \subsubsection{Poli dominanti}
 In un sistema BIBO stabile, quindi, i modi sono tutti segnali esponenzialmente smorzati.
 Al di là del transitorio iniziale, in questa situazione si avrà che il comportamento prevalente del sistema è quello dei modi più lenti, cioè quelli più vicini all'asse immaginario.
 
-\subsection{Criterio di Routh}
+\subsubsection{Riassunto sulla stabilità}
+Abbiamo quindi che \textbf{stabilità interna} (quella che avevamo visto nei modelli a variabili di stato) e \textbf{BIBO stabilità} di un sistema sono caratteristiche legate fra di loro ma separate:
+\begin{table}[h!]
+	\center \rowcolors{2}{white}{black!10}
+	\begin{tabular} { c || p{5cm} | p{5cm} }
+	& \bfseries Stabilità interna & \bfseries BIBO stabilità \\ 
+	\hline 
+		\bfseries Derivazione & Dagli autovalori (modi) della matrice $A$. & Dai poli della funzione di trasferimento, \\ 
+		\bfseries Comportamento & Comportamento naturale, a partire dalle condizioni iniziali. & Sottoposto a un ingresso (risposta forzata) $u$ variabile $\neq 0$.
+	\end{tabular}
+\end{table}
+
+La stabilità interna implica solitamente la stabilità BIBO, ma questo potrebbe non essere il caso se ci sono cancellazioni.
+Possono esistere infatti esempi di sistemi BIBO stabili ma non internamente stabili, e viceversa.
+
+Nel primo caso, il sistema potrebbe sembrare stabile "agli effetti esterni", ma determinate eccitazioni potrebbero portare a comportamenti instabili (oscillazioni incontrollate, ecc...), che solitamente raggiungono stati fisicamente 
+impossibili all'interno del sistema stesso, e quindi fallimento.
+
+Nel secondo, si potrebbero avere sistemi "di per sé" stabili, ma che rispondono in maniera negativa anche a piccolissime sollecitazioni esterne, rendendoli effettivamente instabili dal punto di vista della dinamica agli effetti esterni.
+
+\subsection{Stabilità di sistemi in circuito chiuso}
 Avevamo detto che i poli del sistema sono quelli che decidono la stabilità di un sistema.
 
 \noindent
@@ -477,6 +504,8 @@ Preso ad esempio il sistema in ciclo chiuso:
 \end{center}
 \end{minipage}
 
+\par\medskip
+
 Dove le funzioni $C(s)$, $G(s)$ e $H(s)$ rappresentano rispettivamente il \textbf{controllore}, l'\textbf{impianto} e il \textbf{sensore}.
 La funzione di trasferimento, trascurati i disturbi, avevamo detto era:
 $$
@@ -484,7 +513,7 @@ $$
 $$
 da cui la stabilità del sistema è data dalla catena di retroazione completa (denominatore $d(s) = 1 + C(s)G(s)H(s))$, mentre la catena diretta $n(s) = C(s)G(s)$ dà solo gli zeri.
 
-Del sistema in catena chiusa, quindi, valuteremo la stabilità controllando se i \textit{poli}  si trovano nella cosiddettà \textbf{regione di stabilita}, individuata come l'insieme di $z$ sul piano complesso a $\mathrm{Re}(z) < 0$.
+Del sistema in catena chiusa, quindi, valuteremo la stabilità controllando se i \textit{poli}  si trovano nella cosiddettà \textbf{regione di stabilità}, individuata come l'insieme di $z$ sul piano complesso a $\mathrm{Re}(z) < 0$.
 
 Possiamo generalizzare il seguente discorso prendendo due funzioni di trasferimento, dette $G_{OL}$ (\textit{Open Loop}, in \textbf{anello aperto}), e $G_{CL}$ (\textit{Closed Loop}, in \textbf{anello chiuso}).
 A questo punto potremo definire la funzione di trasferimento come:
@@ -504,13 +533,66 @@ Notiamo nuovamente che sarà solo il denominatore, in entrambi i casi, ad import
 Facciamo alcuni esempi.
 
 \subsubsection{Esempio: stabilità in catena chiusa}
+Prendiamo il sistema con funzione di trasferimento in catena aperta:
+$$
+G_{OL} = \frac{10(0.5s + 1)}{s(2s + 1)}
+$$
+e trasferimento del sensore all'unità, e consideriamone la BIBO stabilità.
+Vorremo prendere il solo denominatore:
+$$
+d(s) = 1 + G_{OL} = \frac{s(2s + 1) + 10(0.5s + 1)}{s(2s + 1)}
+$$
+di cui ci interessano solo gli zeri (cioè i poli di $T(s)$ funzione di trasferimento complessiva del sistema), quindi il numeratore::
+$$
+n'(s) = 2s^2 + s + 5s +10 = 2s^2 + 3s + 10
+$$
+di cui gli zeri:
+$$
+p_{1, 2} = \frac{-3}{4} \pm i \frac{\sqrt{79}}{4}
+$$
+con parte reale $< 0$, quindi il sistema è BIBO stabile.
+
 \subsubsection{Esempio: stabilità in catena chiusa con parametro}
+Prendiamo adesso un sistema con trasferimento in catena aperta determinato da un parametro:
+$$
+G_{OL} = s + 0.2 k - 2
+$$
+con transferimento del sensore sempre all'unità.
+La domanda potrebbe essere per quali valori di $k$ il sistema è stabile.
+Prendiamo allora il denominatore:
+$$
+d(s) = 1 + G_{OL} = s + 0.2 k - 1 \implies s = 1 - 0.2k
+$$
+di cui vediamo, se vogliamo poli in $s < 0$ e assumiamo $k \in \mathbb{R}$, dobbiamo imporre la condizione:
+$$
+k < 5
+$$
+
 \subsubsection{Esempio: stabilità in catena chiusa con parametro al second'ordine}
+Facciamo un esempio analogo al precedente ma con una funzione di trasferimento del secondo grado:
+$$
+G_{OL} = \frac{k}{(2s + 1)(5s + 1)}
+$$
+con gli stessi assunti di prima sul sensore.
+In questo caso il denominatore sarà:
+$$
+1 + G_{OL} = 1 + \frac{k}{(2s + 1)(5s + 1)} = \frac{10s^ + 7s  k + 1}{(2s + 1)(5s + 1)}
+$$
+da cui il numeratore:
+$$
+n'(s) = 10s^2 + 7s + k + 1
+$$
+per imporre $s < 0$, in questo caso, si dovrà dire:
+$$
+p_{1, 2} = \frac{-7 \pm \sqrt{49 - 40 (k + 1)}}{2(k + 1)}
+$$
+quindi parti reali:
+$$
+\mathrm{Re}(p_{1,2}) = -\frac{7}{2(k + 1)}
+$$
+e $k < -1$.
 
-# ha fatto 3 esempi
-
-\par\bigskip
-
+\subsection{Criterio di Routh}
 Il \textbf{criterio di Routh} (\textit{criterio di Routh-Hurwitz}) è il primo metodo che vediamo per sistematizzare il procedimento di valutazione della stabilità.
 Rappresenta un metodo \textit{puramente algebrico} che si applica a sistemi di controllo lineari tempo invarianti (\textit{LTI}).
 
@@ -518,6 +600,8 @@ Di base abbiamo che considereremo equazioni caratteristiche in forma polinomiale
 $$
 p(s) = a_n s^n + a_{n - 1}s^{n - 1} + ... + a_1 s + a_0 = 0
 $$
+ciò che ci interessa è capire, guardando solo ai coefficienti $a_n, ..., a_0$, il segno delle componenti reali delle radici del polinomio, e in particolare sapere se queste sono tutte negative.
+Il criterio di Routh ci permette di fare esattamente questo.
 
 Vediamo innanzitutto le \textbf{condizioni di applicabilità}.
 Abiamo la condizione necessaria ma non sufficiente per la stabilità, che tutti gli $n + 1$ coefficienti del polinomio devono avere lo stesso segno.
@@ -540,30 +624,34 @@ Potremo quindi dire:
 	\begin{tabular} { c | c c c c }
 		$n$ & $a_n$ & $a_{n - 2}$ & $a_{n - 4}$ & ... \\
 		$n - 1$ & $a_{n - 1}$ & $a_{n - 3}$ & $a_{n - 5}$ & ... \\
-		$n - 2$ & $\gamma_1$ & $\gamma_2$ & $\gamma_3$ & ... \\
+		$n - 2$ & $b_1$ & $b_2$ & $b_3$ & ... \\
 		$\vdots$ & ... & ... & ... \\
-		1 & $b_1$ & $b_2$ \\
-		0 & $c_1$
+		1 & $y_1$ & $y_2$ \\
+		0 & $z_1$
 	\end{tabular}
 \end{table}
 
 Per i termini successivi si prende, ad esempio alla terza riga:
 $$
-\gamma_1 = - \frac{ \det \begin{pmatrix}
+b_1 = - \frac{ \det \begin{pmatrix}
 	a_n & a_{n - 2} \\
 	a_{n - 1} & a_{n - 3}
 \end{pmatrix} }{a_{n - 1}}, \quad
-\gamma_2 = - \frac{ \det \begin{pmatrix}
+b_2 = - \frac{ \det \begin{pmatrix}
 	a_n & a_{n - 4} \\
 	a_{n - 1} & a_{n - 5}
 \end{pmatrix} }{a_{n - 1}}, \quad ...
 $$
-cioè ogni volta il minore ottenuto prendendo le due righe alla prima colonna  alla $i + 1$-esima.
+e cosi via per righe successive, cioè ogni volta si prende il minore ottenuto prendendo le due righe alla prima colonna  alla $i + 1$-esima dove $i$ è la colonna che consideriamo.
+Vediamo che questo procedimento riduce automaticamente il numero di colonne di $1$ ogni $2$ righe (per gli elementi che rimangono \textit{a metà}, cioe non sono definiti sulla riga corrente, si prende 0).
 
-Sulla tabella di Routh si possono dimostrare dei teoremi:
-\begin{theorem}{}
-	Condizione necessaria e sufficiente perchè tutte le radici dell'equazione caratteristica abbiano # eh boh
+Sulla tabella di Routh si possono dimostrare 2 teoremi, il primo riguardo alla condizione che cercavamo:
+\begin{theorem}{Primo teorema di Routh}
+	Condizione necessaria e sufficiente perchè tutte le radici dell'equazione caratteristica abbiano parte reale negativa è che tutti gli elementi della prima colonna della tabella di Routh siano positivi e non nulli.
 \end{theorem}
-
+e il secondo nel caso il primo fallisse:
+\begin{theorem}{Secondo teorema di Routh}
+	Se qualche elemento della prima colonna è negativo, il numero di radici con parte reale positiva è uguale al numero di cambi di segno dei coefficienti della prima colonna.
+\end{theorem}
 
 \end{document}
