@@ -200,82 +200,150 @@
 \pagestyle{fancy}
 
 % testo
-\noindent
-\begin{minipage}{\textwidth}
-\subsection{Dettaglio sulla risposta dei sistemi sottosmorzati}
-Vediamo in particolare alcune grandezze di interesse nel caso di sistemi di secondo grado sottosmorzati:
-
-\par\bigskip
-
-\begin{center}
-\includegraphics[scale=0.29]{../figures/damped_oscillator.png}
-\end{center}
-\end{minipage}
-
-\par\bigskip
-
-Abbiamo che una caratteristica del loro comportamento è la \textbf{sovraelongazione} al di sopra del valore bersaglio.
-Chiamiamo quindi $M_p$ la \textit{massima sovraelongazione} sopra il livello di riferimento, e $t_p$ l'istante temporale in cui questa viene raggiunta.
-Avremo poi il tempo $t_r$ \textit{di salita}, il momento in cui viene toccato per la prima volta il valore bersaglio, e il tempo $t_d$ \textit{di ritardo}, che viene impiegato a raggiungere il 50\% del valore bersaglio.
-Infine, per valutare il comportamento oscillante dopo il transiente iniziale, consideriamo il tempo $t_s$ \textit{di assestamento}, oltre il quale il segnale resta in una certa (piccola) percentuale del valore bersaglio.
-
-\noindent
-\begin{minipage}{\textwidth}
-Vediamo il comportamento generale dei sistemi di questo tipo al variare del valore di smorzamento $\xi = \frac{a_1}{2 \sqrt{a_0 a_2}}$:
-
-\par\bigskip
-
-\begin{center}
-\includegraphics[scale=0.29]{../figures/damping_values.png}
-\end{center}
-\end{minipage}
-
-\par\bigskip
-
-Da dove notiamo che a valori di smorzamento maggiori si ha minore sovraelongamneto, ma anche maggiore tempo di salita.
-
-Notiamo che possiamo considerare gli stessi parametri considerati sui sistemi sottosmorzati anche per sistemi criticamente smorzati o sovrasmorzati: infatti, se non per il tempo e per il punto di sovraelengazione, questi avranno valori ben definiti per qualsiasi sistema del second'ordine.
-
-Tornando al dettaglio dei sistemi sottosmorzati, possiamo trovare le seguenti formule:
-\begin{itemize}
-	\item \textbf{Sovraelongazione:} si ha il picco in:
-		$$
-			S\% \ (M_p) \ = 100 e^{- \frac{\xi \pi}{\sqrt{1 - \xi^2}}}
-		$$
-		raggiunto all'istante:
-		$$
-			t_p = \frac{\pi}{\omega \sqrt{1 - \xi^2}}
-		$$
-	\item \textbf{Periodo di oscillazione:} possiamo considerare anche il periodo (e quindi la frequenza) delle oscillazioni, considerando il polo in $\beta$:
-		$$
-			T_o = \frac{2\pi}{\omega \sqrt{1 - x^2}}
-		$$
-		$$
-			f_o = \frac{\omega \sqrt{1 - x^2}}{2\pi} 
-		$$
-	\item \textbf{Tempo di assestamento:} consideriamo questo come:
-		$$
-		t_s \approx -\frac{1}{\xi \omega} \ln(0.05)
-		$$
-	\item \textbf{Tempo di salita} consideriamo infine questo, con molta approssimazione, come:
-		$$
-		t_r \approx \frac{1.8}{\omega}
-		$$
-\end{itemize}
-
 \subsubsection{Derivazione alternativa della funzione sottosmorzata}
-Avevamo ricavato l'espressione:
+Avevamo ricavato l'espressione nella 13.0.2:
 $$
-y(t) = \frac{b_0}{a_0} \left( 1 - e{\alpha t} \cos(\beta t) + \frac{\alpha}{\beta} e^{\alpha t} e^{\alpha t} \sin(\beta t) \right) \cdot H(t)
+y(t) = \frac{b_0}{a_0} \left( 1 - e^{\alpha t} \cos(\beta t) + \frac{\alpha}{\beta} e^{\alpha t} e^{\alpha t} \sin(\beta t) \right) \cdot H(t)
 $$
-per i sistemi del second'ordine sottosmorzati.
-Vediamo come si può svolgere una derivazione, attraverso Laplace, per arrivare alla forma (equivalente):
+per la risposta al gradino edi sistemi del second'ordine sottosmorzati.
+Notiamo l'esistenza della forma (equivalente):
 $$
-y(t) = G(0) \cdot \left( 1 - e^{-\xi \omega t} \cos\left(\omega \sqrt{1 - \xi ^2} \cdot t \right) - \frac{\xi}{\sqrt{1 - \xi^2}} e^{-\xi \omega t} \sin\left( \omega \sqrt{1 - \xi^2} \cdot t \right) \right)
+y(t) = G(0) \cdot \left( 1 - e^{-\xi \omega t} \cos\left(\omega \sqrt{1 - \xi ^2} \cdot t \right) - \frac{\xi}{\sqrt{1 - \xi^2}} e^{-\xi \omega t} \sin\left( \omega \sqrt{1 - \xi^2} \cdot t \right) \right) \cdot H(t)
 $$
-vediamo come questa evidenzia la dipendenza dal guadagno $G(0)$, e dai valori di pulsazione naturale $\omega$ e smorzamento $\xi$.
+che evidenzia la dipendenza dal guadagno $G(0)$, e dai valori di pulsazione naturale $\omega$ e smorzamento $\xi$.
+Vediamo quindi come si può svolgere una derivazione (con 2 procedimenti leggermente diversi), formale, attraverso Laplace (visto che precedentemente siamo andati avanti per stime).
 
-# fallo
+\begin{enumerate}
+	\item Partiamo dalla forma di Evans della funzione di trasferimento della 13.0.2:
+		$$
+		G(s) = G(0) \cdot \frac{\omega^2}{s^2 + 2 \omega \xi \cdot s + \omega^2}
+		$$
+		Da cui la risposta al gradino:
+		$$
+		Y(s) = G(s) \cdot U(s) = G(0) \cdot \frac{\omega^2}{\left( s^2 + 2 \omega \xi \cdot s + \omega^2 \right) s}
+		$$
+		Dal denominatore si ha il polo semplice $p_0 = 0$ e i poli complessi coniugati $p_{1,2}$:
+		$$
+		p_{1,2} = - \frac{ - 2 \xi \omega \pm \sqrt{4 \xi^2 \omega^2 - 4 \omega^2} }{2} = - \frac{ - 2 \xi \omega \pm 2 \omega \sqrt{\xi^2 - 1} }{2} = \xi \omega \mp \omega \sqrt{1 - \xi^2}
+		$$
+		che equivale a quanto avevamo già trovato:
+		$$
+		p_{1, 2} = -(\alpha \pm i \beta), \quad \alpha = -\xi \omega, \quad \beta = \omega \sqrt{1 - \xi^2}
+		$$
+		Possiamo quindi portare la funzione nel dominio di Laplace nella forma a fratti semplici:
+		$$
+		Y(s) = G(0) \cdot \left( \frac{A}{s} + \frac{B}{s + p_1} + \frac{B^*}{s + p_2} \right)
+		$$
+		avevamo già calcolato $A$ attraverso il teorema dei residui:
+		$$
+		A = \lim_{s \rightarrow 0} \frac{ \omega^2 }{ s^2 + 2 \omega \xi \cdot s + \omega^2 } = 1 
+		$$
+		Per $B$ e $B^*$, svolgiamo la somma:
+		$$
+		Y(s) = G(0) \cdot \left( \frac{1}{s} + \frac{B}{s + p_1} + \frac{B}{s + p_2} \right) 
+		$$
+		$$
+		= G(0) \cdot \frac{ (s + p_1)(s + p_2) + Bs(s + p_2) + B^*s(s + p_1) }{(s + p_1)(s + p_2)s}
+		$$
+		$$
+		= G(0) \cdot \frac{ s^2 + p_2 s + p_1 s + p_1 p_2 + Bs^2 + B p_2 s + B^* s^2 + B^* p_1 s }{(s + p_1)(s + p_2)s}
+		$$
+	vogliamo eguagliare il numeratore a $\omega^2$, in modo da rispettare la forma di Evans.
+	Abbiamo quindi che l'unico termine costante è $p_1 p_2$, che vale:
+	$$
+	p_1 p_2 = -(\alpha + i \beta) \cdot -(\alpha - i \beta) = \alpha^2 - \beta^2 = \xi^2 \omega^2 + \omega^2 (1 - \xi^2) = \omega^2
+	$$
+	Quindi tutto quello che ci serve è che sia soddisfatto il sistema:
+	\[
+		\begin{cases}
+			1 + B + B^* = 0 \\ 
+			p_2 + p_1 + B p_2 + B^* p_1 = 0
+		\end{cases}
+	\]
+	Dalla prima equazione ricaviamo:
+	$$
+	B^* = - (1 + B) \implies p_2 + p_1 + B p_2 - (1 + B)p_1 = p_2 + B p_2 - B p_1  = 0
+	$$
+	da cui:
+	$$
+	B = - \frac{p_2}{p_2 - p_1} = \frac{\alpha - i \beta}{- \alpha + i \beta + \alpha + i \beta} = \frac{\alpha - i \beta}{ i 2 \beta} = - \frac{i\alpha + \beta}{2 \beta} = -\frac{1}{2} \left( 1 + i\frac{\alpha}{\beta} \right) 
+	$$
+	che sostituendo in $Y(s)$ dà:
+	$$
+	Y(s) = G(0) \cdot \left( \frac{1}{s} - \frac{ \frac{1}{2} \left( 1 + i \frac{\alpha}{\beta} \right) }{s + p_1} - \frac{ \frac{1}{2} \left( 1 - i \frac{\alpha}{\beta} \right) }{s + p_2} \right)
+	$$
+	Procediamo quindi con l'antitrasformazione:
+	$$
+	\mathcal{L}^{-1} \left\{ Y(s) \right\} = G(0) \cdot \left( 1 - \frac{1}{2} \left( 1 + i \frac{\alpha}{\beta} \right) e^{\alpha t} e^{i \beta t} - \frac{1}{2} \left( 1 - i \frac{\alpha}{\beta} \right) e^{\alpha t} e^{-i \beta t} \right) \cdot H(t)
+	$$
+	$$
+	= G(0) \cdot \left( 1 - \frac{1}{2} \left( 1 + i \frac{\alpha}{\beta} \right) e^{\alpha t} \left( \cos(\beta t) + \sin(\beta t) \right) \right.
+	$$
+	$$
+	\hspace{3.4cm} \left. - \frac{1}{2} \left( 1 - i \frac{\alpha}{\beta} \right) e^{\alpha t} \left( \cos(\beta t) - \sin(\beta t) \right) \right) \cdot H(t)
+	$$
+	$$
+	= G(0) \cdot \left( 1 + e^{\alpha t} \cdot \left( - \frac{1}{2} \cos(\beta t) - i \frac{1}{2} \sin(\beta t) - i \frac{\alpha}{\beta} \cos(\beta t) + \frac{\alpha}{\beta} \sin(\beta t) \right. \right.
+	$$
+	$$
+	\hspace{4.5cm}  \left. \left. - \frac{1}{2} \cos(\beta t) + i \frac{1}{2} \sin(\beta t) + i \frac{\alpha}{\beta} \cos(\beta t) + \frac{\alpha}{\beta} \sin(\beta t) \right) \right) \cdot H(t)
+	$$
+	$$
+	= G(0) \cdot \left( 1 - e^{\alpha t} \cos(\beta t) + \frac{\alpha}{\beta} \sin(\beta t) \right) \cdot H(t)
+	$$ \qed
+
+\item Prendiamo come forma a fratti semplici:
+	$$
+	Y(s) = G(0) \cdot \left( \frac{A}{s} + \frac{Bs + C}{s^2 + 2\omega \xi \cdot s + \omega^2} \right) = G(0) \cdot \left( \frac{1}{s} + \frac{Bs + C}{s^2 + 2\omega \xi \cdot s + \omega^2} \right) 
+	$$
+	visto che $A$ è sempre lo stesso residuo di prima.
+	Svolgendo le moltiplicazioni si ha:
+	$$
+	 = G(0) \cdot \left( \frac{s^2 + 2 \omega \xi \cdot s + \omega^2 + Bs^2 + Cs}{s (s^2 + 2 \omega \xi s + \omega^2)} \right)
+	$$
+	di cui il sistema:
+	\[
+		\begin{cases}
+			1 + B = 0 \\ 
+			2 \omega \xi + C
+		\end{cases} \implies
+		\begin{cases}
+			B = -1 \\ 
+			C = - 2 \omega \xi	
+		\end{cases}
+	\]
+	Sostituendo si ha quindi:
+	$$
+	Y(s) = G(0) \cdot \left( \frac{1}{s} - \frac{s + 2 \omega \xi}{s^2 + 2 \omega \xi \cdot s + \omega^2} \right)
+	$$
+	Prendiamo il termine ad destra singolarmente, e riscriviamo come:
+	$$
+	\frac{s + 2 \omega \xi}{s^2 + 2 \omega \xi \cdot s + \omega^2} = \frac{(s + \omega \xi) + \omega \xi}{(s + \omega \xi)^2 - \omega \xi^2 + \omega^2} = \frac{(s+ \omega \xi) + \omega \xi}{(s + \omega \xi)^2 + \omega^2 (1 - \xi^2)} 
+	$$
+	da cui la forma più adatta alla trasformazione:
+	$$
+	= \frac{(s+ \omega \xi) + \omega \xi \sqrt{ \frac{1 - \xi^2}{1 - \xi^2} }}{(s + \omega \xi)^2 + \omega^2 (1 - \xi^2)} = \frac{s + \omega \xi}{(s + \omega \xi)^2 + \omega^2 (1 - \xi^2)} + \frac{ \omega \xi \sqrt{ \frac{1 - \xi^2}{1 - \xi^2} } }{(s + \omega \xi)^2 + \omega^2 (1 - \xi^2)}
+	$$
+	$$
+	= \frac{s + \omega \xi}{(s + \omega \xi)^2 + \omega^2 (1 - \xi^2)} + \frac{\xi}{\sqrt{1 - \xi^2}} \frac{ \omega \sqrt{ 1 - \xi^2 } }{(s + \omega \xi)^2 + \omega^2 (1 - \xi^2)}
+	$$
+	Basterà quindi riconoscere che, preso $\omega_d = \omega \sqrt{1 - \xi^2}$ e $a = -\omega \xi$, si che i due termini sono immediatamente trasformabili secondo Laplace come oscillanti scostati in tempo, quindi attraverso:
+	$$
+	\mathcal{L}^{-1} \left\{ \cos(\omega t) \right\} = \frac{s}{s^2 + \omega^2}, \quad \mathcal{L}^{-1} \left\{ \sin(\omega t) \right\} = \frac{\omega}{s^2 + \omega^2}
+	$$
+	per i termini oscillanti e:
+	$$
+	\mathcal{L}^{-1} \left\{ F(s - a) \right\} = e^{at} f(t)
+	$$
+	per lo scostamento temporale, si ha:
+	$$
+	\implies e^{-\omega \xi t} \cos\left(\omega \sqrt{ 1- \xi^2} \cdot t\right) + \frac{\xi}{\sqrt{1 - \xi^2}} e^{-\omega \xi t} \sin\left(\omega \sqrt{1 - \xi^2} \cdot t\right)
+	$$
+	che risulta nella $y(t)$:
+	$$
+y(t) = G(0) \cdot \left( 1 - e^{-\xi \omega t} \cos\left(\omega \sqrt{1 - \xi ^2} \cdot t \right) - \frac{\xi}{\sqrt{1 - \xi^2}} e^{-\xi \omega t} \sin\left( \omega \sqrt{1 - \xi^2} \cdot t \right) \right) \cdot H(t)
+	$$ \qed
+\end{enumerate}
 
 Il lato destro dell'espressione trovata si può chiaramente riscrivere nella forma più concisa $ke^{-\sigma t} \sin(\omega t + \alpha)$. 
 Usiamo allora le formule di traduzione in forma sinusoidale, di cui una dimostrazione nel caso cosinusoidale si trova a \url{https://github.com/seggiani-luca/appunti-fis/blob/main/master/master.pdf}:
@@ -296,6 +364,115 @@ che darà quindi:
 $$
 y(t) = G(0) \cdot \left( 1 - e^{-\xi \omega t} \sqrt{1 + \frac{\xi^2}{1 + \xi^2}} \sin\left( \omega \sqrt{1 - \xi^2} \cdot t + \tan^{-1} \left( \frac{\sqrt{1 - \xi^2}}{\xi} \right) \right) \right) 
 $$
+
+\noindent
+\begin{minipage}{\textwidth}
+\subsection{Dettaglio sulla risposta dei sistemi sottosmorzati}
+Vediamo in particolare alcune grandezze di interesse nel caso di sistemi di secondo grado sottosmorzati:
+
+\par\bigskip
+
+\begin{center}
+\includegraphics[scale=0.29]{../figures/damped_oscillator.png}
+\end{center}
+\end{minipage}
+
+\par\bigskip
+
+Abbiamo che una caratteristica del loro comportamento è la \textbf{sovraelongazione} al di sopra del valore bersaglio.
+Chiamiamo quindi $M_p$ la \textit{massima sovraelongazione} sopra il livello di riferimento, e $t_p$ l'istante temporale in cui questa viene raggiunta.
+Avremo poi il tempo $t_r$ \textit{di salita}, il momento in cui viene toccato per la prima volta il valore bersaglio, e il tempo $t_d$ \textit{di ritardo}, che viene impiegato a raggiungere il 50\% del valore bersaglio.
+Infine, per valutare il comportamento oscillante dopo il transiente iniziale, consideriamo il tempo $t_s$ \textit{di assestamento}, oltre il quale il segnale resta in una certa (piccola) percentuale del valore bersaglio.
+
+Notiamo che possiamo considerare gli stessi parametri considerati sui sistemi sottosmorzati anche per sistemi criticamente smorzati o sovrasmorzati: infatti, se non per il tempo e per il punto di sovraelengazione, questi avranno valori ben definiti per qualsiasi sistema del second'ordine.
+
+Tornando al dettaglio dei sistemi sottosmorzati, possiamo trovare le seguenti formule:
+\begin{itemize}
+	\item \textbf{Sovraelongazione:} 
+		\begin{theorem}{Sovraelongazione di sottosmorzate}
+			Si ha il picco di una sottosmorzata in:
+		$$
+			S\% \ (M_p) \ = 100 e^{- \frac{\xi \pi}{\sqrt{1 - \xi^2}}}
+		$$
+		raggiunto all'istante:
+		$$
+			t_p = \frac{\pi}{\omega \sqrt{1 - \xi^2}}
+		$$
+
+		\end{theorem}
+		Queste derivano dal punto di massimo della funzione $y(t)$:
+		$$
+		y(t) = G(0) \cdot \left( 1 - e^{-\xi \omega t} \cos\left(\omega \sqrt{1 - \xi ^2} \cdot t \right) - \frac{\xi}{\sqrt{1 - \xi^2}} e^{-\xi \omega t} \sin\left( \omega \sqrt{1 - \xi^2} \cdot t \right) \right) \cdot H(t)
+		$$
+		da cui:
+		$$
+		D \left[ y(t) \right] \propto \xi \omega e^{-\xi \omega \cdot t} \sin\left( \omega \sqrt{1 - \xi^2} t + \phi \right) - e^{-\xi \omega t} \omega \sqrt{1 - \xi^2} \cos\left( \omega \sqrt{1 - \xi^2} \cdot t + \phi \right)
+		$$
+		$$
+		\propto \xi \sin\left( \omega \sqrt{1 - \xi^2} \cdot t + \phi \right) - \sqrt{1 - \xi^2} \cos\left( \omega \sqrt{1 - \xi^2 \cdot t + \phi} \right)
+		$$
+		che si porta alla forma sinusoidale con:
+		\[
+			\begin{cases}
+				k = \sqrt{ \xi^2 + 1 - \xi^2 } = 1 \\
+				\phi' = \tan^{-1} \left( -\frac{\xi}{\sqrt{1 - \xi^2}} \right)
+			\end{cases}
+		\]
+		da cui:
+		$$
+		\propto \sin\left( \omega \sqrt{1 - \xi^2} \cdot t + \phi + \phi' \right) = \sin\left( \omega \sqrt{1 - \xi^2} \cdot t \right)
+		$$
+		che ha il primo zero dopo $t = 0$ in $t_p = \frac{\pi}{\omega \sqrt{1 - \xi^2}}$ (quando il seno ha argomento $\pi$). \qed
+		
+		Prendendo il valore di $y(t)$ in $t_p$ si ha che resta solo il coseno, cioè:
+		$$
+		y(t_p) = G(0) \cdot (1 + e^{\xi \omega t_p})
+		$$
+		da cui $e^{\xi \omega t_p}$ rappresenta la frazione di surplus al punto di massimo sovraelongamento, che moltiplichiamo per 100 per portare in percentuale. \qed
+	\item \textbf{Periodo di oscillazione:}
+		\begin{theorem}{Periodo di oscillazione di sottosmorzate}
+		Una sottosmorzata ha periodo di oscillazione:
+			$$
+			T_o = \frac{2\pi}{\omega \sqrt{1 - \xi^2}}
+		$$
+		e frequenza:
+		$$
+			f_o = \frac{\omega \sqrt{1 - \xi^2}}{2\pi} 
+		$$
+		\end{theorem}
+		Queste derivano dalla componente complessa $\beta$ dei poli, o direttamente dalla pulsazione effettiva:
+		$$
+		\omega_d = \omega \sqrt{1 - \xi^2}
+		$$
+	\item \textbf{Tempo di assestamento:} consideriamo questo come:
+		$$
+		t_s \approx -\frac{1}{\xi \omega} \ln(0.05)
+		$$
+		trascurando la componente oscillante e prendendo il punto dove il solo esponenziale raggiunge il 5\% del suo valore massimo (in decadimento):
+		$$
+		e^{-\omega \xi t_s} = 0.05, \quad -\omega \xi t = \ln (0.05) \implies t_s \approx -\frac{1}{\xi \omega} \ln(0.05)
+		$$
+	\item \textbf{Tempo di salita:} consideriamo infine questo, con molta approssimazione, come:
+		$$
+		t_r \approx \frac{1.8}{\omega}
+		$$
+\end{itemize}
+
+\subsubsection{Comportamento al variare dello smorzamento}
+\noindent
+\begin{minipage}{\textwidth}
+Concludiamo il discorso sui sistemi sottosmorzati considerando il comportamento generale dei sistemi di questo tipo al variare del valore di smorzamento $\xi = \frac{a_1}{2 \sqrt{a_0 a_2}}$:
+
+\par\bigskip
+
+\begin{center}
+\includegraphics[scale=0.29]{../figures/damping_values.png}
+\end{center}
+\end{minipage}
+
+\par\bigskip
+
+Da dove notiamo che a valori di smorzamento maggiori si ha minore sovraelongamento, ma anche maggiore tempo di salita.
 
 \subsection{Stabilità nel modello a funzione di trasferimento}
 Abbiamo lavorato finora col modello a funzione di trasferimento, definita come:
@@ -391,16 +568,16 @@ $$
 G(s) = \frac{Y(s)}{U(s)} = \frac{ b_0 s^n + b_1 s^{n - 1} + ... + b_{n - 1} s + b_n}{s^n + a_1 s^{n - 1} + ... + a_{n - 1} s + a_n }
 $$
 
-Mentre avevamo già visto come la stessa forma in variabili di stato aveva l'aspetto:
+Mentre avevamo già visto come la stessa forma in variabili di stato aveva l'aspetto (Lezione 4):
 \[
 	\begin{cases}	
 x' = \left(\begin{array}{@{}c | cccc@{}}
 	0 & 1 & 0 & ... & 0 \\
 	0 & 0 & 1 & ... & 0 \\
 	... & ... & ... & ... & ... \\
-	0 & 0 & 0 & ... & 1 \\
+	0 & 0 & ... & 0 & 1 \\
 	\hline
-	-a & ... & ... & ... & -a_{n - 1}
+	-a_n & ... & ... & ... & -a_1
 \end{array}\right)
 x + \begin{pmatrix}
 0 \\
@@ -409,13 +586,149 @@ x + \begin{pmatrix}
 1
 \end{pmatrix} u \\ 
 y = \begin{pmatrix}
-	b_0 - b_n a_0 & ... & b_{n - 1} - b_n a_{n - 1}	
+	b_n - b_0 a_n & ... & b_1 - b_0 a_1	
 \end{pmatrix} x + \begin{pmatrix}
-b_n
+b_0
 \end{pmatrix} u
 	\end{cases}
 \]
 
-# confronta
+Dimostriamo che le due forme sono effettivamente equivalenti.
+Vogliamo partire dalla forma in variabili di stato è usare la formula dello scorso paragrafo per ricavare la funzione di trasferimento $G(s)$.
+Abbiamo quindi:
+$$
+G(s) = C(sI - A)^{-1} B + D
+$$
+Il termine problematico sarà chiaramente l'inversa $(sI - A)^{-1}$.
+La matrice $sI - A$ sarà in forma "compagna":
+$$
+sI - A = 
+\left(\begin{array}{@{}c | cccc@{}}
+	s & -1 & ... & ... & 0 \\
+	... & s & -1 & ... & ... \\
+	... & ... & s & -1 & ... \\ 
+	... & ... & ... & ... & ... \\
+	0 & 0 & ... & s & -1 \\
+	\hline
+	a_n & a_{n - 1} & a_{n - 2} & ... & a_1 + s
+\end{array}\right)
+$$
+Vediamo intanto che il determinante è immediato, in quanto avremo, spostandoci dai due elementi in alto a destra lungo la diagonale:
+$$
+\det(sI - A) = s \cdot \det 
+\left(\begin{array}{@{}cccc@{}}
+	 s & -1 & ... & 0 \\
+	 ... & s & -1 & ... \\
+	 ... & ... & ... & ... \\
+	 0 & ... & s & -1 \\
+	\hline
+	 a_{n - 1} & a_{n - 2} & ... & a_1 + s
+\end{array}\right) 
++ a_n = s \left( s \cdot \det 
+\left(\begin{array}{@{}ccc@{}}
+	   s & -1 & ... \\
+		 ... & ... & ... \\
+	  ... & s & -1 \\
+	\hline
+		a_{n - 2} & ... & a_1 + s
+\end{array}\right)
++ a_{n - 1} \right) + a_n
+$$
+da cui l'andamento generale:
+$$
+s \left( s\left( \ \  ... \ \  \left( s(s + a_1) + s_2 \right) \ \  ... \ \  \right) + a_{n - 1} \right) + a_n = s^n + a_1 s^{n - 1} + ... + a_{n - 1} s + a_n
+$$
+cioè il polinomio caratteristico che emergeva al denominatore con Laplace.
+Vorremo quindi che qualsiasi forma troveremo per l'inversa abbia questo al denominatore.
+Impostiamo allora l'ultima colonna dell'inversa:
+$$
+(sI - A) \begin{pmatrix}
+	x_1 \\ \vdots \\ x_n
+\end{pmatrix} =
+\begin{pmatrix}
+0 \\ \vdots \\  1
+\end{pmatrix}
+$$
+direttamente dalla definizione di inversa e notiamo che la forma del sistema è:
+\[
+	\begin{cases}
+		s x_1 - x_2 = 0 \\ 
+		\hspace{.9cm} sx_2 - x_3 = 0 \\
+		\vdots \\
+		a_n x_1 + a_{n - 1} x_2 + ... + (s + a_1) x_n = 1
+	\end{cases}
+\]
+da cui:
+\[
+	\begin{cases}
+		x_1 = \frac{x_2}{s} = \frac{x_3}{s^2} = ... \\ 
+		x_2 = \frac{x_3}{s} = ...
+	\end{cases}
+\]
+fino al termine $n$-esimo, che sarà:
+$$
+x_n = \frac{1}{\frac{a_n}{s^n} + \frac{a_{n - 1}}{s^{n - 1}} + ... + a_1 + s} = \frac{s^{n}}{s^n + a_1 s^{n - 1} + ... + a_{n - 1} s + a_n}
+$$
+Da cui abbiamo la forma dell'inversa:
+$$
+(sI - A)^{-1} = 
+\frac{1}{s^n + a_1 s^{n - 1} + ... + a_{n - 1} s + a_n}
+\begin{pmatrix}
+	... & 1 \\ 
+	... & s \\
+	& \vdots \\ 
+	... & s^n
+\end{pmatrix}
+$$
+
+Sostitendo nella formula abbiamo quindi:
+$$
+G(s) = C(sI - A)^{-1} B + D = 
+$$
+$$
+\begin{pmatrix}
+	b_n - b_0 a_n & ... & b_1 - b_0 a_1	
+\end{pmatrix} 
+\left(
+\frac{1}{s^n + a_1 s^{n - 1} + ... + a_{n - 1} s + a_n}
+\begin{pmatrix}
+	... & 1 \\ 
+	... & s \\
+	& \vdots \\ 
+	... & s^n
+\end{pmatrix}
+\right)
+\begin{pmatrix}
+	0 \\ \vdots \\ 1
+\end{pmatrix}
++ b_0
+$$
+$$
+= \begin{pmatrix}
+	b_n - b_0 a_n & ... & b_1 - b_0 a_1	
+\end{pmatrix} 
+\frac{1}{s^n + a_1 s^{n - 1} + ... + a_{n - 1} s + a_n}
+\begin{pmatrix}
+	 1 \\ 
+	 s \\
+	 \\ 
+	 s^n
+\end{pmatrix}
++ b_0
+$$
+$$
+= \frac{ (b_n - b_0 a_n) + (b_{n - 1} - b_0 a_{n - 1}) s + ... + (b_1 - b_0 a_1)s^n }{ s^n + a_1 s^{n - 1} + ... + a_{n - 1} s + a_n} + b_0
+$$
+$$
+= \frac{ (b_n - b_0 a_n) + (b_{n - 1} - b_0 a_{n - 1}) s + ... + (b_1 - b_0 a_1)s^n (s^n + a_1 s^{n - 1} + ... + a_{n - 1} s + a_n) b_0}{ s^n + a_1 s^{n - 1} + ... + a_{n - 1} s + a_n}
+$$
+$$
+\frac{ b_0 s^n + b_1 s^{n - 1} + ... + b_{n - 1} s + b_n}{s^n + a_1 s^{n - 1} + ... + a_{n - 1} s + a_n }
+$$
+cioè la stessa forma che avevamo dalla trasformata di Laplace. \qed
+
+Abbiamo quindi l'ulteriore conferma che i metodi a funzione di trasferimento e a variabili di stato sono effettivamente analoghi, in quanto modellizzano la stessa categoria di fenomeni, dando le stesse soluzioni.
+Non solo, vediamo che spesso ci sono parallelismi fra i due (si pensi a poli/modi, e le considerazioni di stabilità, raggiungibilità e osservabilità).
+
 
 \end{document}
