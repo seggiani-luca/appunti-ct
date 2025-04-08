@@ -309,7 +309,19 @@ $$
 	0 & 2
 \end{array}
 $$
-con 1 cambiamento di segno e quindi una radice reale positiva.
+con un cambiamento di segno e quindi una radice reale positiva.
+
+\noindent
+\begin{minipage}{\textwidth}
+Abbiamo infatti che il polinomio sul piano complesso ha il seguente aspetto:
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/polynomial_routh_1.png}
+\end{center}
+\end{minipage}
+
+\par\medskip
+
+da cui notiamo il polo stabile in $p_1 = -1$, e i poli complessi coniugati instabili in $p_{2,3} = \frac{1}{2} \pm \frac{\sqrt{7}}{2}$ (che troviamo anche fattorizzando in $(x + 1) (x^2 - x + 2)$).
 
 \item \textbf{Intera riga nulla:} partiamo dall'esempio del polinomio:
 $$
@@ -476,7 +488,4 @@ che potrebbero dare misurazioni del tipo:
 	\includegraphics[scale=0.3]{../figures/in_out_sin.png}
 \end{center}
 
-I \textit{diagrammi di Bode} sono quindi solo uno \textit{strumento} per visualizzare queste dipendenze tra frequenza e uscita.
-Altri diagrammi simili sono i \textit{diagrammi di Nyquist} e i \textit{diagrammi di Nichols}.
-
-\end{document}
+Misurazioni di questo tipo evidenziano la variazione di ampiezza e lo scostamento in fase per segnali sinusoidali costanti in frequenza, e facendo più misurazioni per più frequenze si può avere un idea del trasferimento del sistema in dominio frequenze, cioè esattamente la risposta in frequenza.
