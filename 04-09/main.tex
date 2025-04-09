@@ -201,7 +201,7 @@
 
 % testo
 \subsection{Diagrammi di Bode}
-I diagrammi di Bode sono 2:
+I diagrammi di Bode sono di 2 tipi:
 \begin{enumerate}
 	\item Il \textbf{diagramma di modulo} (o ampiezza): rappresenta il modulo di $G(j\omega)$ al variare della pulsazione $\omega$.
 		Abbiamo quindi $|G(j \omega)|$ alle ordinate e $\omega$ alle ascisse, espresse in scala logaritmica.
@@ -234,16 +234,19 @@ I diagrammi di Bode sono 2:
 \end{enumerate}
 
 \subsubsection{Ascisse}
-Abbiamo quindi che sulle \textbf{ascisse} abbiamo sempre la \textit{pulsazione}(rad/s) o \textit{frequenza} (Hz), che sono fra di loro direttamente proporzionali.
+Abbiamo quindi che sulle \textbf{ascisse} abbiamo sempre la \textit{pulsazione} (rad/s) o \textit{frequenza} (Hz), che non sono esattamente uguali ma sono fra di loro direttamente proporzionali per un fattore di $2\pi$:
+$$
+f = \frac{\omega}{2\pi}
+$$
 Queste sono espresse in scala logaritmica, e troviamo quindi i seguenti intervalli relativi:
 \begin{itemize}
 	\item \textbf{Decade:} è la distanza in scala logaritmica tra numeri il cui raporto è 10;
-	\item \textbf{Ottava:} è la distanza in scala logartmica tra numeri il cui rapporto è 2.
+	\item \textbf{Ottava:} è la distanza in scala logaritmica tra numeri il cui rapporto è 2.
 \end{itemize}
 
 \subsubsection{Ordinate}
 Alle \textbf{ordinate} manteniamo invece, nel caso di un diagramma di modulo, lo spettro di ampiezza in unità logaritmiche (dB).
-Abbiamo quindi che 0 dB equivalgono al valore di riferimento (1), mentre tutti gli altri valori si convertono usando la formula:
+Abbiamo quindi che 0 dB equivalgono al valore di riferimento, che abbiamo detto è 1, mentre tutti gli altri valori si convertono usando la formula:
 $$
 \text{(decibel)} \quad 20 \log_{10}(10^\alpha) = 20 \cdot \alpha \quad \text{(scala logaritmica)}
 $$
@@ -262,7 +265,7 @@ $$
 $$
 
 \subsubsection{Proprietà dei diagrammi di Bode}
-Abbiamo quindi che i diagrammi di Bode sono molto comodi per avere rappresentazioni dettagliat di grandezze che variano in campi notevolmente estese.
+Abbiamo quindi che i diagrammi di Bode sono molto comodi per avere rappresentazioni dettagliate di grandezze che variano in campi notevolmente estese.
 
 Notiamo le due proprietà
 \begin{enumerate}
@@ -276,6 +279,7 @@ ma come sappiamo la il logaritmo di un prodotto equivale alla somma dei logaritm
 $$
 \log \left( G_1(s) \cdot G_2(s) \right) = \log \left( G_1(s) \right) + \log \left( G_2(s) \right)
 $$
+da cui la tesi. \qed
 
 	\item
 I diagrammi di Bode di una funzione in forma fattorizzata si ottengono come somma dei diagrammi elementari dei singoli fattori, sempre dalla stessa proprietà di cui sopra.
@@ -285,7 +289,7 @@ Queste considerazioni spiegano il perché delle scale logaritmiche: infatti se i
 $$
 a = |a| e^{j \angle a}, \quad b = |b| e^{j \angle b}
 $$
-Prendiamo il prodotto:
+e prendiamo il prodotto, si ha che:
 $$
 a \cdot b = |a| |b| e^{j (\angle a + \angle b)}
 $$
@@ -331,7 +335,6 @@ Quindi il primo termine rappresenterà il guadagno statico di Bode, il secondo t
 
 Questa, notiamo, è effettivamente la forma di Bode della (1) (che è una forma di Evans). 
 
-\subsubsection{Poli semplici} # questo che ci fa qui?
 Vediamo quindi di applicare quanto avevamo detto al caso con \textit{soli} \textbf{poli semplici}.
 \begin{itemize}
 	\item 
@@ -339,42 +342,96 @@ Il modulo logaritmico sarà:
 $$
 \log \left( G(j \omega) \right) = \sum_{i = 1}^{m} \log \left( |1 \pm j \omega T_{z_i}| \right) - \sum_{i = 1}^{n} \log \left( |1 \pm j \omega T_{p_i}| \right)
 $$
-	\item 
+cioè si prendono i logaritmi dei moduli degli zeri meno i logaritmi dei moduli dei poli. 
+
+\item 
 La fase sarà:
 $$
 \angle G(j \omega) = \sum_{i = 1}^{m} \log \left( \angle \left( 1 \pm j \omega T_{z_i} \right) \right) - \sum_{i = 1}^{n} \log \left( \angle \left( 1 \pm j \omega T_{p_i} \right) \right)
 $$
+cioè si prendono i logaritmi delle fasi degli zeri meno i logaritmi delle fasi dei poli. 
 \end{itemize}
 
+\par\bigskip
 
-\subsection{Diagrammi di bode di funzioni elementari}
-Vediamo allora i diagrammi di bode di alcune funzioni elementari.
+Da qui in poi vedremo qunidi come tracciare i diagrammi di Bode di alcuni sistemi comuni.
 
 \subsubsection{Guadagno costante}
 Prendiamo la funzione di trasferimento a guadagno costante:
 $$
 G(s) = K
 $$
-in questo caso avremo la funzione di risposta armonica:
+Questa si limiterà a prendere l'ingresso e restituirlo scalato di $K$ in uscita.
+
+La funzione di risposta armonica si calcola semplicemente ponendo $s = j \omega$, che in questo caso non ha effetto:
 $$
-G(j \omega) = |k| e^{j \phi}
+G(j \omega) = K 
 $$
-con il modulo:
+e quindi si ha il modulo:
 $$
-|G(j \omega)| = |k|
+|G(j \omega)| = |K|
 $$
 e la fase:
 $$
 \angle G(j \omega) = 0 
 $$
 
+Per tracciare il modulo, ricordiamo che vogliamo trovare $k_{dB}$:
+$$
+K_{dB} = 20 \log_{10}(|K|) 
+$$
+
+Possiamo compilare una tabella dei valori tipici in dB di moduli di funzione:
+\begin{table}[H]
+	\center \rowcolors{2}{white}{black!10}
+	\begin{tabular} { c | c }
+		$|K|$ & $K_{dB}$ \\ 
+		\hline
+		$\sqrt{2}$ & $3$ dB \\
+		$2$ & $6$ dB \\
+		$5$ & $14$ dB \\
+		$20$ & $26$ dB \\
+		$50$ & $36$ dB 
+	\end{tabular}
+\end{table}
+e notiamo inoltre di poter sfruttare le proprietà dei logaritmi per dire:
+$$
+20 \log_{10}(|K|) = K_{dB} \implies 20 \log_{10}\left(\frac{1}{|K|}\right) = - K_{dB}
+$$
+
+Prendiamo quindi $K = 5$, e troviamo quindi che il valore in decibel dovrà essere $14$ dB.
+
+\par\medskip
+
+\noindent
+\begin{minipage}{\textwidth}
+Potremo allora tracciare il grafico del modulo in decibel:
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/costant_bode/mod.png}
+\end{center}
+\end{minipage}
+
+\par\medskip
+
+Per quanto riguarda la fase, il grafico è invece banale:
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/costant_bode/phase.png}
+\end{center}
+
+\subsection{Poli reali: integratori}
+Vediamo la classe di risposte in frequenza date dai sistemi con poli reali semplici.
+
 \subsubsection{Poli all'origine}
-Vediamo come tenere conto dei poli all'origine.
-Questi sono i poli del tipo:
+Ricordiamo che il polo all'origine rappresenta nel dominio di Laplace l'\textbf{integratore}:
+$$
+\frac{1}{s}
+$$
+
+Considereremo quindi funzioni di trasferimento del tipo:
 $$
 G(s) = \frac{1}{s} \implies G(j \omega) = \frac{1}{j\omega}
 $$
-passando alla risposta armoinca.
+passando alla risposta armonica.
 
 Il modulo in questo caso sarà:
 $$
@@ -382,12 +439,40 @@ $$
 $$
 che notiamo in logaritmo (dB) dà:
 $$
-20 \log_{10} \left( \omega^{-1} \right) = - 20 \log_{10} \omega
+20 \log_{10} \left( \omega^{-1} \right) = - 20 \log_{10} (\omega)
 $$
-cioè si ottiene una retta in diagramma logaritmico che passa per $\omega =1$ con modulo 0 dB e pendenza -20 dB/dec (cioè -6 db/oct).
+
+\par\medskip
+
+\noindent
+\begin{minipage}{\textwidth}
+cioè si ottiene una retta nel diagramma del modulo logaritmico che passa per $\omega =1$ con modulo 0 dB e pendenza -20 dB/dec (cioè -6 dB/oct):
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/integrator_bode/mod.png}
+\end{center}
+\end{minipage}
+
+\par\medskip
+
+Per quanto riguarda la fase, invece, avremo scostamento costante:
+$$
+\angle G(j \omega) = - \frac{\pi}{2}
+$$
+
+\par\medskip
+
+\noindent
+\begin{minipage}{\textwidth}
+da cui il grafico:
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/integrator_bode/phase.png}
+\end{center}
+\end{minipage}
+
+\par\medskip
 
 \subsubsection{Poli reali}
-Prendiamo la funzione con un solo polo reale in $-\frac{1}{\tau}$:
+Prendiamo quindi la funzione con un solo polo reale in $-\frac{1}{\tau}$, che notiamo non essere altro che l'esempio precedente col polo scostato verso il lato reale negativo del piano complesso:
 $$
 G(s) = \frac{1}{1 + \tau s} 
 $$
@@ -400,26 +485,54 @@ Il modulo è quindi:
 $$
 |G(j \omega)| = \frac{1}{\sqrt{1 + \omega^2 \tau^2}}
 $$
-In questo caso distinguiamo due situazioni:
+
+Questa funzione non è immediata da tracciare.
+Vediamo di trovarne un approssimazione \textit{per rette}.
+Distinguiamo quindi due situazioni attorno al cosiddetto \textbf{punto critico}, cioè il punto $\omega = 1$:
 \begin{itemize}
 	\item $\omega^2 \tau^2 << 1$, si ha:
 		$$
 		|G(j\omega)|_{dB} \approx 0 \, \mathrm{dB}
 		$$
-
+		cioè una costante a 0 dB di guadagno;
 	\item $\omega^2 \tau^2 >> 1$, si ha, trascurando $1$:
 		$$
 		|G(j \omega)|_{dB} = 20 \log_{10} \left( \frac{1}{\omega \tau} \right) =
 		20 \log \left( \frac{1}{\tau} \right) - 20 \log \left( \omega \right)
 		$$
-		dove il primo termine è una costante, mentre il secondo è una retta con pendenza uguale a sopra, -20 dB/dec (cioè -6 db/oct).
+		che per $\tau = 1$ dà una retta con pendenza -20 dB/dec (cioè -6 db/oct).
 \end{itemize}
 
-La fase è invece:
+\par\medskip
+
+\noindent
+\begin{minipage}{\textwidth}
+Tracciamo quindi il grafico approssimato (sotto al quale si è tracciato il grafico esatto):
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/lowpass_bode/mod.png}
+\end{center}
+\end{minipage}
+
+\par\medskip
+
+Dove si nota il decadimento al di sopra di $\omega = 1$ è lo stesso del caso del polo all'origine, e anzi spostare il polo verso la parte reale negativa ha il solo effetto di "troncare" la retta a una certa frequenza angolare $\omega= \frac{1}{\tau}$.
+
+\par\smallskip
+
+Ci potrebbe interessare valutare l'errore in $\omega = 1$.
+Dalla nostra stima avevamo preso 0 dB, mentre sostituendo nella formula del modulo si ha:
+$$
+|G(j \cdot 1)| = \frac{1}{\sqrt{1 + \tau^2}}
+$$
+Ad esempio, preso $\tau = 1$ si ha $|G(j \cdot 1)| = \frac{1}{\sqrt{2}}$, che sappiamo valere -3 dB, per un errore complessivo di 3 dB.
+
+\par\smallskip
+
+Per quanto riguarda la fase potremmo invece dire:
 $$
 \angle G(j \omega) = - \tan^{-1} \left( \omega \tau \right)
 $$
-ch e potremo approssimare in:
+che potremo approssimare in:
 \[
 	\begin{cases}
 		w \tau << 1 \implies \angle G(j\omega) \approx 0^\circ \\ 	
@@ -427,12 +540,150 @@ ch e potremo approssimare in:
 		w \tau = 1 \implies \angle G(j\omega) = -45^\circ \\ 	
 	\end{cases}
 \]
-preso $\tau > 0$ è il caso con polo stabile.
+preso $\tau > 0$, cioè il caso con polo stabile.
 
-\subsubsection{Zeri all'origine} # non ne ha parlato
+\par\medskip
+
+\noindent
+\begin{minipage}{\textwidth}
+Approssimiamo quindi questa funzione prendendo le rette a $0^\circ$ e $-90^\circ$, interpolate da una retta passante da $-45^\circ$ a $\omega = 1$:
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/lowpass_bode/phase.png}
+\end{center}
+\end{minipage}
+
+\par\medskip
+
+Notiamo un fatto particolare: nessuno ci nega, avendo trascurato le risposte transienti, di prendere il polo instabile in $1$, cioè quello dato da $\tau = -1$.
+
+\par\medskip
+
+\noindent
+\begin{minipage}{\textwidth}
+In questo caso nulla cambia riguardo alla risposta in modulo, mentre la risposta in fase cambia di segno, cioè si ha:
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/lowpass_bode/phase_weird.png}
+\end{center}
+\end{minipage}
+
+\par\medskip
+
+\subsubsection{Filtri passa-basso}
+I sistemi visti finora rappresentano effettivamente una classe di \textbf{filtri}, detti filtri \textbf{passa-basso}, in quanto lasciano passare solo le frequenze sotto una certa soglia, detta \textbf{frequenza di taglio}.
+Al di sotto della frequenza di taglio il segnale resta pressoché invariato, mentre al sopra della frequenza di taglio decade con abbattimento di 6 dB/oct.
+Questo chiaramente comporta uno scostamento di fase che va fino a un massimo di $-\frac{\pi}{2}$ dalla fase originale, al di sopra della frequenza di taglio.
+
+Possiamo ottenere abbattimenti più "ripidi", come abbiamo visto, sovrapponendo più filtri.
+La loro risposta complessiva sarà infati data da:
+$$
+G_{eq} = G_1(s) \cdot G_2(s) \cdot ...
+$$
+che in modulo logaritmico diventa una somma, ergo se l'abbattimento per un singolo filtro è di 6 dB/oct, mettendo insieme $n$ filtri si ha un abbattimento di $6 \cdot n$ dB/oct.
+
+\par\medskip
+
+\noindent
+\begin{minipage}{\textwidth}
+Vediamo ad esempio il caso di due filtri, quindi per un abbattimento complessivo di 12 dB/oct:
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/lowpass_bode/mod_2x.png}
+\end{center}
+\end{minipage}
+
+\par\bigskip
+
+Dal punto di vista elettronico, un filtro di questo tipo, che viene detto \textbf{filtro passivo}, può essere realizzato come segue:
+
+\begin{center}
+	\begin{circuitikz}
+		\draw (-4, 1) -- (-3, 1) 
+			to [  resistor, l=$R$] (0, 1)
+			to [ capacitor, l=$C$] (0, -1) 
+			to [ short ] (-3, -1)	
+			-- (-4, -1);
+			
+		\draw (-4.6, 1) node[anchor=west] {$+$};
+		\draw (-4.6, 0) node[anchor=west] {$V_1$};
+		\draw (-4.6, -1) node[anchor=west] {$-$};
+
+		\draw (4, 1) -- (3, 1) 
+			to [short] (0, 1);
+
+		\draw (0, -1) to [ short ] (3, -1)
+			-- (4, -1);
+	
+		\draw (4.6, 1) node[anchor=east] {$+$};
+		\draw (4.6, 0) node[anchor=east] {$V_2$};
+		\draw (4.6, -1) node[anchor=east] {$-$};
+		
+	\end{circuitikz}
+\end{center}
+dove prendiamo $V_1 = u(t)$ come il segnale in entrata, e $V_2 = y(t)$ come il segnale in uscita.
+
+Portandoci nel dominio di Laplace e svolgendo il partitore di tensione, si può quindi ricavare $Y(s)$ da $U(s)$ come:
+$$
+Y(s) = \frac{ \frac{U(s)}{Cs} }{ R + \frac{1}{Cs} }
+$$
+e quindi ricavare la funzione di trasferimento:
+$$
+G(s) = \frac{Y(s)}{U(s)} = \frac{1}{Cs} \cdot \frac{1}{R + \frac{1}{Cs}} = \frac{1}{RCs + 1}
+$$
+che vediamo non è altro che la forma di Bode della forma studiata finora, con $\tau = RC$ tempo caratteristico.
+
+\subsection{Zeri reali: derivatori}
+Vediamo la classe di risposte in frequenza in qualche modo duale a quella degli integratori.
+
+\subsubsection{Zeri all'origine} 
+Ricordiamo che lo zero all'origine rappresenta nel dominio di Laplace il \textbf{derivatore}:
+$$
+s
+$$
+Considereremo quindi funzioni di trasferimento del tipo:
+$$
+G(s) = s \implies G(j \omega) = j \omega
+$$
+passando alla risposta armonica.
+
+Il modulo in questo caso sarà:
+$$
+|G(j \omega)| = \omega
+$$
+che notiamo in logaritmo (dB) dà:
+$$
+20 \log_{10} \left( \omega^{-1} \right) = 20 \log_{10} (\omega)
+$$
+
+\par\medskip
+
+\noindent
+\begin{minipage}{\textwidth}
+cioè si ottiene una retta nel diagramma del modulo logaritmico che passa per $\omega =1$ con modulo 0 dB e pendenza 20 dB/dec (cioè 6 dB/oct):
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/differentiator_bode/mod.png}
+\end{center}
+\end{minipage}
+
+\par\medskip
+
+Per quanto riguarda la fase, invece, avremo scostamento costante:
+$$
+\angle G(j \omega) =  \frac{\pi}{2}
+$$
+
+\par\medskip
+
+\noindent
+\begin{minipage}{\textwidth}
+da cui il grafico:
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/differentiator_bode/phase.png}
+\end{center}
+\end{minipage}
+
+\par\medskip
 
 \subsubsection{Zeri reali}
-Prendiamo quindi la funzione con un solo zero reale in $-\frac{1}{\tau}$:
+Prendiamo quindi la funzione con un solo zero reale in $-\frac{1}{\tau}$, anche stavolta sovraimponendo alla funzione reale:
 $$
 G(s) = 1 + s \tau
 $$
@@ -446,23 +697,69 @@ $$
 |G(j \omega)| = \sqrt{1 + \omega^2 \tau^2}
 $$
 
-# approssimazione linea retta
+Vediamo di trovarne un approssimazione \textit{per rette}.
+Distinguiamo le situazioni attorno al punto critico, cioè il punto $\omega = 1$:
+\begin{itemize}
+	\item $\omega^2 \tau^2 << 1$, si ha:
+		$$
+		|G(j\omega)|_{dB} \approx 0 \, \mathrm{dB}
+		$$
+		cioè una costante a 0 dB di guadagno;
+	\item $\omega^2 \tau^2 << 1$, si ha, trascurando $1$:
+		$$
+		|G(j \omega)|_{dB} = 20 \log_{10} \left( \omega \tau \right) =
+		20 \log \left( \tau \right) + 20 \log \left( \omega \right)
+		$$
+		che per $\tau = 1$ dà una retta con pendenza 20 dB/dec (cioè -6 db/oct).
+\end{itemize}
+
+\par\medskip
+
+\noindent
+\begin{minipage}{\textwidth}
+Tracciamo quindi il grafico approssimato (sotto al quale si è tracciato il grafico esatto):
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/rdifferentiator_bode/mod.png}
+\end{center}
+\end{minipage}
+
+\par\medskip
 
 La fase è invece:
 $$
 \angle G(j \omega) = \tan^{-1} (\omega \tau)
 $$
 
-# approssimazione linea retta
+che potremo approssimare in:
+\[
+	\begin{cases}
+		w \tau << 1 \implies \angle G(j\omega) \approx 0^\circ \\ 	
+		w \tau >> 1 \implies \angle G(j\omega) \approx 90^\circ \\ 	
+		w \tau = 1 \implies \angle G(j\omega) = 45^\circ \\ 	
+	\end{cases}
+\]
+preso $\tau > 0$e.
 
-# qui ha fatto approssimazioni a segmenti e grafici per tutto
+\par\medskip
 
-\subsubsection{Poli doppi}
+\noindent
+\begin{minipage}{\textwidth}
+Approssimiamo quindi questa funzione prendendo le rette a $0^\circ$ e $90^\circ$, interpolate da una retta passante da $45^\circ$ a $\omega = 1$:
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/rdifferentiator_bode/phase.png}
+\end{center}
+\end{minipage}
+
+\par\medskip
+
+Notiamo quindi che valgono tutte le considerazioni fatte sugli integratori reali, cioè capovolgendo lo zero si trova scostamento in fase opposto, ecc...
+
+\subsubsection{Poli multipli}
 Possiamo sfruttare la proprietà di trasformazione in somma del prodotto logaritmico per tracciare i diagrammi di Bode di funzioni di trasferimento con poli doppi.
 
-Prendiamo quindi:
+Prendiamo ad esempio: 
 $$
-G(s) = \frac{1}{(1 + s^2)}
+G(s) = \frac{1}{(1 + s)^2}
 $$
 che dà la risposta armonica:
 $$
@@ -474,5 +771,13 @@ $$
 G(j \omega) = \frac{1}{1 + j \omega^2} \cdot \frac{1}{1 + j \omega^2}
 $$
 cioè sommiamo moduli e fasi, ottenendo un decadimento di 40 dB/dec e uno scostamento di fase massimo di $-180^\circ$.
+
+Generalizzando a poli multipli, si ha semplicemente:
+$$
+G(s) = \frac{1}{(1 + s)}^n \implies G(j \omega) = \frac{1}{(1 + j \omega)^n} = \frac{1}{1 + j \omega^2} \cdot \frac{1}{1 + j \omega^2} \cdot ...
+$$
+cioè si continuano a sommare moduli e fasi, ottenendo decadimenti di $n \cdot 20 $ db/dec e scostamenti di fase massimi di $n \cdot -90^\circ$.
+
+Notiamo che questo non è altro che il comportamento che avevamo descritto studiando filtri sovrapposti, per abbattimenti più ripidi, ad esempio in 17.3.3.
 
 \end{document}
