@@ -417,6 +417,7 @@ Per quanto riguarda la fase, il grafico è invece banale:
 \begin{center}
 	\includegraphics[scale=0.3]{../figures/costant_bode/phase.png}
 \end{center}
+in quanto corrisponde alla retta di sfasamento 0.
 
 \subsection{Poli reali: integratori}
 Vediamo la classe di risposte in frequenza date dai sistemi con poli reali semplici.
@@ -535,9 +536,9 @@ $$
 che potremo approssimare in:
 \[
 	\begin{cases}
-		w \tau << 1 \implies \angle G(j\omega) \approx 0^\circ \\ 	
-		w \tau >> 1 \implies \angle G(j\omega) \approx -90^\circ \\ 	
-		w \tau = 1 \implies \angle G(j\omega) = -45^\circ \\ 	
+		\omega \tau << 1 \implies \angle G(j\omega) \approx 0^\circ \\ 	
+		\omega \tau >> 1 \implies \angle G(j\omega) \approx -90^\circ \\ 	
+		\omega \tau = 1 \implies \angle G(j\omega) = -45^\circ \\ 	
 	\end{cases}
 \]
 preso $\tau > 0$, cioè il caso con polo stabile.
@@ -567,6 +568,8 @@ In questo caso nulla cambia riguardo alla risposta in modulo, mentre la risposta
 \end{minipage}
 
 \par\medskip
+
+Chiaramente questa è solo un ipotesi in dominio frequenza, trascurando i transienti, e non è il comportamento effettivo che otterremo dal sistema.
 
 \subsubsection{Filtri passa-basso}
 I sistemi visti finora rappresentano effettivamente una classe di \textbf{filtri}, detti filtri \textbf{passa-basso}, in quanto lasciano passare solo le frequenze sotto una certa soglia, detta \textbf{frequenza di taglio}.
@@ -719,7 +722,7 @@ Distinguiamo le situazioni attorno al punto critico, cioè il punto $\omega = 1$
 \begin{minipage}{\textwidth}
 Tracciamo quindi il grafico approssimato (sotto al quale si è tracciato il grafico esatto):
 \begin{center}
-	\includegraphics[scale=0.3]{../figures/rdifferentiator_bode/mod.png}
+	\includegraphics[scale=0.3]{../figures/rdifferentiator_bode/mod.png} 
 \end{center}
 \end{minipage}
 
@@ -738,7 +741,7 @@ che potremo approssimare in:
 		w \tau = 1 \implies \angle G(j\omega) = 45^\circ \\ 	
 	\end{cases}
 \]
-preso $\tau > 0$e.
+preso $\tau > 0$.
 
 \par\medskip
 
@@ -754,7 +757,7 @@ Approssimiamo quindi questa funzione prendendo le rette a $0^\circ$ e $90^\circ$
 
 Notiamo quindi che valgono tutte le considerazioni fatte sugli integratori reali, cioè capovolgendo lo zero si trova scostamento in fase opposto, ecc...
 
-\subsubsection{Poli multipli}
+\subsection{Poli multipli}
 Possiamo sfruttare la proprietà di trasformazione in somma del prodotto logaritmico per tracciare i diagrammi di Bode di funzioni di trasferimento con poli doppi.
 
 Prendiamo ad esempio: 
@@ -774,7 +777,7 @@ cioè sommiamo moduli e fasi, ottenendo un decadimento di 40 dB/dec e uno scosta
 
 Generalizzando a poli multipli, si ha semplicemente:
 $$
-G(s) = \frac{1}{(1 + s)}^n \implies G(j \omega) = \frac{1}{(1 + j \omega)^n} = \frac{1}{1 + j \omega^2} \cdot \frac{1}{1 + j \omega^2} \cdot ...
+G(s) = \frac{1}{(1 + s)^n} \implies G(j \omega) = \frac{1}{(1 + j \omega)^n} = \frac{1}{1 + j \omega^2} \cdot \frac{1}{1 + j \omega^2} \cdot ...
 $$
 cioè si continuano a sommare moduli e fasi, ottenendo decadimenti di $n \cdot 20 $ db/dec e scostamenti di fase massimi di $n \cdot -90^\circ$.
 
