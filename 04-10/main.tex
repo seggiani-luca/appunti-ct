@@ -238,7 +238,7 @@ Possiamo allora tracciare il diagrama a rette prendendo il punto di rottura in $
 		cioè si ottiene una retta con pendenza di -40 dB/dec (-12 dB/oct).
 \end{itemize}
 
-\par\medskip
+\par\bigskip
 
 \noindent
 \begin{minipage}{\textwidth}
@@ -248,7 +248,7 @@ Da cui si ottiene l'approssimazione (sovraimposta al valore reale):
 \end{center}
 \end{minipage}
 
-\par\medskip
+\par\bigskip
 
 \subsubsection{Risonanza}
 Potrebbe interessarci valutare l'errore, sopratutto considerato il fatto che non teniamo conto dello smorzamento $\xi$ nella stima per rette.
@@ -271,7 +271,7 @@ per cui si ottengono gli errori al variare di $\xi$ (considerata la nostra appro
 
 Come regola empirica, possiamo assumere di poter usare il diagramma asintotico (il diagramma per rette) solo quando lo smorzamento è $\xi > 0.3$.
 
-\par\medskip
+\par\bigskip
 
 \noindent
 \begin{minipage}{\textwidth}
@@ -282,7 +282,7 @@ Vediamo ad esempio l'errore che commettiamo per $\xi = \frac{1}{4}$, che calcoli
 \end{center}
 \end{minipage}
 
-\par\medskip
+\par\bigskip
 
 Come notiamo, si forma un picco attorno a $\omega = \omega_0$, dove la risposta ha un valore di picco vicino (in verità a $\xi$ decrescente il massimo assoluto si sposta sempre più verso sinistra) all'errore calcolato.
 Questo picco prende il nome di \textbf{picco di risonanza}.
@@ -310,23 +310,24 @@ e il \textit{valore di picco}, ovvero il modulo in decibel raggiunto nel punto d
 $$
 \max |G(j \omega)|_{dB} = 20 \log \left( \omega_{max} \right)
 $$
+Osserviamo che questo valore è effettivamente definito su $\mathbb{R}$ solo quando $\xi < \frac{1}{\sqrt{2}}$: questo si spiega semplicemente dal fatto che per $\xi > \frac{1}{\sqrt{2}}$ la funzione modulo del trasferimento è monotona, e non esiste nessun picco.
 
-\par\medskip
+\par\bigskip
 
 \noindent
 \begin{minipage}{\textwidth}
-Vediamo quindi il punto di picco dell'esempio precdedente, dove ricordiamo avevamo preso $\xi = \frac{1}{4}$:
+Vediamo quindi il punto di picco dell'esempio precedente, dove ricordiamo avevamo preso $\xi = \frac{1}{4}$:
 
 \begin{center}
 	\includegraphics[scale=0.3]{../figures/order2_bode/peak_point.png}
 \end{center}
 \end{minipage}
 
-\par\medskip
+\par\bigskip
 
 Il valore $\omega_{max}$, calcolato al computer, risulta circa $\sim 0.935$, per cui l'errore $\left| G \left( \omega_{max} \right) \right|$ in questo caso è abbastanza vicino all'errore in $\omega = 1$, che era di 6 dB.
 
-\par\medskip
+\par\bigskip
 
 \noindent
 \begin{minipage}{\textwidth}
@@ -337,7 +338,29 @@ Possiamo quindi riportare un grafico che mostra la variazione del picco di rison
 \end{center}
 \end{minipage}
 
-\par\medskip
+\par\bigskip
+
+Questo grafico è duale a quello in 14.1.1: prima avevamo parlato della risposta a transiente, e adesso parliamo della risposta a regime, ma in entrambi i casi vediamo favorire una certa frequenza di oscillazione $\omega_0$ (che nel transiente avevamo visto è corretta di un fattore dipendente dallo smorzamento).
+
+Inoltre, si vede molto bene come intorno a $0.7 \approx \frac{1}{\sqrt{2}}$ il picco scompare: questa è la conseguenza diretta del fatto che, come abbiamo detto, il punto di picco $\omega_0 \sqrt{1 - 2 \xi^2}$ è effettivamente definito su $\mathbb{R}$ solo nel caso $\xi < \frac{1}{\sqrt{2}}$.
+
+\par\smallskip
+
+Facciamo quindi un breve riassunto sulle frequenze di oscillazione che abbiamo incontrato finora:
+\begin{itemize}
+	\item \textbf{Frequenza di oscilazione naturale:} $\ \omega_0$ \\
+		Abbiamo detto sarebbe la frequenza naturale a cui il sistema oscillasse se non vi fosse smorzamento $\xi$, e infatti vediamo che in tal caso corrisponde esattamente alle altre 2 frequenze; 
+	\item \textbf{Frequenza di oscillazione naturale smorzata:} $\ \omega_d = \omega_0 \sqrt{1 - \xi^2}$ \\
+		Rappresenta la frequenza di oscillazione della \textit{risposta libera} del sistema, cioè quella con cui, nel caso questo sia stabile, decade naturalmente al punto di equilibrio (l'origine); 
+	\item \textbf{frequenza di picco risonante:} $\ \omega_{max} = \omega_0 \sqrt{1 - 2 \xi^2}$ \\
+		Rappresenta ciò che abbiamo visto, cioè la frequenza che il sistema, preso dal punto di vista della funzione di trasferimento ingresso-uscita, amplifica più delle altre (sotto l'ipotesi $\xi < \frac{1}{\sqrt2}$). In questo è intrinsecamente legata alla \textit{risposta forzata} del sistema.
+\end{itemize}
+
+Si ricava immediatamente che nei sistemi sottosmorzati $\xi < 1$ (che sono comunqe gli unici dove questo tipo di considerazioni si applicano), vale fra queste frequenze la relazione:
+$$
+\omega_{max} < \omega_d < \omega_0
+$$
+cioè il sistema preferisce oscillare, in \textit{risposta libera} ($\omega_d$), ad una frequenza leggermente più alta di quella di eccitazione massima in \textit{risposta forzata} ($\omega_{max}$).
 
 \subsubsection{Valutazione di fase}
 Per quanto riguarda la fase, invece, si avrà: 
@@ -362,24 +385,55 @@ $$
 $$
 da cui il limite, che porta appunto a $-90^\circ$.
 
-\par\medskip
+\par\bigskip
 
 \noindent
 \begin{minipage}{\textwidth}
 Otteniamo quindi il grafico approssimato, come sempre sovraimposto a quello reale:
 
 \begin{center}
-	# qui manca il grafico
+	\includegraphics[scale=0.3]{../figures/order2_bode/phase.png}
 \end{center}
 \end{minipage}
 
-\par\medskip
+\par\bigskip
 
 Vediamo che lo scostamento in fase è lo stesso del sistema del primo ordine, ma raddoppiato: questo ha senso, in quanto abbiamo detto già lo stesso abbattimento dopo la frequenza di taglio $\omega_0$ era del doppio, cioè -40 dB/dec.
 
+\par\smallskip
+
+Una considerazione più interessante potrebbe essere quella della pendenza della retta che approssima la componente intorno a $\omega_0$: abbiamo infatti che, a differenza dei sistemi del prim'ordine, nei sistemi del second'ordine lo scostamento in fase avviene con velocità diverse intorno alla frequenza di taglio (finora si è assunto $-1$): è proprio questo a dare il caratteristico picco di risonanza (rispettate le condizioni di cui sopra).
+
+Calcoliamo allora la derivata dell'argomento della risposta:
+$$
+\frac{d}{d\omega} \left( \angle G(j\omega) \right) 
+= - \frac{1}{1 + \left( \frac{ \frac{2 \xi \omega}{\omega_0} }{ 1 - \frac{\omega^2}{\omega_0^2} } \right)^2 } 
+\cdot \frac{ \frac{2 \xi}{\omega_0} \left( 1 - \frac{\omega^2}{\omega_0^2} \right) + \frac{2 \xi \omega}{\omega_0} \cdot \frac{2 \omega}{\omega_0^2} }{ \left( 1 - \frac{\omega^2}{\omega_0^2} \right)^2 }
+$$
+Questa funzione, valutata in $\omega_0$, dà:
+$$
+\frac{d}{d\omega} \left( \angle G(j\omega) \right) (j \omega_0) = - \frac{2 \xi}{\omega_0} \cdot \frac{ \left( 1 + \frac{\omega_0^2}{\omega_0^2} \right) }{ \left( 1 - \frac{\omega_0^2}{\omega_0^2} \right)^2 + \left( \frac{2 \xi \omega_0}{\omega_0} \right)^2 } = - \frac{1}{\xi \omega_0}
+$$
+Tracceremo quindi la retta di congiunzione in $\omega = \omega_0$ con coefficiente angolare $- \frac{1}{\xi \omega_0}$.
+
+\par\bigskip
+
+\noindent
+\begin{minipage}{\textwidth}
+Vediamo ad esempio il caso con $\xi = 0.6$:
+
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/order2_bode/phase_weird.png}
+\end{center}
+\end{minipage}
+
+\par\bigskip
+
+Dal punto di vista pratico, possiamo fare la stessa ipotesi di approssimazione di prima: per $\xi > 0.3$ prendiamo la retta con derivata $-1$, mentre per $\xi < 0.3$ la pendenza è troppo ripida perchè questa sia valida.
+
 \subsection{Ritardo nei diagrammi di Bode}
 Vediamo infine l'effetto che il ritardo ha nel dominio frequenze.
-Avevamo già visto l'espressione del ritardo:
+Avevamo già visto l'espressione del ritardo nel dominio d Laplace:
 $$
 G(s) = e^{-s \tau}
 $$
@@ -391,8 +445,115 @@ cioè uno scostamento in fase di $\omega \tau$.
 
 L'effetto sul diagramma di Bode sarà quindi di lasciare invariato il modulo (cioè dare una costante a 0 dB), e sopratutto di scostare la fase di un valore pari a $-\omega \tau$.
 
-# grafici
+\par\bigskip
 
-# esercizio svolto
+\noindent
+\begin{minipage}{\textwidth}
+Vediamo allora il grafico del modulo:
+
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/delay_bode/mod.png}
+\end{center}
+\end{minipage}
+
+\par\bigskip
+
+\noindent
+\begin{minipage}{\textwidth}
+e il grafico della fase:
+
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/delay_bode/phase.png}
+\end{center}
+\end{minipage}
+
+\par\bigskip
+
+\subsection{Esempio: diagramma di Bode}
+Vediamo quindi un esempio pratico di disegno di un diagramma di Bode.
+Prendiamo la funzione di trasferimento:
+$$
+G(s) = 200 \frac{\left( s+ \frac{1}{10} \right)}{ (s + 1) \left( \frac{s^2}{400} + \frac{s}{20} + 1 \right) }
+$$
+che protiamo subito nella forma di Bode e in risposta armonica:
+$$
+= 20 \frac{\left( 10s + 1 \right)}{ (s + 1) \left( \frac{s^2}{400} + \frac{s}{20} + 1 \right) } 
+= 20 \frac{\left( 10 j \omega + 1 \right)}{ (j \omega + 1) \left( -\frac{\omega^2}{400} + \frac{j \omega}{20} + 1 \right) }
+$$
+
+Vediamo poi il guadagno: questo nella forma di Bode è dato dal $20$ che moltiplica il rapporto polinomi.
+Dalla tabella in 17.2.1 ricordiamo che un modulo di $|20|$ corrisponde a un guadagno di 26 dB.
+Aggiugneremo quindi questo valore a tutti i moduli che calcoleremo.
+
+Da qui distinguiamo zeri e poli e ne individuiamo il comportamento tramite un approssimazione per rette.
+Da quanto avevamo dimostrato nella 17.1.3, potremo poi sommare i grafici ottenuti dalle singole risposte per zero e per polo e ottenere la risposta complessiva.
+
+Abbiamo quindi:
+\begin{itemize}
+	\item \textbf{Zeri:}
+		\begin{itemize}
+			\item $10 j \omega + 1$: questo rappresenta una rampa, con pendenza di 20 dB/dec, che inizia a pulsazione $j \omega^* = \frac{1}{10}$. \\ 
+				Dal punto di vista della fase rappresenterà una transizione da $0^\circ$ a $90^\circ$ con punto a derivata unitaria in $\frac{1}{10}$.
+		\end{itemize}
+	\item \textbf{Poli:}
+		\begin{itemize}
+			\item $j \omega + 1$: questo rappresenta un passa basso, con pendenza di -20 dB/dec e frequenza di taglio a $j \omega^* = 1$. \\ 
+				Dal punto di vista della fase rappresenterà una transizione da $0^\circ$ a $-90^\circ$ con punto a derivata unitaria in $1$;
+			\item $-\frac{\omega^2}{400} + \frac{j \omega}{20} + 1$: questa è una forma del secondo grado, di cui ci interessa prima di tutto conoscere il tipo.
+				Riconosciamo allora di poterci ricondurre alla forma $-\frac{\omega^2}{\omega_0^2} + \frac{2\xi}{\omega_0} j \omega + 1$, cioè:
+				$$
+				-\frac{\omega^2}{400} + \frac{j \omega}{20} + 1 = -\frac{\omega^2}{\omega_0^2} + \frac{2\xi}{\omega_0} j \omega + 1
+				$$
+				da cui:
+				$$
+				\omega_0^2 = 400 \implies \omega_0 = 20, \quad \frac{2\xi}{\omega_0} = \frac{2\xi}{20} = \frac{1}{20} \implies \xi = \frac{1}{2}
+				$$
+				cioè siamo nel caso sottosmorazato, tra con l'altro $\xi = 0.5$, che è compreso fra $0.3$ e $0.7$, quindi abbiamo detto \textit{risonante} ma \textit{approssimabile} col diagramma a rette.
+				Ignoriamo quindi lo smorzamento e prendiamo un filtro passa basso con pendenza di -40 dB/dec e frequenza di taglio a $j \omega^* = 20$. \\ 
+				Dal punto di vista della fase rappresenterà una transizione da $0^\circ$ e $-90^\circ$
+		\end{itemize}
+\end{itemize}
+
+Tracciamo quindi il diagramma di Bode del modulo, considerando le seguenti regioni:
+\begin{itemize}
+	\item $[0, 0.1)$: nessun zero o polo è attivo, quindi si resta a 0 + 26 dB;
+	\item $[0.1, 1)$: lo zero è attivo, si sale con 20 dB/dec fino a 20 + 26dB;
+	\item $[1, 20)$: il polo lineare è attivo e compensa lo zero, si resta a 20 + 26 dB;
+	\item $[20, +\infty)$: il polo quadratico è attivo, si scende con -40 db/dec.
+\end{itemize}
+
+\par\bigskip
+
+\noindent
+\begin{minipage}{\textwidth}
+da cui il grafico:
+
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/exerc_bode.png}
+\end{center}
+\end{minipage}
+
+\par\bigskip
+
+che come vediamo si discosta dal grafico originale per lo più per lo smussamento intorno a $0.1 \sim 1$, e per il picco di risonanza (che abbiamo volontariamente ignorato) a $20$.
+
+\par\smallskip
+
+Disegnamo quindi il diagramma di Bode della fase.
+In questo caso notiamo di avere molta sovrapposizione fra le transizioni di fase: un'idea potrebbe essere quella di considerare assoluti solo i valori assoluti $0$ e a $+\infty$, e per gli zeri e i poli intermedi prendere i punti "medi" (a $\pm 45^\circ$ per lo zero e il polo lineare, e a $-90^\circ$ per il polo quadratico).
+
+\par\bigskip
+
+\noindent
+\begin{minipage}{\textwidth}
+
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/exerc_bode_phase.png}
+\end{center}
+\end{minipage}
+
+\par\bigskip
+
+che vediamo essere abbastanza simile alla fase effettiva (in verde).
 
 \end{document}
