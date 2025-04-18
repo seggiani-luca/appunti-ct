@@ -267,10 +267,27 @@ Esistono diverse linee costanti che possiamo percorrere (cioè su cui possiamo p
 \begin{itemize}
 	\item 
 		Abbiamo quindi che percorrendo una retta passante per l'origine nella direzione negativa dell'asse complesso si ottiene una cosiddetta \textbf{linea di smorzamento costante}, cioè un insieme di regioni dove lo smorzamento resta costante e cambia invece (con l'aumentare della distanza dall'origine) la frequenza naturale. 
-	\item
-		Per mantenere costante il tempo di assestamento, invece, basta mantenere la componente reale dei poli costante, ergo si crea una cosiddetta \textbf{linea di tempo di assestamento costante} parallela all'asse immaginario. # grafici, sia dei punti che delle risposte tempo campionando le linee
 
-		# non ci dovrebbero essere anche linee di pulsazione naturale costante?
+		Vediamo ad esempio il seguente grafico, dove a sinistra si mostrano le linee di smorzamento costante, e a sinistra le risposte all'impulso di alcuni dei sistemi che descrivono:
+		\begin{center}
+			\includegraphics[scale=0.28]{../figures/fixed_damping.png}
+		\end{center}
+	\item
+		Per mantenere costante il tempo di assestamento, invece, basta mantenere la componente reale dei poli costante, ergo si crea una cosiddetta \textbf{linea di tempo di assestamento costante} parallela all'asse immaginario. 
+
+		\newpage
+
+		Il grafico del tipo precedente per questa situazione è:
+		\begin{center}
+			\includegraphics[scale=0.28]{../figures/fixed_time.png}
+		\end{center}
+	\item
+		Per mantenere costante la pulsazione prendiamo circonferenze centrate sull'origine di raggio crescente, cioè cerchiamo una \textbf{circonferenza di pulsazione costante}.
+		
+		Il grafico del tipo precedente per questa situazione è:
+		\begin{center}
+			\includegraphics[scale=0.28]{../figures/fixed_pulse.png}
+		\end{center}
 \end{itemize}
 
 \subsubsection{Regioni di vincolo}
@@ -279,14 +296,27 @@ Abbiamo parlato finora dei soli poli: vediamo di reintrodurre il sistema con con
 Intanto possiamo vedere alcuni vincoli di progetto che potremmo avere sul comportamento desiderato:
 \begin{itemize}
 	\item 
-		Intanto potremmo volere che lo \textbf{smorzamento} che otterremo non sia mai minore di un certo valore. Saremo vincolati ad un cono di angolo $\theta$ con l'asse immaginario, che possiamo individuare sul piano di Argand-Gauss: # grafico
+		Potremmo volere che lo \textbf{smorzamento} che otterremo non sia mai minore di un certo valore. Saremo vincolati ad un cono di angolo $\theta$ con l'asse immaginario, che possiamo individuare sul piano di Argand-Gauss:
+		\begin{center}
+			\includegraphics[scale=0.28]{../figures/fixed_damping_region.png}
+		\end{center}
 
 	\item
-		Se volessimo invece \textbf{tempo di assestamento} sotto una certa soglia, vorremo trovarci a sinistra di una linea di tempo di assestamento costante, quindi in una regione di piano che il seguente aspetto: #grafico
+		Se volessimo invece \textbf{tempo di assestamento} sotto una certa soglia, vorremo trovarci a sinistra di una linea di tempo di assestamento costante, quindi in una regione di piano che il seguente aspetto:
+		\begin{center}
+			\includegraphics[scale=0.28]{../figures/fixed_time_region.png}
+		\end{center}
 
 	\item
 		Infine potremmo voler vincolare la pulsazione naturale.
 		In questo caso, direttamente dalla corrispondenza fra modulo e pulsazione naturale, ci vorremmo restiringere, ad esempio se si vuole pulsazione \textit{maggiore} (\textit{minore}) di una certa soglia, alla regione \textit{esterna} (\textit{interna}) ad una certa circonferenza di raggio equivalente alla soglia.
+		
+		\newpage
+
+		Sul grafico:
+		\begin{center}
+			\includegraphics[scale=0.28]{../figures/fixed_pulse_region.png}
+		\end{center}
 \end{itemize}
 
 L'insieme dei punti che rispettano tutti i vincoli si ha, a questo punto, semplicemente prendendo l'intersezione delle regioni individuate da ogni vincolo.
@@ -301,15 +331,15 @@ Vediamo quindi altre regole di tracciamento.
 		In un punto multiplo la radice multipla $s_i$ è soluzione di:
 		\[
 			\begin{cases}
-				d(s) + Kn(s) = 0 \\
-				d'(s) + K n'(s) = 0
+				d(s_i) + Kn(s_i) = 0 \\
+				d'(s_i) + K n'(s_i) = 0
 			\end{cases}
 		\]
 		cioè dell'equazione caratteristica e della sua derivata.
 
 		Inoltre, si nota che:
 		$$
-		\sum_{i = 1}^n \frac{1}{s - p_i} = \sum_{i = 1}^m \frac{1}{s - z_i}
+		\sum_{i = 1}^n \frac{1}{s_i - p_i} = \sum_{i = 1}^m \frac{1}{s_i - z_i}
 		$$
 
 		\par\medskip
@@ -337,9 +367,26 @@ Vediamo quindi altre regole di tracciamento.
 		Per quanto riguardava i poli ad infinito, avevamo detto che questi erano $n - m$ (cioè quelli che non andavano in zeri in ciclo aperto).
 		Chiamiamo questo valore $v = n - m$, o \textit{differenza poli-zeri}.
 
-		# qui c'era una regolina sugli angoli, il metodo sotto è un'alternativa (migliore)
+		Avevamo dalla condizione di fase, cioè dalla regola (2), che i punti che appartengono al luogo delle radici sono quelli che rispettano:
+		\[
+			\begin{cases}
+				\angle n(s) - \angle d(s) = -\pi \pm 2 h \pi, \quad K > 0 \\
+				\angle n(s) - \angle d(s) = \pm 2 h \pi, \quad K < 0
+			\end{cases}
+		\]
+		e cioè per cui la somma degli angoli agli zeri $\theta_i$ meno la somma degli angoli ai poli $\phi_i$ vale $-\pi$ per il luogo diretto, e $0$ per il luogo indiretto.
+		Quando facciamo tendere $K$ ad infinito, si ha che gli angoli per tutti i poli e zeri diventano simili, cioè:
+		$$
+		\phi_i \approx \theta_i \approx \phi_\infty
+		$$
+		per cui potremo approssimare:
+		$$
+		\angle n(s) - \angle d(s) \approx \phi_{\infty} (m - n) = -\pi \pm 2 h \pi
+		$$
+		da cui la regola (nell'esempio per il luogo diretto).
+		Notiamo che preferiamo usare $n - m$ invece di $m - n$ in quanto corrisponde direttamente con $v$, ma il risultato non cambia in quanto la condizione di fase funziona scambiando i segni a destra (se si ruota di $360^\circ$ su un cerchio si torna da dove si è partiti).
 
-		Nota la differenza poli-zeri potremo allora dire che:
+		Nota la differenza poli-zeri potremo quindi dire che:
 		\begin{itemize}
 			\item Esiste un \textbf{centro degli asintoti}, cioè il punto da cui iniziamo a tracciare gli asintoti, che sta sempre sull'asse reale ed è:
 				$$
@@ -377,13 +424,18 @@ Vediamo quindi altre regole di tracciamento.
 		$$
 		Notiamo che questi angoli non sono stati calcolati usando la formula, ma semplicemente notando di dover dividere, per $v = 3$, il piano di Argand-Gauss in regioni equiangole di angolo $120^\circ$.
 
+	Sul grafico, questo sarà:
+	\begin{center}
+		\includegraphics[scale=0.8]{../figures/rlocus/1331.png}
+	\end{center}
+
 		\par\medskip
 		\noindent
 		\textbf{\sffamily{Esempio 2}}
 
 		Vediamo un'altro esempio, attraverso la funzione di trasferimento:
 		$$
-		g(s) = \frac{1}{s(s + 1)(s + 2)}
+		G(s) = \frac{1}{s(s + 1)(s + 2)}
 		$$
 		In questo caso l'equazione caratteristica sarà:
 		$$
@@ -397,18 +449,18 @@ Vediamo quindi altre regole di tracciamento.
 			\begin{tabular} { c | c c}
 				$3$ & $1$ & $2$ \\
 				$2$ & $3$ & $K$ \\
-				$1$ & $6 - K$ & $0$ \\
+				$1$ & $\frac{6 - K}{3}$ & $0$ \\
 				$0$ & $K$
 			\end{tabular}
 		\end{table}
-		da cui la $K$ critica $K_{CR} = 6$, e quindi sistema stabile per $0 < K < 6$.
+		da cui le $K$ critiche $K_{CR1} = 0$ e $K_{CR2} = 6$, e quindi sistema stabile per $0 < K < 6$.
 
-		Proseguiamo quindi col tracciamento.
-		Avremo che i poli sono $p_1 = -2$, $p_2 = -1$ e $p3 = 0$
+		Proseguiamo col tracciamento.
+		Avremo che i poli sono $p_1 = -2$, $p_2 = -1$ e $p_3 = 0$
 		Dalla regola (4), quindi, apparterranno al luogo diretto i punti in $(-\infty, -2]$, e i punti in $[-1, 0]$.
 
-		Avremo quindi $v = n - m = 3$ (non ci sono zeri),  e quindi 3 asintoti (di cui uno è quello reale).
-		Vorremo quindi gli angoli di asintoto (sempre in luogo diretto):
+		Avremo $v = n - m = 3$ (non ci sono zeri), e quindi 3 asintoti (di cui uno è quello reale).
+		Vorremo gli angoli di asintoto (sempre in luogo diretto):
 		$$
 		\phi_\text{asintoto} = \left\{ 60^\circ, 180^\circ, 300^\circ \right\}
 		$$
@@ -416,43 +468,131 @@ Vediamo quindi altre regole di tracciamento.
 		$$
 		\sigma = \frac{0 -1 -2}{3} = -1
 		$$
-		cioè sul piano complesso ci saranno due asintoti che si staccano da $-1$ e proseguono formando angoli di $60^\circ$ e $-60\circ$ con l'asse reale. # grafici di questi esempi
+		cioè sul piano complesso ci saranno due asintoti che si staccano da $-1$ e proseguono formando angoli di $60^\circ$ e $-60^\circ$ con l'asse reale. 
+
+	Sul grafico, questo sarà:
+	\begin{center}
+		\includegraphics[scale=0.8]{../figures/rlocus/1320.png}
+	\end{center}
+	potremmo chiederci il valore del punto di intersezione fra i due rami.
+	Ricordiamo allora la regola (5), per cui le radici doppie soddisfano:
+	$$
+	\sum_{i = 1}^n \frac{1}{s_i - p_i} = \sum_{i = 1}^m \frac{1}{s_i - z_i}
+	$$
+	che in questo caso significa:
+	$$
+	\frac{1}{s} + \frac{1}{s + 1} + \frac{1}{s + 2} = 0 \implies (s + 1) (s + 2) + s (s + 2) + s (s + 1) = 3s^2 + 6s + 2 = 0
+	$$
+	da cui le soluzioni:
+	$$
+		r_1 = \frac{-6 - \sqrt{12}}{6} \approx -1.577, \quad r_2 = \frac{-6 + \sqrt{12}}{6} \approx -0.4226
+	$$
+	dal grafico, si nota che il punto che cerchiamo dovrà essere compreso fra $-1$ e $0$, per cui prendiamo la seconda soluzione.
 
 		\par\medskip
 		\noindent
 		\textbf{\sffamily{Esempio 3}}
 
-		Prendiamo il caso di avere 2 poli ed uno zero finito.
+		Prendiamo il caso di avere 2 poli coincidenti ed uno zero finito.
 		In questo caso il luogo delle radici è una circonferenza centrata sullo zero.
 		Questo si verifica dalla condizione di fase:
 		$$
 		\alpha - 2 \beta = - \pi \pm 2 h \pi
 		$$
-		in quanto questa si può ricavare dando l'identità, vera su una circonferenza:
-		$$ # riguarda
-		\frac{\alpha}{2} + \frac{\pi}{2} + \gamma = \pi \Rightarrow \frac{\alpha}{2} + \frac{\pi_2} + \pi + \beta = - \pi \Rightarrow \alpha - 2 \beta = \pi
+		Vogliamo dimostrare che questo vale su qualsiasi punto di una circonferenza centrata sullo zero e di raggio uguale alla differenza fra poli e zeri.
+		Per questo prendiamo il disegno:
+		\begin{center}
+			\includegraphics[scale=0.28]{../figures/rlocus_circ.png}
+		\end{center}
+		Osservando gli angoli si nota che deve valere:
 		$$
-		e ponendo $h = 0$.
+		\frac{\alpha}{2} + (\pi - \beta) = \frac{\pi}{2} \, \Rightarrow \, \frac{\alpha}{2} - \beta = \frac{\pi}{2} - \pi \, \Rightarrow \, \alpha - 2 \beta = -\pi
+		$$
+		cioè la relazione, vera per ogni punto $s$ sulla circonferenza cercata, è equivalente alla condizione di fase per $h = 0$.
 
-		Avremo quindi che i due poli, se sono reali, sono obbligatoriamente sovrapposti.
-		Altrimenti, si sposteranno lungo la circonferenza, vincolandone gli estremi. # riguarda riguarda riguarda + grafico
+	\newpage
+
+		Avremo quindi che i due poli, se sono reali, sono obbligatoriamente sovrapposti e tracciano il luogo:
+	\begin{center}
+		\includegraphics[scale=0.8]{../figures/rlocus/circ_full.png}
+	\end{center}
+
+	Il risultato si generalizza a funzioni di trasferimento qualsiasi con 2 poli complessi coniugati e uno zero finito.
+	In questo caso il luogo è sempre una circonferenza vincolata sullo zero, dove i poli ne vincolano gli estremi:
+	\begin{center}
+		\includegraphics[scale=0.8]{../figures/rlocus/circ_cut.png}
+	\end{center}
 
 	\item[7.] La regola (7) riguarda gli angoli di partenza dei rami uscenti dai poli.
-		Avevamo che i rami uscenti dai poli con molteplicità $> 1$ dividono il piano in parti equiangole e simmetriche rispetto all'asse reale.
+		Per ricavare una regola generale riprendiamo la condizione di fase:
+		\[
+			\begin{cases}
+				\angle n(s) - \angle d(s) = -\pi \pm 2 h \pi, \quad K > 0 \\
+				\angle n(s) - \angle d(s) = \pm 2 h \pi, \quad K < 0
+			\end{cases}
+		\]
+		E notiamo che preso un polo particolare in $p^*$, ad esempio riguardo al luogo diretto, si avrà che l'angolo di uscità $\phi^*$ è:
+		$$
+		\angle n(s) - \angle d^*(s) \Big|_{s = p^*} - \phi^* = -\pi \implies \phi^* = \pi + \angle n(s) - \angle d^*(s) \Big|_{s = p^*}
+		$$
+		dove $d^*(s)$ è il denominatore rimosso il polo $p^*$ preso in considerazione.
 
-		Iniziamo dalla condizione di fase:
+		Potremo quindi usare questa formula generale per calcolare l'angolo di uscita dei rami dai poli.
+		Da questo ricaviamo fra l'altro che i rami uscenti dai poli con molteplicità $> 1$ dividono il piano in parti equiangole e simmetriche rispetto all'asse reale.
+		Infine, nessuno ci nega di applicare la stessa legge agli angoli di arrivo negli zeri (quindi di capire gli angoli finali dei rami che terminano \textit{al finito}).
+
+		\par\medskip
+		\noindent
+		\textbf{\sffamily{Esempio}}
+
+		Calcoliamo gli angoli di partenza dai poli della funzione di trasferimento:
 		$$
-		\angle n(s) - \angle d(s) = - \pi, \quad K > 0
+		G(s) = \frac{s + 5}{s (s^2 + 6s + 109)}
 		$$
-		e consideriamo il polinomio $d^*(s)$:
+		
+		Partiamo col trovare i poli, di cui il polo banale $p_1 = 0$ e i poli complessi coniugati:
 		$$
-		d*(s) = \frac{d(s)}{s - p_1}
+		p_{2, 3} = \frac{-6 \pm \sqrt{400}}{2} = -3 \pm 10i
 		$$
-		Allora varrà che:
+		
+		Abbiamo quindi i poli:
 		$$
-		\theta_{p_1} = \pi + \angle n(s) - \angle d^*(s)
+			p_1 = 0, \quad p_2 = -3 + 10 i, \quad p_3 = -3 - 10 i
 		$$
-		# e varrà anche che mi sono rotto i coglioni finisco dopo
+		e la funzione di trasferimento fattorizzata:
+		$$
+		G(s) = \frac{s + 5}{s(s + 3 - 10i)(s + 3 + 10i)}
+		$$
+
+		Calcoliamo allora gli angoli veri e propri per ogni polo, applicando la legge appena trovata:
+		\begin{itemize}
+			\item Per il polo $p_1$ si ha cancellazione dei termini complessi:
+		$$
+		\phi_1 = \pi + \angle n(s) - \angle d^1(s) \Big|_{s = 0} = \pi + \angle 5 - \angle(3 - 10i) - \angle (3 + 10 i) =180^\circ
+		$$
+		e quindi il ramo è diretto a sinistra nell'asse reale, come ci aspettavamo dalla regola (4). 
+	\item Per il polo $p_2$ prendiamo: 
+		$$
+		\phi_2 = \pi + \angle n(s) - \angle d^2(s) \Big|_{s = -3 + 10i} = \pi + \angle (-2 + 10i) - \angle (-3 + 10i) - \angle 20 i
+		$$
+		$$
+		= 180^\circ + 78.7^\circ - 106.7^\circ - 90^\circ = 62^\circ
+		$$
+	\item Per il polo $p_3$ ci aspettiamo di trovare l'opposto di $\phi_2$, in quanto dalla regola (5) il luogo dovrà essere simmetrico rispetto all'asse reale.
+		Facciamo comunqe il calcolo esplicito per completezza:
+		$$
+		\phi_3 = \pi + \angle n(s) - \angle d^3(s) \Big|_{s = -3 - 10i} = \pi + \angle (2 - 10i) - \angle (-3 - 10i) - \angle -20 i
+		$$
+		$$
+		= 180^\circ - 78.7^\circ + 106.7^\circ + 90^\circ = -62^\circ
+		$$
+		che conferma quanto ci aspettavamo.
+		\end{itemize}
+
+		Vediamo quindi il grafico del luogo diretto:
+		\begin{center}
+			\includegraphics[scale=0.8]{../figures/rlocus/15_151090.png}
+		\end{center}
 \end{enumerate}
 
 \end{document}
