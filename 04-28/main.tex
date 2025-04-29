@@ -258,11 +258,9 @@ Avremo effettivamente la possibilità di sfruttare 2 metodi:
 	\item
 		Per il secondo metodo cercheremo un'approssimazione di tipo \textit{qualitativo}, come avevamo fatto per i diagrammi di Bode.
 
-		# tipi sistema li ha fatti ?
-
-		Supponiamo che il sistema sia di tipo zero, cioè poniamo il sistema con funzione di trasferimento:
+		Supponiamo che il sistema sia di \textbf{tipo} zero, cioè poniamo il sistema con funzione di trasferimento:
 		$$
-		G(s) = k_1 \frac{ b_0 + b_1 s + b_2 s^2 + ... + s^m }{ s^h ( a_h + a_{h - 1} s + a_{h - 2} s^2 + ... + s^{n - h} ) }
+		G(s) = K \frac{ b_0 + b_1 s + b_2 s^2 + ... + s^m }{ s^h ( a_0 + a_1 s + a_2 s^2 + ... + a_{n - h} s^{n - h} ) }
 		$$
 		e imponiamo $h = 0$.
 
@@ -270,7 +268,7 @@ Avremo effettivamente la possibilità di sfruttare 2 metodi:
 			\item 
 		A questo punto vorremo trovare il punto a $\omega = 0$, dato dal guadagno statico:
 		$$
-			G(0) = \lim_{\omega \rightarrow 0} G(j \omega) = k_1 \cdot \frac{b_0}{a_0}
+			G(0) = \lim_{\omega \rightarrow 0} G(j \omega) = K \cdot \frac{b_0}{a_0}
 		$$
 		con fase:
 		\[
@@ -279,7 +277,7 @@ Avremo effettivamente la possibilità di sfruttare 2 metodi:
 				\phi_{\omega \rightarrow 0} = -\pi, \quad G(0) < 0 \\	
 			\end{cases}
 		\]
-		per sistemi non di tipo $0$, invece, cioè con $\h \neq 0$, avremo:
+		per sistemi non di tipo $0$, invece, cioè con $h \neq 0$, avremo:
 		$$
 			G(0) = \lim_{\omega \rightarrow 0} |G(j\omega)| = \infty
 		$$
@@ -294,14 +292,25 @@ Avremo effettivamente la possibilità di sfruttare 2 metodi:
 				\lim_{\omega \rightarrow \infty} G(j\omega) = 	
 			\begin{cases}
 				0, \quad n > m \\
-				k_1, \quad n = m
+				K, \quad n = m
 			\end{cases}
 		\]
-		con fase:
-		$$
-		\angle G(j\omega) = \frac{1}{s^{n - m}}
-		$$
+		con fase se $n > m$:
+		\[
+			\begin{cases}
+				\phi_{\omega \rightarrow \infty} = \frac{1}{s^{n - m}} = - (n - m) \cdot \frac{\pi}{2}, \quad G(0) > 0 \\
+				\phi_{\omega \rightarrow \infty} = \frac{1}{s^{m - n}} = - (m - n) \cdot \frac{\pi}{2}, \quad G(0) < 0
+			\end{cases}
+		\]
+		e se $n = m$ corrispondente alla fase di $K$.
 \end{itemize}
+
+A questo punto cerchiamo ulteriori punti per il tracciamento, fra cui ad esempio sono immediati quelli di intersezione con gli assi.
+Per trovare questi poniamo la parte reale e immaginaria separatamente a 0.
+
+A questo punto basterà raccordare i punti trovati per avere una stima approssimata del diagramma di Nyquist.
+
+Chiamiamo questo metodo \textbf{metodo qualitativo}.
 \end{enumerate}
 
 \end{document}

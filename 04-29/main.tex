@@ -15,10 +15,6 @@
 \usepackage{gensymb}
 \usepackage{hyperref}
 \usepackage{standalone}
-\usepackage{subcaption}
-
-% cose fluttuanti
-\usepackage{float}
 
 % imposta il titolo
 \title{Appunti Fondamenti di Automatica}
@@ -102,11 +98,6 @@
 % disponi codice
 \usepackage{listings}
 \usepackage[table]{xcolor}
-
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 \lstdefinestyle{codestyle}{
 		backgroundcolor=\color{black!5}, 
@@ -201,32 +192,61 @@
 
 \begin{document}
 
-\pagestyle{fancy}
-\thispagestyle{empty}
-\renewcommand{\thispagestyle}[1]{}
+% sezione (data)
+\section{Lezione del 29-04-25}
 
-\maketitle
-\input{../02-25/main.tex}
-\input{../02-26/main.tex}
-\input{../02-27/main.tex}
-\input{../03-04/main.tex}
-\input{../03-05/main.tex}
-\input{../03-06/main.tex}
-\input{../03-11/main.tex}
-\input{../03-12/main.tex}
-\input{../03-18/main.tex}
-\input{../03-20/main.tex}
-\input{../03-25/main.tex}
-\input{../03-26/main.tex}
-\input{../03-27/main.tex}
-\input{../04-01/main.tex}
-\input{../04-02/main.tex}
-\input{../04-08/main.tex}
-\input{../04-09/main.tex}
-\input{../04-10/main.tex}
-\input{../04-15/main.tex}
-\input{../04-16/main.tex}
-\input{../04-24/main.tex}
-\input{../04-28/main.tex}
-\input{../04-29/main.tex}
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+Riprendiamo il discorso sui diagrammi di Nyquist.
+
+\subsubsection{Esempio: diagramma di Nqyuist}
+Facciamo l'esempio del tracciamento del diagramma di Nyquist per la funzione di trasferimento:
+$$
+G(s) = \frac{1}{s^2 + 3s + 2}
+$$
+Il primo passo sarà chiaramente quello di trovare la funzione di risposta armonica:
+$$
+G(j \omega) = \frac{1}{-\omega^2 + 3 j \omega + 2}
+$$
+Vediamo quindi le risposte rispettivamente a $\omega \rightarrow 0$ e $\omega \rightarrow + \infty$:
+\begin{itemize}
+	\item $\omega \rightarrow 0$:
+		$$
+		\frac{1}{-\omega^2 + 3 j \omega + 2} \Big|_{\omega \rightarrow 0} = \frac{1}{2} \, \angle \, 0^\circ
+		$$
+	\item $\omega \rightarrow +\infty$:
+		$$
+		\frac{1}{-\omega^2 + 3 j \omega + 2} \Big|_{\omega \rightarrow + \infty} = 0 \, \angle \, -180^\circ
+		$$
+\end{itemize}
+
+Vediamo quindi le intersezioni con gli assi.
+Per valutarle razionalizziamo la $G(j \omega)$ in componente reale e immaginaria:
+$$
+G(j \omega) = x + j y = \frac{1}{(2 - \omega^2) + 3 j \omega} \cdot \frac{(2 - \omega^2) - 3 j \omega}{(2 - \omega^2) - 3 j \omega}
+= \frac{(2 - \omega^2) - 3 j \omega}{(2 - \omega)^2 + 9 \omega^2}
+$$
+
+Poniamo quindi separatamente parte reale e immaginaria a 0:
+\begin{itemize}
+	\item $\mathrm{Re}(G(s)) = 0$:
+		$$
+			2 - \omega^2 = 0 \implies \omega = \sqrt{2}
+		$$
+		in quanto ci interessa solo la parte $\omega \in [0, +\infty)$.
+		Sostituendo nella parte complessa si ha quindi:
+		$$
+		G(j\omega) = \frac{-3 j \sqrt{2}}{18} = -\frac{\sqrt{2}}{6} j # finisci
+		$$
+	\item $\mathrm{Im}(G(s)) = 0$ # finisci
+\end{itemize}
+
+\subsubsection{Diagrammi di Nyquist da diagrammi di Bode}
+Possiamo tracciare i diagrammi di Nyquist, in maniera qualitativa, a partire dalla conoscenza dei corrispondenti diagrammi di Bode, in modulo e fase.
+
+# esempio
+
 \end{document}
