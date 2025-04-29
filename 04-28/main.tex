@@ -220,7 +220,7 @@ Altre proprietà dei diagrammi di Nyquist sono:
 \begin{itemize}
 	\item I diagrammi sono graduati in funzione della pulsazione $\omega$;
 	\item I diagrammi polari sono utili per lo studio della stabilità dei sistemi in retroazione, attraverso il cosiddetto \textbf{criterio di stabilità di Nyquist};
-	\item Se conosciamo la funzione di trasferimento $G(s)$, il diagramma polare si può tracciare per punti separando le parti reali e immaginarie di $G(j\omega)$ e determinandone i valori corrispondenti a certi valori di $\omega$, cioè dicendo:
+	\item Se conosciamo la funzione di trasferimento $G(s)$, il diagramma polare si può tracciare per punti separando le parti reali e immaginarie di $G(j\omega)$ e determinandone i valori corrispondenti a certi valori di $\omega \in [0, \infty)$, cioè dicendo:
 		$$
 		G(s) \xrightarrow{s = j\omega} G(j\omega), \quad \omega = 0, 1, 10, ...
 		$$
@@ -244,8 +244,7 @@ Avremo effettivamente la possibilità di sfruttare 2 metodi:
 		\]
 		\[
 			\implies
-			G(j\omega) = K \frac{M_{z1} ... M_{zm}}{M_{p1} ... M_{pn}} e^{\theta_1 - \phi_1 - \phi_2 - \phi_3
-			}
+			G(j\omega) = K \frac{M_{z1} ... M_{zm}}{M_{p1} ... M_{pn}} e^{\phi_{z1} + ... + \phi_{zm} - \phi_{p1} - ... - \phi_{pn}}
 		\]
 		A questo punto devremo solo valutare i vari punti:
 		$$
@@ -254,63 +253,74 @@ Avremo effettivamente la possibilità di sfruttare 2 metodi:
 		e collegarli per ottenere il diagramma di Nyquist.
 
 		Chiamiamo questo metodo \textbf{metodo analitico};
-	
+
 	\item
 		Per il secondo metodo cercheremo un'approssimazione di tipo \textit{qualitativo}, come avevamo fatto per i diagrammi di Bode.
 
-		Supponiamo che il sistema sia di \textbf{tipo} zero, cioè poniamo il sistema con funzione di trasferimento:
+		Supponiamo che il sistema sia di \textbf{tipo} $h$, cioè poniamo il sistema con funzione di trasferimento:
 		$$
-		G(s) = K \frac{ b_0 + b_1 s + b_2 s^2 + ... + s^m }{ s^h ( a_0 + a_1 s + a_2 s^2 + ... + a_{n - h} s^{n - h} ) }
+		G(s) = K \frac{ b_0 + b_1 s + b_2 s^2 + ... + b_m s^m }{ s^h ( a_0 + a_1 s + a_2 s^2 + ... + a_{n - h} s^{n - h} ) }
 		$$
-		e imponiamo $h = 0$.
 
 		\begin{itemize}
 			\item 
-		A questo punto vorremo trovare il punto a $\omega = 0$, dato dal guadagno statico:
-		$$
-			G(0) = \lim_{\omega \rightarrow 0} G(j \omega) = K \cdot \frac{b_0}{a_0}
-		$$
-		con fase:
-		\[
-			\begin{cases}
-				\phi_{\omega \rightarrow 0} = 0, \quad G(0) > 0 \\	
-				\phi_{\omega \rightarrow 0} = -\pi, \quad G(0) < 0 \\	
-			\end{cases}
-		\]
-		per sistemi non di tipo $0$, invece, cioè con $h \neq 0$, avremo:
-		$$
-			G(0) = \lim_{\omega \rightarrow 0} |G(j\omega)| = \infty
-		$$
-		con fase:
-		$$
-		\angle G(j\omega) = \frac{1}{s^h} = -h \cdot \frac{\pi}{2}
-		$$
-		se $k_1 > 0$.
-	\item 
-		Potrebbe poi interessarci il punto a $\omega \rightarrow \infty$, dato da:
-		\[
-				\lim_{\omega \rightarrow \infty} G(j\omega) = 	
-			\begin{cases}
-				0, \quad n > m \\
-				K, \quad n = m
-			\end{cases}
-		\]
-		con fase se $n > m$:
-		\[
-			\begin{cases}
-				\phi_{\omega \rightarrow \infty} = \frac{1}{s^{n - m}} = - (n - m) \cdot \frac{\pi}{2}, \quad G(0) > 0 \\
-				\phi_{\omega \rightarrow \infty} = \frac{1}{s^{m - n}} = - (m - n) \cdot \frac{\pi}{2}, \quad G(0) < 0
-			\end{cases}
-		\]
-		e se $n = m$ corrispondente alla fase di $K$.
-\end{itemize}
+				A questo punto vorremo trovare il punto a $\omega = 0$.
+				Se $h = 0$, questo è dato dal guadagno statico:
+				$$
+				G(0) = \lim_{\omega \rightarrow 0} |G(j \omega)| = K \frac{ b_0 + b_1 j \omega - b_2 \omega^2 + ... + b_m (j\omega)^m }{  a_0 + a_1 j \omega - a_2 \omega^2 + ... + a_n (j \omega)^n  } \Bigg|_{\omega = 0} = K \cdot \frac{b_0}{a_0}
+				$$
+				con fase immediata, visto che $G(0)$ appartiene a $\mathbb{R}$:
+				\[
+					\begin{cases}
+						\phi_{\omega \rightarrow 0} = 0, \quad G(0) > 0 \\	
+						\phi_{\omega \rightarrow 0} = -\pi, \quad G(0) < 0 \\	
+					\end{cases}
+				\]
+				Per sistemi non di tipo $0$, invece, cioè con $h \neq 0$, avremo che i poli all'origine dominano e quindi:
+				$$
+				G(0) = \lim_{\omega \rightarrow 0} |G(j\omega)| \sim \lim_{\omega \rightarrow 0} \frac{1}{s^h} = +\infty
+				$$
+				notando che si ha l'approccio contrario rispetto a Bode, cioè si contano solo i poli all'origine invece di escluderli.
 
-A questo punto cerchiamo ulteriori punti per il tracciamento, fra cui ad esempio sono immediati quelli di intersezione con gli assi.
-Per trovare questi poniamo la parte reale e immaginaria separatamente a 0.
+				La fase in questo caso sarà invece calcolata come:
+				$$
+				\lim_{\omega \rightarrow 0} |G(j \omega)|
+				= \lim_{\omega \rightarrow 0} K \frac{ b_0 + b_1 j \omega + b_2 -\omega^2 + ... + b_m (j \omega)^m }{ (j \omega)^h ( a_0 + a_1 j \omega -a_2 \omega^2 + ... + a_{n - h} (j \omega)^{n - h} ) }
+				$$
+				$$
+				\sim \lim_{\omega \rightarrow 0} \frac{1}{(j\omega)^h} = -h \cdot \frac{\pi}{2} 
+				$$
+				per $K > 0$, e in maniera simile per $K < 0$, per cui:
+				\[
+					\begin{cases}
+						\phi_{\omega \rightarrow 0} = -h \cdot \frac{\pi}{2} , \quad K > 0 \\
+						\phi_{\omega \rightarrow 0} = -h \cdot \frac{\pi}{2} - \pi, \quad K < 0
+					\end{cases}
+				\]
+			\item 
+				Potrebbe poi interessarci il limite a $\omega \rightarrow +\infty$, dato da:
+				\[
+					\lim_{\omega \rightarrow \infty} G(j\omega) = 	
+					\begin{cases}
+						0, \quad n > m \\
+						K, \quad n = m
+					\end{cases}
+				\]
+				con fase se $n > m$:
+				\[
+					\begin{cases}
+						\phi_{\omega \rightarrow +\infty} = \frac{1}{(j\omega)^{n - m}} = - (n - m) \cdot \frac{\pi}{2}, \quad G(0) > 0 \\
+						\phi_{\omega \rightarrow +\infty} = \frac{1}{(j\omega)^{m - n}} = - (m - n) \cdot \frac{\pi}{2}, \quad G(0) < 0
+					\end{cases}
+				\]
+				e se $n = m$ corrispondente alla fase di $K$, per proprietà analoghe a quelle viste per $\omega \rightarrow 0$.
+		\end{itemize}
 
-A questo punto basterà raccordare i punti trovati per avere una stima approssimata del diagramma di Nyquist.
+		A questo punto cerchiamo ulteriori punti per il tracciamento, fra cui ad esempio sono immediati quelli di intersezione con gli assi.
+		Per trovare questi poniamo la parte reale e immaginaria separatamente a 0.
+		Basterà poi raccordare i punti trovati per avere una stima approssimata del diagramma di Nyquist.
 
-Chiamiamo questo metodo \textbf{metodo qualitativo}.
+		Chiamiamo questo metodo \textbf{metodo qualitativo}.
 \end{enumerate}
 
 \end{document}

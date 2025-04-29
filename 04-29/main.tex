@@ -215,11 +215,15 @@ Vediamo quindi le risposte rispettivamente a $\omega \rightarrow 0$ e $\omega \r
 \begin{itemize}
 	\item $\omega \rightarrow 0$:
 		$$
-		\frac{1}{-\omega^2 + 3 j \omega + 2} \Big|_{\omega \rightarrow 0} = \frac{1}{2} \, \angle \, 0^\circ
+		\lim_{\omega \rightarrow 0} \frac{1}{-\omega^2 + 3 j \omega + 2} = \frac{1}{2} \, \angle \, 0^\circ
 		$$
 	\item $\omega \rightarrow +\infty$:
 		$$
-		\frac{1}{-\omega^2 + 3 j \omega + 2} \Big|_{\omega \rightarrow + \infty} = 0 \, \angle \, -180^\circ
+		\lim_{\omega \rightarrow +\infty} \frac{1}{-\omega^2 + 3 j \omega + 2} \Big|_{\omega \rightarrow + \infty} = 0^- \text{ cioè } 0 \, \angle \, -180^\circ
+		$$
+		o alternativamente applicando la regola vista in 22.1.1, punto 2:
+		$$
+		\phi_{\omega \rightarrow + \infty} = - 2 \cdot \frac{\pi}{2} = - \pi = -180^\circ
 		$$
 \end{itemize}
 
@@ -239,14 +243,84 @@ Poniamo quindi separatamente parte reale e immaginaria a 0:
 		in quanto ci interessa solo la parte $\omega \in [0, +\infty)$.
 		Sostituendo nella parte complessa si ha quindi:
 		$$
-		G(j\omega) = \frac{-3 j \sqrt{2}}{18} = -\frac{\sqrt{2}}{6} j # finisci
+		G(j\omega) = \frac{-3 j \sqrt{2}}{18} = -\frac{\sqrt{2}}{6} j 
 		$$
-	\item $\mathrm{Im}(G(s)) = 0$ # finisci
+	\item $\mathrm{Im}(G(s)) = 0$:
+		$$
+			-3 j \omega = 0 \implies \omega = 0
+		$$
+		Vediamo che abbiamo già considerato questo caso.
+		Resta quindi solo la possibilità che il denominatore vada a infinito, cosa che si verifica per $\omega \rightarrow + \infty$, ma che ancora una volta abbiamo già considerato.
 \end{itemize}
+
+\noindent
+\begin{minipage}{\textwidth}
+
+Possiamo quindi procedere a tracciare il grafico mettendo in evidenza i punti trovati:
+\begin{center}
+	\includegraphics[scale=0.28]{../figures/nyquist/first_ex.png}
+\end{center}
+
+\end{minipage}
 
 \subsubsection{Diagrammi di Nyquist da diagrammi di Bode}
 Possiamo tracciare i diagrammi di Nyquist, in maniera qualitativa, a partire dalla conoscenza dei corrispondenti diagrammi di Bode, in modulo e fase.
 
-# esempio
+Prendiamo a scopo di esempio la funzione di trasferimento:
+$$
+G(s) = \frac{K}{ (1 + s T_1) (1 + s T_2) (1 + s T_3) }
+$$
+da cui la funzione di risposta armonica:
+$$
+G(j \omega) = \frac{K}{ (1 + j \omega T_1) (1 + j \omega T_2) (1 + j \omega T_3) }
+$$
+Per quanto riguarda i limiti avremo:
+\begin{itemize}
+	\item $\omega \rightarrow 0$:
+	$$
+	G(0) = K \, \angle \, 0^\circ
+	$$
+	\item $\omega \rightarrow +\infty$:
+	$$
+	G(+ \infty) = 0^\circ, \quad \phi_{\omega \rightarrow + \infty} \sim \angle \frac{K}{(j \omega)^3} = -90^\circ \cdot 3 = -270^\circ
+	$$
+\end{itemize}
+
+A questo punto possiamo tracciare informazioni aggiuntive tracciando i diagrammi di Bode di modulo e fase.
+Abbiamo dalla funzione di risposta armonica che i termini:
+$$
+(1 + j \omega T_1), \quad (1 + j \omega T_2), \quad (1 + j \omega T_3)
+$$
+rappresentano 3 filtri passa basso con frequenze di taglio rispettivamente di $\frac{1}{T_1}$, $\frac{1}{T_2}$ e $\frac{1}{T_3}$.
+
+\noindent
+\begin{minipage}{\textwidth}
+
+Il valore $K$ rappresenta invece una costante di $|K|_dB$, per cui il grafico complessivo del modulo è:
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/nyquist/second_ex_1.png}
+\end{center}
+
+\end{minipage}
+
+Per quanto riguarda la fase, abbiamo che i 3 filtri passa basso hanno scostamento presi singolarmente di $-90^\circ$, per cui lo scostamento in fase complessivo per $\omega >> 0$ è:
+$$
+-90^\circ \cdot 3 = -270^\circ
+$$
+e il grafico della fase risulta:
+\begin{center}
+	\includegraphics[scale=0.3]{../figures/nyquist/second_ex_2.png}
+\end{center}
+
+Vediamo quindi che abbiamo ricavato informazioni consistenti con quelle ottenute di limiti, in quanto:
+\begin{itemize}
+	\item Per quanto riguarda il modulo, i $|K|_{dB}$ del modulo a $\omega << 1$ equivalgono al modulo $|K|$ del limite in 0, mentre il limite a $+\infty$ va a $-\infty$ dB, cioè 0;
+	\item Per quanto riguarda la fase, abbiamo ritrovato esattamente l'andamento da $0^\circ$ a $270^\circ$ descritto dai limiti.
+\end{itemize}
+
+Possiamo quindi sfruttare le informazioni sull'andamento intermedio di modulo e fase per tracciare il diagramma di Nyquist, che avrà un'aspetto del tipo:
+\begin{center}
+	\includegraphics[scale=0.28]{../figures/nyquist/second_ex_3.png}
+\end{center}
 
 \end{document}
