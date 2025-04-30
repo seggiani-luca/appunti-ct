@@ -15,10 +15,6 @@
 \usepackage{gensymb}
 \usepackage{hyperref}
 \usepackage{standalone}
-\usepackage{subcaption}
-
-% cose fluttuanti
-\usepackage{float}
 
 % imposta il titolo
 \title{Appunti Fondamenti di Automatica}
@@ -102,11 +98,6 @@
 % disponi codice
 \usepackage{listings}
 \usepackage[table]{xcolor}
-
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 \lstdefinestyle{codestyle}{
 		backgroundcolor=\color{black!5}, 
@@ -201,33 +192,102 @@
 
 \begin{document}
 
-\pagestyle{fancy}
-\thispagestyle{empty}
-\renewcommand{\thispagestyle}[1]{}
+% sezione (data)
+\section{Lezione del 30-04-25}
 
-\maketitle
-\input{../02-25/main.tex}
-\input{../02-26/main.tex}
-\input{../02-27/main.tex}
-\input{../03-04/main.tex}
-\input{../03-05/main.tex}
-\input{../03-06/main.tex}
-\input{../03-11/main.tex}
-\input{../03-12/main.tex}
-\input{../03-18/main.tex}
-\input{../03-20/main.tex}
-\input{../03-25/main.tex}
-\input{../03-26/main.tex}
-\input{../03-27/main.tex}
-\input{../04-01/main.tex}
-\input{../04-02/main.tex}
-\input{../04-08/main.tex}
-\input{../04-09/main.tex}
-\input{../04-10/main.tex}
-\input{../04-15/main.tex}
-\input{../04-16/main.tex}
-\input{../04-24/main.tex}
-\input{../04-28/main.tex}
-\input{../04-29/main.tex}
-\input{../04-30/main.tex}
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsection{Criterio di Nyquist}
+Il criterio di Nyquist è un metodo per studiare nel piano complesso l'effetto della reazione negativa sui poli del sistema in catena chiusa con controllore $C(s)$, cioè $W(s) = \frac{C(s)G(s)}{1 + C(s)G(s)}$ a partire dalla conoscenza della funzione di trasferimento in catena aperta $G(s)$.
+
+Vediamo quindi la struttura della catena chiusa nel dettaglio:
+$$
+W(s) = \frac{K_C \cdot G(s)}{1 + K_C \cdot G(s)} = K_C K_E \cdot \frac{n(s)}{d(s) + K \cdot n(s)} = \frac{\hat{G}(s)}{1 + \hat{G}(s)} = \frac{Y(s)}{U(s)}
+$$
+La stabilità del sistema in ciclo chiuso $W(s)$ sarà data dalle radici dell'equazione caratteristica:
+$$
+1 + \hat{G}(s) = 0
+$$
+cioè dai poli in ciclo chiuso.
+
+Vorremo allora imporre le seguenti condizioni di stabilità riguardo ai poli in ciclo chiuso:
+\begin{enumerate}
+	\item Nessuna radice deve andare nel semipiano $\mathrm{Re} > 0$ al variare del guadagno $K_C$;
+	\item $\hat{G}(j \omega) \neq -1$.
+\end{enumerate}
+
+A questo punto esplicitiamo il polinomio caratteristico come:
+$$
+1 + \hat{G}(s) = 1 + K \frac{ \prod_{i = 1}^m (s - z_i) }{ \prod_{i = 1}^n (s - p_i) } \implies 1 + \hat{G}(j \omega) = \alpha \frac{ \prod_{i = 1}^n (j \omega - r_i) }{ \prod_{i = 1}(j \omega - p_i) }
+$$
+con:
+\[
+	\alpha = 1 + \hat{G}(\infty) =			
+	\begin{cases}
+		1, \quad m < n \\
+		1 + K, \quad m = n
+	\end{cases}
+\]
+
+Nota questa, potremmo ricavare una condizione sugli angoli che i punti di $1 + \hat{G}(j\omega)$ spazzano con poli e zeri, in quanto:
+\begin{itemize}
+	\item Riguardo ai poli si ha:
+	\begin{itemize}
+		\item I poli a parte reale negativa portano a variazione di fase $-\pi$;
+		\item I poli a parte reale nulla portano a variazione di fase $-\pi$;
+		\item I poli a parte reale positiva portano a variazione di fase $\pi$.
+	\end{itemize}
+\item Riguardo agli zeri si ha:
+	\begin{itemize}
+		\item Gli zeri a parte reale negativa portano a variazione di fase $\pi$;
+		\item Gli zeri a parte reale positiva portano a variazione di fase $-\pi$.
+	\end{itemize}
+\end{itemize}
+
+Questo viene direttamente dal tracciamento degli angoli dei poli e degli zeri in catena chiusa con i punti sul semiasse immaginario positivo.
+
+Chiaramente l'unico punto esente da questa condizione è quello $\hat{G}(j \omega) = -1$, in quanto in tal caso diventa impossibile definire il vettore fra i poli in catena chiusa e il punto sull'asse immaginario.
+Abbiamo però che questo è il punto che annulla il denominatore della catena chiusa $W()s$, e quindi lo escludiamo a prescindere.
+
+Definiamo quindi, riguardo all'espressione del polinomio caratteristico appena trovata:
+$$
+1 + \hat{G}(s) = \alpha \frac{ \prod_{i = 1}^n (j \omega - r_i) }{ \prod_{i = 1}(j \omega - p_i) }
+$$
+i valori:
+\begin{itemize}
+	\item $R^{(+)} =$ numero di radici a parte reale positiva;
+	\item $R^{(-)} =$ numero di radici a parte reale negativa;
+	\item $P^{(+)} =$ numero di poli a parte reale positiva;
+	\item $P^{(-)} =$ numero di poli a parte reale negativa;
+	\item $P^{(0)} =$ numero di poli sull'asse immaginario.
+\end{itemize}
+Varranno le identità:
+\[
+	\begin{cases}
+		R^{(+)} + R^{(-)} = n \\
+		P^{(+)} + P^{(-)} + P^{(0)} = n
+	\end{cases}
+\]
+e la variazione totale di fase sarà:
+$$
+\angle 1 + \hat{G}(j \omega) = R^{(+)} \cdot - \pi + R^{(-)} \cdot \pi + P^{(+)} \cdot \pi + P^{(-)} \cdot - \pi + P^{(0)} \cdot - \pi
+$$
+da cui:
+$$
+\angle 1 + \hat{G}(j \omega) = \pi \left( -R^{(+)} + R^{(-)} + P^{(+)} - P^{(-)} - P^{(0)} \right) 
+= \pi \left( n - 2 R^{(+)} - n + 2 \cdot P^{(+)} \right)
+$$
+cioè la variazione di fase non dipende dall'ordine $n$ del sistema, ma solo da dove si trovano i poli e le radici a parte reale positiva, e in particolare vale:
+$$
+\angle 1 + \hat{G}(j \omega) = 2 \pi \left( P^{(+)} - R^{(+)} \right)
+$$
+A questo punto basterà imporre la condizione di stabilità $R^{(+)} = 0$, per cui:
+$$
+N_{ao} = P^+
+$$
+dove $N_{ao}$ è il numero di giri in senso antiorario attorno al punto critico, che per $1 + \hat{G}(j\omega)$ era l'origine e per il comune diagramma di Nyquist della catena aperta sarà $-1$ (o $-\frac{1}{K}$ se la catena aperta è $K \cdot G(j\omega)$).
+
 \end{document}
