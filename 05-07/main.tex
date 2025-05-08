@@ -377,8 +377,8 @@ per cui si nota che nel luogo diretto, fino a un certo valore di $K$ si hanno i 
 Il $K$ critico di 400 sarà proprio quel guadagno necessario a tornare nella parte negativa del piano, e quindi alle condizioni di stabilità.
 
 \subsection{Sistemi di controllo}
-Veniamo quindi alla fase di progetto vera e propria del controllore $C(s)$ insrito nella catena di retroazione.
-Per fare cioò modifichiamo lo schema in catena chiusa come segue:
+Veniamo quindi alla fase di progetto vera e propria del controllore $C(s)$ inserito nella catena di retroazione.
+Per fare ciò modifichiamo lo schema in catena chiusa come segue:
 \begin{center}
 	\begin{tikzpicture}
 		\draw (1,0) rectangle (3, 1);
@@ -428,7 +428,8 @@ Dove:
 Vorremo quindi sviluppare un controllore che non assicura più solo la stabilità del sistema, ma anche:
 \begin{itemize}
 	\item Adeguata precisione, sopratutto in termini di errore a regime;
-	\item Adeguata stabilità, in termini di incertezza e margini.
+	\item Adeguata stabilità, in termini di incertezza e margini;
+	\item Caratteristiche dinamiche adeguate (tempo di risposta, smorzamento, ecc...).
 \end{itemize}
 
 \subsubsection{Trasferimento del sensore}
@@ -487,7 +488,9 @@ $$
 $$
 a cui siamo abituati, e applicare quanto studiato finora sullo studio dei sistemi in catena chiusa dalla funzione di trasferimento in catena aperta.
 
-Decideremo quindi di trascurare il sensore finora, consci di non ledere alla generalità della trattazione in quanto andrà semplicemente aggiunto alla funzione di trasferimento in catena aperta.
+Decideremo quindi di trascurare il sensore, consci di non ledere alla generalità della trattazione in quanto andrà semplicemente aggiunto alla funzione di trasferimento in catena aperta.
+
+Un dettaglio che invece ci tornerà utile in seguito è che il sensore introduce necessariamente un certo disturbo, detto \textit{rumore di misura}, che indicheremo come $H(s)$.
 
 \subsubsection{Disturbi e specifiche}
 Vediamo quindi che le performance che desideriamo in ciclo chiuso sono:
@@ -541,6 +544,8 @@ Possiamo estendere la trattazione dei disturbi a diversi tipi di \textit{disturb
 			\end{tikzpicture}
 		\end{center}
 
+		Non vedremo questo caso nel dettaglio in quanto ci è poco utile (in ogni caso avremo sotto controllo l'errore di controllore).
+
 	\item \textbf{Disturbo interno al sistema:} possiamo avere un sistema diviso in più sottosistemi, poniamo $G_1(s)$ e $G_s(2)$, e un disturbo interno posto fra i due.
 		\begin{center}
 			\begin{tikzpicture}
@@ -588,6 +593,8 @@ Possiamo estendere la trattazione dei disturbi a diversi tipi di \textit{disturb
 		W(s) = \frac{C(s) G_1(s) G_2(s)}{1 + C(s) G_1(s) G_2(s)}, \quad W_d(s) = \frac{G_2(s)}{1 + C(s) G_1(s) G_2(s)}
 		$$
 		direttamente dalla combinazione degli effetti della retroazione su $W(s)$ e del disturbo interno sulla sola parte $W_d(s)$ (quella di $G_2(s)$, che sta a valle del disturbo $D(s)$).
+
+		Questo sarà il modello che ci è più utile, in quanto ci permetterà di separare la parte del sistema suscettibile a disturbo da quella direttamente controllabile.
 
 \end{itemize}
 \end{document}
