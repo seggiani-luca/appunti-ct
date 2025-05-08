@@ -100,37 +100,37 @@
 \usepackage[table]{xcolor}
 
 \lstdefinestyle{codestyle}{
-		backgroundcolor=\color{black!5}, 
-		commentstyle=\color{codegreen},
-		keywordstyle=\bfseries\color{magenta},
-		numberstyle=\sffamily\tiny\color{black!60},
-		stringstyle=\color{green!50!black},
-		basicstyle=\ttfamily\footnotesize,
-		breakatwhitespace=false,         
-		breaklines=true,                 
-		captionpos=b,                    
-		keepspaces=true,                 
-		numbers=left,                    
-		numbersep=5pt,                  
-		showspaces=false,                
-		showstringspaces=false,
-		showtabs=false,                  
-		tabsize=2
+	backgroundcolor=\color{black!5}, 
+	commentstyle=\color{codegreen},
+	keywordstyle=\bfseries\color{magenta},
+	numberstyle=\sffamily\tiny\color{black!60},
+	stringstyle=\color{green!50!black},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
 }
 
 \lstdefinestyle{shellstyle}{
-		backgroundcolor=\color{black!5}, 
-		basicstyle=\ttfamily\footnotesize\color{black}, 
-		commentstyle=\color{black}, 
-		keywordstyle=\color{black},
-		numberstyle=\color{black!5},
-		stringstyle=\color{black}, 
-		showspaces=false,
-		showstringspaces=false, 
-		showtabs=false, 
-		tabsize=2, 
-		numbers=none, 
-		breaklines=true
+	backgroundcolor=\color{black!5}, 
+	basicstyle=\ttfamily\footnotesize\color{black}, 
+	commentstyle=\color{black}, 
+	keywordstyle=\color{black},
+	numberstyle=\color{black!5},
+	stringstyle=\color{black}, 
+	showspaces=false,
+	showstringspaces=false, 
+	showtabs=false, 
+	tabsize=2, 
+	numbers=none, 
+	breaklines=true
 }
 
 \lstdefinelanguage{javascript}{
@@ -152,14 +152,14 @@
 \usepackage{titlesec}
 
 \titleformat{\section}
-	{\sffamily\Large\bfseries} 
-	{\thesection}{1em}{} 
+{\sffamily\Large\bfseries} 
+{\thesection}{1em}{} 
 \titleformat{\subsection}
-	{\sffamily\large\bfseries}   
-	{\thesubsection}{1em}{} 
+{\sffamily\large\bfseries}   
+{\thesubsection}{1em}{} 
 \titleformat{\subsubsection}
-	{\sffamily\normalsize\bfseries} 
-	{\thesubsubsection}{1em}{}
+{\sffamily\normalsize\bfseries} 
+{\thesubsubsection}{1em}{}
 
 % disponi alberi
 \usepackage{forest}
@@ -249,14 +249,14 @@ Introduciamo quindi due misure dette:
 \begin{itemize}
 	\item \textbf{Margine di fase}:
 		$$
-			M_\Phi = 180^\circ + \Phi(\omega_t)
+		M_\Phi = 180^\circ + \Phi(\omega_t)
 		$$
 		cioè l'angolo che si ricava dalla somma di $180^\circ$ più la fase della funzione di trasferimento ad anello aperto alla pulsazione di crossover a 0 dB.
 
 		Chiaramente il margine di fase è vantaggioso quando è $> 0$, in quanto significa che $K < K_{crit}$  quindi il sistema è stabile.
 	\item \textbf{Margine di ampiezza}, o \textit{margine di guadagno}:
 		$$
-			M_{g_{dB}} = 0 - |G(s)|_{dB} \big|_{\Phi = - \pi}
+		M_{g_{dB}} = 0 - |G(s)|_{dB} \big|_{\Phi = - \pi}
 		$$
 		cioè la differenza fra 0 e il valore in dB del modulo della $G(s)$ quando la fase della $G(s)$ ad anello aperto vale $-180^\circ$.
 
@@ -266,12 +266,12 @@ Introduciamo quindi due misure dette:
 			\item $M_g$ è \textit{negativo} se $|G(s)$ è al di sopra di 0 dB per fase $-180^\circ$, cioè il sistema è \textbf{instabile}.
 		\end{itemize}
 
-	In particolare, il margine di guadagno rappresenta quanto è possibile aumentare il guadagno del sistema prima di raggiungere l'instabilità.
+		In particolare, il margine di guadagno rappresenta quanto è possibile aumentare il guadagno del sistema prima di raggiungere l'instabilità.
 
-	Notiamo poi che esiste una definizione alternativa di margine di ampiezza, utile nell'analisi dei margini di fase sul diagramma di Nyquist (che vedremo fra poco), che è:
-	$$
-	M_g = -\frac{1}{|G(s)|} \Bigg|_{\phi = -\pi}
-	$$
+		Notiamo poi che esiste una definizione alternativa di margine di ampiezza, utile nell'analisi dei margini di fase sul diagramma di Nyquist (che vedremo fra poco), che è:
+		$$
+		M_g = -\frac{1}{|G(s)|} \Bigg|_{\phi = -\pi}
+		$$
 \end{itemize}
 
 Vediamo quindi un grafico che evidenzia, per il sistema appena considerato, a guadagno unitario, il margine di guadagno e di fase:
@@ -350,10 +350,10 @@ $$
 
 \begin{minipage}{\textwidth}
 
-In questo caso i margini sul diagramma di Bode avranno il seguente aspetto:
-\begin{center}
-	\includegraphics[scale=0.75]{../figures/bode_margin_weird.png}
-\end{center}
+	In questo caso i margini sul diagramma di Bode avranno il seguente aspetto:
+	\begin{center}
+		\includegraphics[scale=0.75]{../figures/bode_margin_weird.png}
+	\end{center}
 
 \end{minipage}
 
@@ -398,6 +398,12 @@ Per fare cioò modifichiamo lo schema in catena chiusa come segue:
 
 		\draw[fill=white] (-5, 0.5) circle (0.1);
 
+		\draw[-stealth] (2, 2) -> (2, 1);
+		\draw[-stealth] (2, 0) -> (2, -1);
+
+		\node at (2, 2.3) {$D(s)$};
+		\node at (2, -1.3) {$Z$};
+
 		\node at (-6, 0.75) {$R(s)$};
 		\node at (6, 0.75) {$Y(s)$};
 
@@ -408,8 +414,6 @@ Per fare cioò modifichiamo lo schema in catena chiusa come segue:
 		\node at (-3.8, 0.75) {$E(s)$};
 	\end{tikzpicture}
 \end{center}
-
-# mancano disturbi e variabili controllate
 
 Dove:
 \begin{itemize}
@@ -428,8 +432,46 @@ Vorremo quindi sviluppare un controllore che non assicura più solo la stabilit�
 \end{itemize}
 
 \subsubsection{Trasferimento del sensore}
-Facciamo un commento sull'eventuale sensore $H(s)$.
-# diagramma modificato con $H(s)$
+Facciamo un commento sull'eventuale sensore $H(s)$, che nella catena chiusa era disposto come:
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw (1,0) rectangle (3, 1);
+		\node at (2, 0.5) {$G(s)$};
+
+		\draw (-3,0) rectangle (-1, 1);
+		\node at (-2, 0.5) {$C(s)$};
+
+		\draw (-1.5, -0.5) rectangle (0.5, -1.5);
+		\node at (-0.5, -1) {$H(s)$};
+
+		\draw[-stealth] (-7, 0.5) -> (-5.1, 0.5);
+		\draw[-stealth] (-5, 0.5) -> (-3, 0.5);
+		\draw[-stealth] (-1, 0.5) -> (1, 0.5);
+		\draw[-stealth] (3, 0.5) -> (3.9, 0.5);
+		\draw[-stealth] (4, 0.5) -> (7, 0.5);
+
+		\draw (5, 0.5) -> (5, -1);
+		\draw[-stealth] (5, -1) -> (0.5, -1);
+		\draw (-1.5, -1) -> (-5, -1);
+		\draw[-stealth] (-5, -1) -> (-5, 0.5);
+
+		\draw[-stealth] (4, 1.5) -> (4, 0.6);
+		\node at (4, 1.75) {$D(s)$};
+
+		\draw[fill=white] (-5, 0.5) circle (0.1);
+		\draw[fill=white] (4, 0.5) circle (0.1);
+
+		\node at (-6, 0.75) {$R(s)$};
+		\node at (6, 0.75) {$Y(s)$};
+
+		\node at (-4.75, 0.75) {$+$};
+		\node at (-4.75, 0.25) {$-$};
+
+		\node at (-3.8, 0.75) {$E(s)$};
+		\node at (0, 0.75) {$C(s)$};
+	\end{tikzpicture}
+\end{center}
 
 In questo caso la funzione di trasferimento in catena chiusa, che avevamo con $H(s) = 1$ essere:
 $$
@@ -466,12 +508,76 @@ Definiamo quindi i seguenti tipi di specifiche:
 Possiamo estendere la trattazione dei disturbi a diversi tipi di \textit{disturbi interni}:
 \begin{itemize}
 	\item \textbf{Disturbo interno al controllore:} possiamo immaginare che ci sia un disturbo che si va ad inserire fra il controllore $C(s)$ e il sistema $G(s)$.
-		
-		# diagramma
+		\begin{center}
+			\begin{tikzpicture}
+				\draw (1,0) rectangle (3, 1);
+				\node at (2, 0.5) {$G(s)$};
+
+				\draw (-3,0) rectangle (-1, 1);
+				\node at (-2, 0.5) {$C(s)$};
+
+				\draw[-stealth] (-7, 0.5) -> (-5.1, 0.5);
+				\draw[-stealth] (-5, 0.5) -> (-3, 0.5);
+				\draw[-stealth] (-1, 0.5) -> (1, 0.5);
+				\draw[-stealth] (3, 0.5) -> (7, 0.5);
+
+				\draw (5, 0.5) -> (5, -1);
+				\draw (-5, -1) -> (5, -1);
+				\draw[-stealth] (-5, -1) -> (-5, 0.4);
+
+				\draw[-stealth] (0, 1.5) -> (0, 0.6);
+				\node at (0, 1.75) {$D(s)$};
+
+				\draw[fill=white] (-5, 0.5) circle (0.1);
+				\draw[fill=white] (0, 0.5) circle (0.1);
+
+				\node at (-6, 0.75) {$R(s)$};
+				\node at (6, 0.75) {$Y(s)$};
+
+				\node at (-4.75, 0.75) {$+$};
+				\node at (-4.75, 0.25) {$-$};
+
+				\node at (-3.8, 0.75) {$E(s)$};
+			\end{tikzpicture}
+		\end{center}
 
 	\item \textbf{Disturbo interno al sistema:} possiamo avere un sistema diviso in più sottosistemi, poniamo $G_1(s)$ e $G_s(2)$, e un disturbo interno posto fra i due.
-		
-		# diagramma
+		\begin{center}
+			\begin{tikzpicture}
+				\draw (-0.5,0) rectangle (1.5, 1);
+				\node at (0.5, 0.5) {$G_1(s)$};
+				
+				\draw (2.5,0) rectangle (4.5, 1);
+				\node at (3.5, 0.5) {$G_2(s)$};
+
+				\draw (-3,0) rectangle (-1, 1);
+				\node at (-2, 0.5) {$C(s)$};
+
+				\draw[-stealth] (-7, 0.5) -> (-5.1, 0.5);
+				\draw[-stealth] (-5, 0.5) -> (-3, 0.5);
+				\draw[-stealth] (-1, 0.5) -> (-0.5, 0.5);
+				\draw[-stealth] (1.5, 0.5) -> (2.5, 0.5);
+				\draw[-stealth] (4.5, 0.5) -> (7, 0.5);
+
+				\draw (5, 0.5) -> (5, -1);
+				\draw (-5, -1) -> (5, -1);
+				\draw[-stealth] (-5, -1) -> (-5, 0.4);
+
+				\draw[-stealth] (2, 1.5) -> (2, 0.6);
+				\node at (2, 1.75) {$D(s)$};
+
+				\draw[fill=white] (-5, 0.5) circle (0.1);
+				\draw[fill=white] (2, 0.5) circle (0.1);
+
+				\node at (-6, 0.75) {$R(s)$};
+				\node at (6, 0.75) {$Y(s)$};
+
+				\node at (-4.75, 0.75) {$+$};
+				\node at (-4.75, 0.25) {$-$};
+
+				\node at (-3.8, 0.75) {$E(s)$};
+			\end{tikzpicture}
+		\end{center}
 
 		In questo caso la funzione di uscita avrà una forma del tipo:
 		$$
@@ -482,6 +588,6 @@ Possiamo estendere la trattazione dei disturbi a diversi tipi di \textit{disturb
 		W(s) = \frac{C(s) G_1(s) G_2(s)}{1 + C(s) G_1(s) G_2(s)}, \quad W_d(s) = \frac{G_2(s)}{1 + C(s) G_1(s) G_2(s)}
 		$$
 		direttamente dalla combinazione degli effetti della retroazione su $W(s)$ e del disturbo interno sulla sola parte $W_d(s)$ (quella di $G_2(s)$, che sta a valle del disturbo $D(s)$).
-		
+
 \end{itemize}
 \end{document}
