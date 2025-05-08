@@ -215,7 +215,7 @@ G(s) = \frac{1}{s (s + 1)^2}
 $$
 e tracciamone il luogo delle radici:
 \begin{center}
-	\includegraphics[scale=0.4]{../figures/rlocus_margin.png}
+	\includegraphics[scale=0.7]{../figures/rlocus_margin.png}
 \end{center}
 da cui notiamo che 2 poli si dividono a circa $-\frac{1}{2}$ nei rami all'infinito, che per un certo valore di $K$ intersecano l'asse immaginario, e quindi passano nella parte di piano $\mathrm{Re} > 0$. 
 
@@ -228,9 +228,9 @@ Tracciamo quindi il diagramma di Bode per $K = K_{crit}$, cioè:
 $$
 G(s) = \frac{2}{s(s + 1)^2}
 $$
-dove in verde si indica la fase e in blu il modulo:
+questo avrà il seguente aspetto:
 \begin{center}
-	\includegraphics[scale=0.28]{../figures/bode_margin.png}
+	\includegraphics[scale=0.8]{../figures/bode_margin.png}
 \end{center}
 
 Tracciando il diagramma di Bode, notiamo che con $K = K_{crit}$:
@@ -267,23 +267,56 @@ Introduciamo quindi due misure dette:
 		\end{itemize}
 
 	In particolare, il margine di guadagno rappresenta quanto è possibile aumentare il guadagno del sistema prima di raggiungere l'instabilità.
+
+	Notiamo poi che esiste una definizione alternativa di margine di ampiezza, utile nell'analisi dei margini di fase sul diagramma di Nyquist (che vedremo fra poco), che è:
+	$$
+	M_g = -\frac{1}{|G(s)|} \Bigg|_{\phi = -\pi}
+	$$
 \end{itemize}
 
-# grafico margini di fase e di ampiezza bode 
+Vediamo quindi un grafico che evidenzia, per il sistema appena considerato, a guadagno unitario, il margine di guadagno e di fase:
+
+\begin{center}
+	\includegraphics[scale=0.8]{../figures/margins.png}
+\end{center}
+
+Notiamo che il grafico, generato con la libreria \href{https://github.com/python-control/python-control}{Control} di Python, riporta anche i margini di guadagno (\textsf{Gm}) e di fase (\textsf{Pm}), coi relativi punti di valutazione (cioè rispettivamente i punti di crossover a $-180^\circ$ e $0 dB$).
+
+Di questi, notiamo che il margine di guadagno è espresso nella seconda modalità che abbiamo riportato, cioè come:
+$$
+G_m = \frac{1}{|G(j \omega_\text{crossover})|}
+$$
+
+Infatti avremo che per il punto di crossover a $-180^\circ$, che si trova a 1 rad/s, il modulo vale circa $-6 \, \mathrm{dB}$, che sappiamo corrispondere a $\frac{1}{2}$, per cui:
+$$
+G_m = \frac{1}{\frac{1}{2}} = 2
+$$
 
 \subsubsection{Margini di ampiezza e fase su Nyquist}
 La definizione di margini di fase e ampiezza richiede una qualche constatazione sul diagramma di Nyquist, che sappiamo esprimere le stesse informazioni del diagramma di Bode.
 
 Sul diagramma di Nyquist considereremo quindi il punto a 0 dB con fase $-180^\circ$, cioè il punto -1.
 
-In questo caso il margine di \textbf{fase} sarà dato dall'angolo $\phi_m$ che il punto di passaggio del diagramma di Nyquist per la circonferenza di raggio unitario forma con $-1$.
+Vediamo ad esempio la funzione di trasferimento vista prima tracciata con Nyquist:
+\begin{center}
+	\includegraphics[scale=0.8]{../figures/nyquist_margin.png}
+\end{center}
 
-Il margine di \textbf{guadagno} $\omega_\pi$ sarà invece la distanza del punto $-\frac{1}{k_m}$, cioè quello per cui il diagramma di Nyquist ha fase $-180^\circ$ e quindi interseca l'asse reale negativo, da $-1$.
-Vedremo che il diagramma di Nyquist si allontana da $-1$ per $\omega_\pi$ che tende a 0, cioè al crescere di $k_m$, per cui il margine di fase cresce al crescere di $k_m$ stesso.
+In questo caso il margine di \textbf{fase} sarà dato dall'angolo $\phi_m$ che il punto di passaggio del diagramma di Nyquist per la circonferenza di raggio unitario forma con $-1$ (che è stata tracciata in nero nel grafico).
 
-# grafico margini di fase e di ampiezza nyquist 
+Il margine di \textbf{guadagno} $\omega_\pi$ sarà invece la distanza del punto del diagramma di Nyquist con fase $-180^\circ$ dal punto critico $-1$.
 
-\par\medskip
+Da qui la seconda definizione che abbiamo dato di margine di guadagno: preso $\omega_\pi = |G(j \omega)| \big|_{\Phi = -\pi}$, abbiamo che questo passa per il punto critico $-\frac{1}{K}$ quando:
+$$
+\omega_\pi = |G(j\omega_\Phi)| = 1 
+$$
+e quindi potrà interessarci il rapporto:
+$$
+G_M = \frac{1}{|G(j\omega_\Phi)|}
+$$
+che possiamo intendere come la costante moltiplicativa massima che possiamo applicare al guadagno prima di rendere il sistema instabile.
+
+\subsubsection{Specifiche generali per i margini}
 
 Abbiamo quindi visto il significato nei diagrammi di Bode e Nyquist dei margini di fase e guadagno.
 Abbiamo che in casi reali si hanno buone condizioni di stabilità con:
@@ -313,7 +346,35 @@ $$
 G(s) = \frac{\left(1 + \frac{s}{10}\right)^2}{s^2 (s + 1)}
 $$
 
-# diagrammi bode e nyquist
+\noindent
+
+\begin{minipage}{\textwidth}
+
+In questo caso i margini sul diagramma di Bode avranno il seguente aspetto:
+\begin{center}
+	\includegraphics[scale=0.75]{../figures/bode_margin_weird.png}
+\end{center}
+
+\end{minipage}
+
+da dove notiamo che il margine di fase a $0.87$ rad/s è negativo, cioè il sistema è instabile.
+
+Accorgiamoci quindi di poter aumentare il guadagno fino a 400 (il margine di guadagno), per cui si ottiene la funzione di trasferimento:
+$$
+K \cdot  G(s) = 400 \frac{\left(1 + \frac{s}{10}\right)^2}{s^2 (s + 1)}
+$$
+e i margini:
+\begin{center}
+	\includegraphics[scale=0.75]{../figures/bode_margin_weird.png}
+\end{center}
+da dove notiamo che siamo riusciti ad annullare entrambi i margini.
+
+Una spiegazione alternativa per il valore di guadagno 400 si può avere anche attraverso il luogo delle radici:
+\begin{center}
+	\includegraphics[scale=0.8]{../figures/weird_margin_rlocus.png}
+\end{center}
+per cui si nota che nel luogo diretto, fino a un certo valore di $K$ si hanno i poli positivi sui rami che escono dall'asse reale.
+Il $K$ critico di 400 sarà proprio quel guadagno necessario a tornare nella parte negativa del piano, e quindi alle condizioni di stabilità.
 
 \subsection{Sistemi di controllo}
 Veniamo quindi alla fase di progetto vera e propria del controllore $C(s)$ insrito nella catena di retroazione.

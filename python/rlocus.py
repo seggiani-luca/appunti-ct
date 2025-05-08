@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import control as ctrl
 
-num = [1]
-den = [1, 2, 1, 0]
+num = [0.01, 0.2, 1]
+den = [1, 1, 0, 0]
 sys = ctrl.TransferFunction(num, den)
 
 ctrl.root_locus_plot(sys, plot=True, title="")
