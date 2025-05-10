@@ -249,9 +249,9 @@ Introduciamo quindi due misure dette:
 \begin{itemize}
 	\item \textbf{Margine di fase}:
 		$$
-		M_\Phi = 180^\circ + \Phi(\omega_t)
+		M_\Phi = \Phi(\omega_t) - (- 180^\circ) = 180^\circ + \Phi(\omega_t)
 		$$
-		cioè l'angolo che si ricava dalla somma di $180^\circ$ più la fase della funzione di trasferimento ad anello aperto alla pulsazione di crossover a 0 dB.
+		cioè l'angolo che si ricava dalla somma di $180^\circ$ più la fase della funzione di trasferimento ad anello aperto alla pulsazione di crossover a 0 dB ($\Phi(\omega_t)$).
 
 		Chiaramente il margine di fase è vantaggioso quando è $> 0$, in quanto significa che $K < K_{crit}$  quindi il sistema è stabile.
 	\item \textbf{Margine di ampiezza}, o \textit{margine di guadagno}:
@@ -263,14 +263,14 @@ Introduciamo quindi due misure dette:
 		Per convenzione si ha che:
 		\begin{itemize}
 			\item $M_g$ è \textit{positivo} se $|G(s)|$ è al di sotto di 0 dB per fase $-180^\circ$, cioè il sistema è \textbf{stabile};
-			\item $M_g$ è \textit{negativo} se $|G(s)$ è al di sopra di 0 dB per fase $-180^\circ$, cioè il sistema è \textbf{instabile}.
+			\item $M_g$ è \textit{negativo} se $|G(s)|$ è al di sopra di 0 dB per fase $-180^\circ$, cioè il sistema è \textbf{instabile}.
 		\end{itemize}
 
 		In particolare, il margine di guadagno rappresenta quanto è possibile aumentare il guadagno del sistema prima di raggiungere l'instabilità.
 
 		Notiamo poi che esiste una definizione alternativa di margine di ampiezza, utile nell'analisi dei margini di fase sul diagramma di Nyquist (che vedremo fra poco), che è:
 		$$
-		M_g = -\frac{1}{|G(s)|} \Bigg|_{\phi = -\pi}
+		M_g = \frac{1}{|G(s)|} \Bigg|_{\phi = -\pi}
 		$$
 \end{itemize}
 
@@ -302,17 +302,25 @@ Vediamo ad esempio la funzione di trasferimento vista prima tracciata con Nyquis
 	\includegraphics[scale=0.8]{../figures/nyquist_margin.png}
 \end{center}
 
-In questo caso il margine di \textbf{fase} sarà dato dall'angolo $\phi_m$ che il punto di passaggio del diagramma di Nyquist per la circonferenza di raggio unitario forma con $-1$ (che è stata tracciata in nero nel grafico).
+\newpage
 
-Il margine di \textbf{guadagno} $\omega_\pi$ sarà invece la distanza del punto del diagramma di Nyquist con fase $-180^\circ$ dal punto critico $-1$.
+In questo caso il margine di \textbf{fase} sarà dato dall'angolo $\phi_m$ che il punto di passaggio del diagramma di Nyquist per la circonferenza di raggio unitario (che è stata tracciata in nero nel grafico) forma con $-1$:
+\begin{center}
+	\includegraphics[scale=0.35]{../figures/nyquist_phase_margin.png}
+\end{center}
 
-Da qui la seconda definizione che abbiamo dato di margine di guadagno: preso $\omega_\pi = |G(j \omega)| \big|_{\Phi = -\pi}$, abbiamo che questo passa per il punto critico $-\frac{1}{K}$ quando:
+Il margine di \textbf{guadagno} sarà invece l'inverso del modulo del punto del diagramma di Nyquist con fase $-180^\circ$, cioè l'inverso del punto di intersezione del diagramma di Nyquist con l'asse reale (che chiamiamo $\omega_\pi$), cambiato di segno:
+\begin{center}
+	\includegraphics[scale=0.35]{../figures/nyquist_gain_margin.png}
+\end{center}
+
+Da qui la seconda definizione che abbiamo dato di margine di guadagno: preso $-\omega_\pi = |G(j \omega)| \big|_{\Phi = -\pi}$, abbiamo che il diagramma di Nyquist passa per il punto critico $-1$ quando:
 $$
-\omega_\pi = |G(j\omega_\Phi)| = 1 
+-\omega_\pi = |G(j\omega_\Phi)| = 1 
 $$
 e quindi potrà interessarci il rapporto:
 $$
-G_M = \frac{1}{|G(j\omega_\Phi)|}
+G_M = \frac{1}{|G(j\omega_\Phi)|} = -\frac{1}{\omega_\pi}
 $$
 che possiamo intendere come la costante moltiplicativa massima che possiamo applicare al guadagno prima di rendere il sistema instabile.
 
@@ -321,11 +329,11 @@ che possiamo intendere come la costante moltiplicativa massima che possiamo appl
 Abbiamo quindi visto il significato nei diagrammi di Bode e Nyquist dei margini di fase e guadagno.
 Abbiamo che in casi reali si hanno buone condizioni di stabilità con:
 \begin{itemize}
-	\item Margine di fase: $M_G > 4 - 6 dB$, cioè si può circa raddoppiare il gaudagno;
+	\item Margine di fase: $M_G > 4 - 6 \mathrm{dB}$, cioè si può circa raddoppiare il guadagno;
 	\item Margine di fase: $M_F > \sim 35^\circ$.
 \end{itemize}
 
-\subsubsection{Margini per sistemi irregolari}
+\subsection{Margini di sistemi irregolari}
 Inoltre, notiamo che le definizioni che abbiamo visto sono \textit{ben strutturate} solo per i cosiddetti sistemi \textbf{regolari}, mentre sono poco significative per sistemi non regolari.
 
 Definiamo quindi il significato di sistema regolare:
@@ -333,11 +341,42 @@ Definiamo quindi il significato di sistema regolare:
 	Un sistema in retroazione ha un andamento regolare se l'ampiezza della funzione di trasferimento a ciclo aperto è una funzione monotona decrescente della pulsazione.
 \end{definition}
 
-Questo significa essenzialmente che quando si hanno più intersezioni con l'asse a 0 dB su Bode, o con la circonferenza unitaria su Nyquist, la definizione di margine di fase o ampiezza perde l'univocità.
-In questi casi, chiaramente, vorremo considerare il caso peggiore e quindi i margini più piccoli, cioè più vicini a portare all'instabilità.
+E vediamo i due casi più tipici che violano questo assunto.
+
+\subsubsection{Margini con doppie intersezioni}
+Il caso più semplice di sistema irregolare è quello con più intersezioni sull'asse degli 0 dB nel diagramma di Bode, o con la circonferenza unitaria nel diagramma di Nyquist, 
+In questo caso la definizione di margine di fase o ampiezza perde l'univocità.
+
+Prendiamo ad esempio la funzione di trasferimento, di un filtro passa banda:
+$$
+G(s) = 10\frac{s}{(s+1)^2}
+$$
+
+Il diagramma di Bode di questa passa per 0 dB in due punti, cioè:
+$$
+\omega_0 \approx 0.1 \, \mathrm{rad/s}, \quad \omega_1 \approx 10 \, \mathrm{rad/s}
+$$
+
+\noindent
+\begin{minipage}{\textwidth}
+
+come si vede direttamente dal grafico:
+\begin{center}
+	\includegraphics[scale=0.28]{../figures/double_intersect_bode.png}
+\end{center}
+
+\end{minipage}
 
 \par\medskip
 
+Il risultato di questo sul diagramma di Nyquist sarà che avremo due punti di intersezione con la circonferenza di modulo 1, e quindi due margini di fase $\phi_i$:
+\begin{center}
+	\includegraphics[scale=0.28]{../figures/double_intersect_nyquist.png}
+\end{center}
+
+Di questi chiaramente vorremo vorremo considerare il caso peggiore e quindi il margine più piccolo, cioè il più vicino all'instabilità, che come si vede dal grafico è $\phi_1$.
+
+\subsubsection{Margini con fasi crescenti}
 Una nota va fatta anche su sistemi che risultano instabili a bassi guadagni, e diventano stabili all'aumentare di $K$.
 In questo caso, infatti, dovremo in qualche modo invertire la definizione dei margini.
 
@@ -482,7 +521,7 @@ cambierà diventando:
 $$
 W'(s) = \frac{C(s) G(s)}{1 + C(s) G(s) H(s)} = \frac{1}{H(s)} \cdot \frac{C(s) G(s) H(s)}{1 + C(s) G(s) H(s)}
 $$
-cioè si potra considerare la stessa forma:
+cioè si potrà considerare la stessa forma:
 $$
 \frac{C(s) G(s) H(s)}{1 + C(s) G(s) H(s)} \sim \frac{\hat{G}(s)}{1 + \hat{G}(s)}
 $$
@@ -490,7 +529,7 @@ a cui siamo abituati, e applicare quanto studiato finora sullo studio dei sistem
 
 Decideremo quindi di trascurare il sensore, consci di non ledere alla generalità della trattazione in quanto andrà semplicemente aggiunto alla funzione di trasferimento in catena aperta.
 
-Un dettaglio che invece ci tornerà utile in seguito è che il sensore introduce necessariamente un certo disturbo, detto \textit{rumore di misura}, che indicheremo come $H(s)$.
+Un dettaglio che invece ci tornerà utile in seguito è che il sensore introduce necessariamente un certo disturbo, detto \textit{rumore di misura}, che indicheremo come $N(s)$.
 
 \subsubsection{Disturbi e specifiche}
 Vediamo quindi che le performance che desideriamo in ciclo chiuso sono:

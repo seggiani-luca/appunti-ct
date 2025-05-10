@@ -200,26 +200,35 @@
 \pagestyle{fancy}
 
 % testo
-\subsection{Specifiche statiche}
-Iniziamo quindi a vedere nel dettaglio le \textbf{specifiche statiche}, cioè di errore e a regime a reiettamento dei disturbi.
+Iniziamo quindi a vedere nel dettaglio le \textit{specifiche statiche}, cioè di reiettamento dei disturbi e di errore a regime.
 
 \subsubsection{Reiettamento dei disturbi}
-Avevamo dai sistemi di tipo 0 che i guadagni statici $G(0)$ delle funzioni di trasferimento in anello chiuso sono i valori della risposta a regime (questo dal teorema del valor finale, teorema 11.2).
-Prendendo il modello a disturbo interno visto in 25.2.3, idealmente vorremmo i guadagni statici:
+Consideriamo per adesso ingressi a gradino.
+Vediamo che per i sistemi di tipo 0 che i guadagni statici $G(0)$ delle funzioni di trasferimento in anello chiuso sono i valori della risposta a regime.
+Questo viene dal teorema del valor finale (vedi teorema 11.2), che afferma:
+$$
+\lim_{t \rightarrow +\infty} y(t) = \lim_{s \rightarrow 0} s \cdot Y(s)
+$$
+Perciò, posto $D(s) = \frac{1}{s}$ e le altre componenti a 0, si ha:
+$$
+\lim_{t \rightarrow +\infty} y(t) = \lim_{s \rightarrow 0} s \cdot C(s) G(s) \cdot \frac{1}{s} = G(0)
+$$
+che è esattamente il guadagno statico. \qed
+
+Prendendo quindi il modello a disturbo interno visto in 25.2.3, idealmente vorremmo i guadagni statici:
 $$
 W(0) = 1, \quad W_d(0) =0
 $$
 cioè guadagno per il trasferimento in retroazione pari a 1 e per i disturbi pari a 0.
-Questa si verifica per alti guadagni $C(s) G_1(s) G_2(s) >> 1$, in quanto secondo tale ipotesi vale:
+Questa si verifica per alti guadagni $C(0) >> 1$, cioè alti guadagni della funzione di catena $L(s) = C(s) G_1(s) G_2(s)$, in quanto secondo tale ipotesi vale:
 $$
-W(s) = \frac{C(s) G_1(s) G_2(s)}{1 + C(s) G_1(s) G_2(s)} \sim \frac{C(s) G_1(s) G_2(s)}{C(s) G_1(s) G_2(s)} \approx 1
+\lim_{s \rightarrow 0} W(s) = \lim_{s \rightarrow 0} \frac{C(s) G_1(s) G_2(s)}{1 + C(s) G_1(s) G_2(s)} \sim  \lim_{s \rightarrow 0} \frac{C(s) G_1(s) G_2(s)}{C(s) G_1(s) G_2(s)} \approx 1
 $$
 $$
-W_d(s) = \frac{G_2(s)}{1 + C(s) G_1(s) G_2(s)} \sim \frac{1}{C(s) G_1(s)} \approx 0
+\lim_{s \rightarrow 0} W_d(s) = \lim_{s \rightarrow 0} \frac{G_2(s)}{1 + C(s) G_1(s) G_2(s)} \sim \lim_{s \rightarrow 0} \frac{1}{C(s) G_1(s)} \approx 0
 $$
 
-\par\smallskip
-
+Nel caso ideale, il guadagno a alle basse frequenze si massimizza con poli all'origine.
 Poniamo ad esempio un modello con disturbo a gradino:
 $$
 D(s) = \frac{d_0}{s}
@@ -259,7 +268,7 @@ $$
 
 In questo caso l'errore sarà:
 $$
-E(s) = \frac{1}{1 + C(s) G_1(s) G_2(s)} \cdot R(s) = \frac{1}{1 + C(s) G_1(s) G_2(s)} \cdot \frac{R_0}(s)
+E(s) = \frac{1}{1 + C(s) G_1(s) G_2(s)} \cdot R(s) = \frac{1}{1 + C(s) G_1(s) G_2(s)} \cdot \frac{R_0}{s}
 $$
 
 In questo caso, visto che il disturbo interno è nullo e non ci interessa la distinzione fra parti del sistema disturbate e non, prendiamo per il sistema l'unica funzione di trasferimento $P(s)$:
@@ -294,6 +303,9 @@ Notiamo che la posizione di tale termine integrale conta:
 	\item Se il termine integrale è in $G_2(s)$, cioè nella parte del sistema sensibile all'errore, si ha errore nullo ma non reiettamento dell'errore;
 	\item Se il termine integrale è in $G_1(s)$ o nel controllore $C(s)$, quindi a monte dell'errore, si ha errore nullo e reiettamento dell'errore. 
 \end{itemize}
+
+Abbiamo quindi che la reiezione dell'errore e il corretto tracciamento del riferimento sono sostanzialmente lo stesso problema dal punto di vista matematico: perché si reietti un errore a gradino o si insegua un riferimento a gradino bisogna avere un polo integratore nella funzione di catena chiusa $L(s)$.
+Vediamo come questo concetto può essere generalizzato a ingressi di ordine superiore allo 0 (il gradino considerato) finora.
 
 \subsubsection{Ingressi canonici di ordine superiore}
 Consideriamo gli ingressi a gradino "generalizzati" (rampa, parabola, ecc...) \textbf{ingressi canonici}.
@@ -435,23 +447,51 @@ In questo caso valgono le relazioni:
 \end{itemize}
 dove possiamo comunque studiare separatamente uscite a regime e disturbi grazie al principio di sovrapposizione degli effetti.
 
-Da queste relazioni ricaviamo due valori che sono:
+In ogni caso, potremo calcolare la risposta complessiva tenendo conto di tutti gli ingressi, risolvendo il sistema:
+\[
+	\begin{cases}
+		Y(s) = D(s) + R(s) G(s) E(s) \\
+		E(s) = Y_{rif}(s) - Y(s) + N(s)
+	\end{cases}
+\]
+da cui sostituendo:
+$$
+Y(s) = D(s) + R(s) G(s) \left[ Y_{rif}(s) - Y(s) + N(s) \right]
+$$
+$$
+= D(s) + R(s) G(s) Y_{rif}(s) - R(s) G(s) Y(s) + R(s) G(s) N(s)
+$$
+$$
+\implies Y(s) \left[ 1 + R(s) G(s) \right] = D(s) + R(s) G(s) Y_{rif}(s) + R(s) G(s N(s))
+$$
+$$
+\implies Y(s) = \frac{ D(s) + R(s) G(s) \left[ Y_{rif}(s) + N(s) \right] }{ 1 + R(s) G(s) }
+$$
+
+Da queste relazioni ricaviamo due valori di proporzionalità che sono:
 \begin{itemize}
-	\item \textbf{Sensitività:}
+	\item \textbf{Sensitività}, a cui è proporzionale l'effetto del disturbo $D(s$): 
 		$$
-		s = \frac{1}{1 + R(s) G(s)}
+		S(s) = \frac{1}{1 + R(s) G(s)}
 		$$
-	\item \textbf{Sensitività complementare:}
+	\item \textbf{Sensitività complementare:} a cui sono proporzionali gli effetti del riferimento $Y_{rif}(s)$ e del rumore $N(s)$:
 		$$
-		t = \frac{R(s) G(s)}{1 + R(s) G(s)}
+		T(s) = \frac{R(s) G(s)}{1 + R(s) G(s)}
 		$$
 \end{itemize}
 da cui chiaramente:
 $$
-s + t = \frac{1}{1 + R(s) G(s)} + \frac{R(s) G(s)}{1 + R(s) G(s)} = 1
+S(s) + T(s) = \frac{1}{1 + R(s) G(s)} + \frac{R(s) G(s)}{1 + R(s) G(s)} = 1
+$$
+e si può riscrivere $Y(s)$ come:
+$$
+Y(s) = \frac{1}{1 + R(s) G(s)} D(s) + \frac{R(s) G(s)}{1 + R(s) G(s)} \left[ Y_{rif}(s) + N(s) \right] 
+$$
+$$
+= S(s) \cdot D(s) + T(s) \cdot \left[ Y_{rif}(s) + N(s) \right]
 $$
 
-Abbiamo quindi che:
+Abbiamo poi che il termine che compare nella sensitività e nella sensitività complementare:
 $$
 L(s) = R(s) G(s)
 $$
@@ -461,7 +501,7 @@ viene detta \textbf{funzione di anello}, e che tutte le funzioni di trasferiment
 Definiamo quindi le seguenti caratteristiche d interesse per la risposta al gradino (che avevamo già visto nel dettaglio a 12.1.2 e poi in 14.1):
 \begin{enumerate}
 	\item Tempo di salita $T_s$, il tempo impiegato dall'uscita per passare dal 10\% al 90\% (o dal 95\% al 5\%) del valore di riferimento;
-	\item Tempo di assestamento,$T_a$, il tempo oltre il quale l'uscita si discosta meno del 5\% rispetto al valore di riferimento (con specifiche più restrittive si considera anche 2\%);
+	\item Tempo di assestamento, $T_a$, il tempo oltre il quale l'uscita si discosta meno del 5\% rispetto al valore di riferimento (con specifiche più restrittive si considera anche 2\%);
 	\item Tempo di ritardo $T_r$, tempo richiesto perché l'uscita raggiunga il 50\% del valore di riferimento;
 	\item Istante di massima elongazione $T_m$, il punto dove l'uscita raggiunge il picco massimo di sovraelongazione;
 	\item Massima sovraelongazione $S(\%)$, valore del massimo scostamento rispetto al valore di regime, solitamente espresso in percentuale rispetto al valore di regime stesso.
