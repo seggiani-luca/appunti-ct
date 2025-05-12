@@ -345,36 +345,8 @@ E vediamo i due casi più tipici che violano questo assunto.
 
 \subsubsection{Margini con doppie intersezioni}
 Il caso più semplice di sistema irregolare è quello con più intersezioni sull'asse degli 0 dB nel diagramma di Bode, o con la circonferenza unitaria nel diagramma di Nyquist, 
-In questo caso la definizione di margine di fase o ampiezza perde l'univocità.
-
-Prendiamo ad esempio la funzione di trasferimento, di un filtro passa banda:
-$$
-G(s) = 10\frac{s}{(s+1)^2}
-$$
-
-Il diagramma di Bode di questa passa per 0 dB in due punti, cioè:
-$$
-\omega_0 \approx 0.1 \, \mathrm{rad/s}, \quad \omega_1 \approx 10 \, \mathrm{rad/s}
-$$
-
-\noindent
-\begin{minipage}{\textwidth}
-
-come si vede direttamente dal grafico:
-\begin{center}
-	\includegraphics[scale=0.28]{../figures/double_intersect_bode.png}
-\end{center}
-
-\end{minipage}
-
-\par\medskip
-
-Il risultato di questo sul diagramma di Nyquist sarà che avremo due punti di intersezione con la circonferenza di modulo 1, e quindi due margini di fase $\phi_i$:
-\begin{center}
-	\includegraphics[scale=0.28]{../figures/double_intersect_nyquist.png}
-\end{center}
-
-Di questi chiaramente vorremo vorremo considerare il caso peggiore e quindi il margine più piccolo, cioè il più vicino all'instabilità, che come si vede dal grafico è $\phi_1$.
+In questo caso la definizione di margine di fase o ampiezza perde l'univocità, e avremo più angoli $\phi_i$ corrispondenti al margine di fase di ogni intersezione.
+Di questi chiaramente vorremo vorremo considerare il caso peggiore e quindi il margine più piccolo, cioè il più vicino all'instabilità.
 
 \subsubsection{Margini con fasi crescenti}
 Una nota va fatta anche su sistemi che risultano instabili a bassi guadagni, e diventano stabili all'aumentare di $K$.

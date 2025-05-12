@@ -314,7 +314,7 @@ Possiamo quindi riassumere di aver fatto le seguenti considerazioni sulla funzio
 \begin{itemize}
 	\item Il sistema in ciclo chiuso ha un comportamento di tipo passa basso;
 	\item $H(j\omega)$ è caratterizzata da un polo dominante reale se $M_\phi > 75^\circ$, o da una coppia di poli dominanti complessi coniugati se $M_\phi \leq 75^\circ$;
-	\item La \textbf{pulsazione di rottura} (nel caso di sistemi approssimabili al prim'ordine) o \textbf{pulsazione naturale} (secondo ordine) sono approssimate dalla pulsazione di taglio a 0 dB della funzione di anello $L$ (generalmente detta \textbf{pulsazione critica});
+	\item La \textbf{pulsazione di rottura} (nel caso di sistemi approssimabili al prim'ordine) o \textbf{pulsazione naturale} (secondo ordine) sono approssimate dalla pulsazione di taglio a 0 dB della funzione di anello $L(s)$ (generalmente detta \textbf{pulsazione critica});
 	\item La pulsazione critica è anche un'approssimazione (per difetto se $M_\phi < 90^\circ$, per eccesso altrimenti) della banda passante del sistema in ciclo chiuso;
 	\item Lo smorzamento del sistema in ciclo chiuso è approssimato da:
 		$$
@@ -434,7 +434,7 @@ Ci tornerà poi utile il luogo delle radici, in quanto ricordiamo dalle regioni 
 		\begin{center}
 			\includegraphics[scale=0.28]{../figures/damping_overshoot.png}
 		\end{center}
-		da cui si nota che esiste una relazione simile alla proporzionalità inversa fra le due grandezze.ds
+		da cui si nota che esiste una relazione simile alla proporzionalità inversa fra le due grandezze.
 \end{itemize}
 
 Potremo quindi ottenere la zona ammissibile per i poli in catena chiusa tracciando la zona di validità che rispetta tutte le condizioni imposte.
@@ -442,11 +442,11 @@ Potremo quindi ottenere la zona ammissibile per i poli in catena chiusa traccian
 \noindent
 \begin{minipage}{\textwidth}
 
-Ad esempio, combinando i due grafici sopra, otteniamo la zona di validità:
+	Ad esempio, combinando i due grafici sopra, otteniamo la zona di validità:
 
-\begin{center}
-	\includegraphics[scale=0.28]{../figures/valid_rlocus_region.png}
-\end{center}
+	\begin{center}
+		\includegraphics[scale=0.28]{../figures/valid_rlocus_region.png}
+	\end{center}
 
 \end{minipage}
 
@@ -456,7 +456,7 @@ Questo potrebbe essere difficile da ottenere e si usa la regola empirica:
 $$
 M_\phi \geq M_\phi^* \approx 100 \xi^*
 $$
-in gradi, dove $\xi^*$ è il valore legato all'overshoot desiderato. # trova questa formula se hai voglia
+in gradi, dove $\xi^*$ è il valore legato all'overshoot desiderato. 
 
 \begin{itemize}
 	\item Di base, una richiesta di overshoot uguale a 0 con margine di fase $M_\phi > 75^\circ$ indica di usare un'approssimazione del prim'ordine in catena chiusa (poli reali).
@@ -480,13 +480,20 @@ $$
 Chiaramente bisogna essere sicuri di non effettuare \textbf{cancellazioni improprie}, cioè di poli a parte reale maggiore o uguale a zero.
 Questo potrebbe avere significato matematicamente, ma per l'inerente imperfezione dei sistemi reali, risulterebbe nella pratica in sistemi irrimediabilmente instabili.
 
-\subsubsection{Esempio: loop shaping}
-Prendiamo ad esempio la funzione di trasferimento:
-$$
-G(s) = \frac{\gamma}{m} \frac{1}{s + \frac{\beta}{m}} = 10 \frac{1}{s + 0.1}
-$$ # dovrebbe essere il vecchio esempio sulla velocità di crocera
+\subsubsection{Esempio: loop shaping della velocità di crociera}
+A scopo di esempio di quanto detto finora, prendiamo la funzione di trasferimento del modelllo che ci portiamo dall'esempio 3.0.1, cioè quello della regolazione della velocità di crociera di un auto in salita.
 
-Non consideriamo disturbi.
+Avevamo ricavato da questa la funzione di trasferimento in relazione all'ingresso dell'acceleratore (l'unico controllabile):
+$$
+G(s) = \frac{\gamma}{m} \frac{1}{s + \frac{\beta}{m}} 
+$$
+Sostituendo alcuni valori ($\gamma = 10$, $m = 1$, $\beta = 0.1$), diciamo di ottenere la funzione di trasferimento:
+$$
+G(s) = 10 \frac{1}{s + 0.1}
+$$
+
+Non consideriamo per adesso disturbi.
+
 Poniamo quindi che le specifiche date saranno:
 \begin{itemize}
 	\item Errore nullo in risposta al gradino, errore $< 5\%$ in risposta alla rampa;
@@ -496,57 +503,122 @@ Poniamo quindi che le specifiche date saranno:
 La metodologia che adotteremo sarà:
 \begin{itemize}
 	\item Traduzione delle specifiche in requisiti sulla risposta armonica della funzione di anello;
-	\item Progetto del regolatore $R$ in modo che $L = CG$ funzone di anello soddisfi i requisiti richiesti.
+	\item Progetto del regolatore $C(s)$ in modo che $L(s) = C(s)G(s)$ funzone di anello soddisfi i requisiti richiesti.
 \end{itemize}
 
 Vediamo quindi le specifiche una per una:
 \begin{itemize}
-\item Errore nullo in risposta al gradino: significa che dovremo usare un sistema di tipo 1 (cioè regolatore con un polo all'origine);
-\item Errore $< 5\%$ in risposta alla rampa: significa che dovremo avere un guadagno in velocità $> 20$ (26 dB).
-	Questo si ottiene valutando:
-	$$
-	e_{ss} = \lim_{t \rightarrow \infty} e(t) = \lim_{s \rightarrow 0} s \frac{1}{1 + G(s)} \cdot \frac{1}{s^2} = \frac{1}{s + s G(s)}
-	$$
-	posto:
-	$$
-	k_v = \lim_{s \rightarrow 0} s G(s)
-	$$
-	avremo che:
-	$$
-	e_{ss} = \lim_{s \rightarrow 0} \frac{1}{s + s G(s)} = \frac{1}{k_v}
-	$$
-	con $e_{ss} = 0.05$ (5 \%), si ha:
-	$$
-	k_v = \frac{1}{0.05} = 20
-	$$
-\item Nessuna sovraelongazione: significa che avremo un polo dominante reale, ovvero un margine di fase di almeno $75^\circ$;
-\item Tempo di assestamento al 95 \% $< 15$ s: significa che la pulsazione critica sarà $> 0.2$ rad/s.
+	\item Errore nullo in risposta al gradino: significa che dovremo usare un sistema di tipo 1 (cioè regolatore con un polo all'origine);
+	\item Errore $< 5\%$ in risposta alla rampa: significa che dovremo avere un guadagno in velocità $> 20$ (26 dB).
+		Questo si ottiene valutando:
+		$$
+		e_{ss} = \lim_{t \rightarrow \infty} e(t) = \lim_{s \rightarrow 0} s \frac{1}{1 + G(s)} \cdot \frac{1}{s^2} = \frac{1}{s + s G(s)}
+		$$
+		posto:
+		$$
+		k_v = \lim_{s \rightarrow 0} s G(s)
+		$$
+		avremo che:
+		$$
+		e_{ss} = \lim_{s \rightarrow 0} \frac{1}{s + s G(s)} = \frac{1}{k_v}
+		$$
+		con $e_{ss} = 0.05$ (5 \%), si ha:
+		$$
+		k_v = \frac{1}{0.05} = 20
+		$$
+	\item Nessuna sovraelongazione: significa che avremo un polo dominante reale, ovvero un margine di fase di almeno $75^\circ$ che si traduce in una fase minima:
+		$$
+		\phi_m > 75^\circ \, \Rightarrow \, 180^\circ + \Phi(\omega_c) > 75^\circ \, \Rightarrow \, \Phi(\omega_c) > -105^\circ
+		$$
+	\item Tempo di assestamento al 95 \% $< 15$ s: significa che la pulsazione critica $\omega_c$ sarà $> 0.2$ rad/s.
 
-	Questo perché: dalla formula in 27.4 si ha:
-	$$
-	t_{ass} \geq \frac{3}{\xi \omega_0} \implies \omega_0 \geq \frac{3}{\xi t_{ass}} = 0.2
-	$$
+		Questo perché: dalla formula in 27.4 si ha:
+		$$
+		t_{ass} \geq \frac{3}{\xi \omega_0} \implies \omega_0 \geq \frac{3}{\xi t_{ass}} = 0.2
+		$$
 \end{itemize}
 
 Vediamo quindi di aver individuato le zone proibite sul diagramma di modulo:
+\begin{center}
+	\includegraphics[scale=0.28]{../figures/crociera_shaping_mod.png}
+\end{center}
 
-# grafico modulo
-
-e di dover mantenere, per quanto riguarda la fase, il margine di fase:
-
-# grafico fase
+e di dover mantenere, per quanto riguarda la fase, il margine di fase (cioè la fase minima):
+\begin{center}
+	\includegraphics[scale=0.28]{../figures/crociera_shaping_phi.png}
+\end{center}
 
 \par\smallskip
 
-Una possibilile soluzione, a questo punto, sarà quella di sfruttare il controllore:
-$$
-C(s) = \frac{s + 0.5}{s}
-$$
-che aggiunge uno zero per alzare la fase della pulsazione critica.
+\begin{itemize}
+	\item 
+		Valutiamo la realizzabilità delle specifiche col solo integratore:
+		$$
+		C(s) = \frac{K}{s}
+		$$
+		Avremo che questo renderà $L(s)$:
+		$$
+		L(s) = C(s) G(s) = \frac{K}{s} \cdot 10 \frac{1}{s + 0.1}
+		$$
+		da cui $G(0)$ guadagno statico è $K \cdot 100$, cioè $K = 1$ basta e avanza per raggiungere il guadagno minimo di $20$ per l'inseguimento della rampa.
 
-In questo caso si otterranno i diagrammi di modulo e fase:
+		Valutiamo quindi il margine di fase:
+		\begin{center}
+			\includegraphics[scale=0.28]{../figures/crociera_phi_bad.png}
+		\end{center}
+		da cui notiamo che siamo sotto la fase minima alla frequenza critica $\omega_c$, quindi otterremo comportamenti indesiderati di sovraelongazione alla risposta all'impulso.
 
-# grafici modulo e fase corretti
+	\item
+		La soluzione, a questo punto, sarà quella di sfruttare il controllore:
+		$$
+		C(s) = \frac{s + 0.5}{s}
+		$$
+		che è uguale al precdente, ma aggiunge uno zero per alzare la fase della pulsazione critica $\omega_c$.
+
+		\noindent
+		\begin{minipage}{\textwidth}
+			
+		In questo caso si otterrà il diagramma di fase:
+		\begin{center}
+			\includegraphics[scale=0.28]{../figures/crociera_phi_good.png}
+		\end{center}
+		che notiamo essere sempre leggermente fuori margine di fase, ma che prendiamo per buono in quanto (come vedremo) ci manterrà comunque nel $5\%$ del valore di regime.
+
+		\end{minipage}
+
+	Vediamo quindi come possiamo sfruttare uno zero per ottenere un anticipo di fase, e quindi prestazioni migliori dal punto di vista della risposta sul tempo.
+	Notiamo però che questo potrebbe essere controproducente nel caso di rumori dati da sensori (che adesso abbiamo trascurato): in tal caso potrebbe essere utile aggiungere un polo che abbassi la risposta alle alte frequenze per eliminare eventuali effetti di rumore.
+\end{itemize}
+
+Vediamo quindi di valutare le prestazioni del controllore progettato.
+Iniziamo col trovare la funzione di anello:
+$$
+L(s) = C(s) G(s) = \frac{s + 0.5}{s} \cdot 10 \frac{1}{s + 0.1} = \frac{10 s + 5}{s^2 + 0.1 s}
+$$
+e quindi la funzione in catena chiusa:
+$$
+W(s) = \frac{L(s)}{1 + L(s)} = \frac{\frac{10 s + 5}{s^2 + 0.1 s}}{1 + \frac{10 s + 5}{s^2 + 0.1 s}} = \frac{10 s + 5}{s^2 + 10.1 s + 5}
+$$
+
+Possiamo usare un pacchetto come MATLAB per tracciare la risposta all'impulso e alla rampa di questa.
+
+\noindent
+\begin{minipage}{\textwidth}
+
+Vediamo innanzitutto la risposta all'impulso:
+\begin{center}
+	\includegraphics[scale=1]{../figures/crociera_control_step.png}
+\end{center}
+da dove notiamo che l'uscita entra nel range del 5\% dell valore di riferimento (1) già nei primi 0.5s della risposta, molti meno dei 15s richiesti.
+Questo è dato principalmente dalla richiesta del tracciamento della rampa, che imponi limiti considerevoli sul tempo di risposta.
+
+Vediamo infatti la risposta alla rampa, ad esempio da 5s in poi (abbastanza vicino al regime): 
+\begin{center}
+	\includegraphics[scale=1]{../figures/crociera_control_ramp.png}
+\end{center}
+Dove vediamo che stiamo tracciando un valore di 5, e abbiamo raggiunto 4.98, che sicuramente nel 5 percentuale.
+
+\end{minipage}
 
 \subsubsection{Reiezione dei disturbi di carico}
 
@@ -573,7 +645,7 @@ Prendiamo quindi:
 $$
 |S(j\omega)| \leq \epsilon_n, \quad \omega \in [0, \omega_n]
 $$
-dove $\omega \in [0, \omega_n]$ rapppresenta le basse frequenze.
+dove $\omega \in [0, \omega_n]$ rappresenta le basse frequenze.
 
 Prendiamo quindi: 
 $$
