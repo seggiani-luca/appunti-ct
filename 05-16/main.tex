@@ -243,13 +243,27 @@ Qualitativamente, il polo nell'origine garantisce prestazioni di precisione a re
 
 La disponibilità del modello a controllore PID consente da un lato di poter usare una struttura standard per il controllo, mentre dall'altro diminuisce i gradi di libertà nel progetto del controllore.
 
-\subsubsection{Montaggio di un PID e filtraggio di derivata}
-Il montaggio classico dei PID consiste nell'avere la semplice somma dei 3 termini.
+\subsubsection{Montaggio di un PID e filtraggio della derivata}
+Il montaggio classico dei PID consiste nell'avere la semplice somma dei 3 termini:
+\begin{center}
+	\includegraphics[scale=0.5]{../figures/pid.png}
+\end{center}
+
 In questa configurazione, però, l'azione derivativa sul segnale di errore può causare segnali di controllo a frequenza molto elevata (e probabilmente instabilità).
+Potremmo pensare di risolvere questo problema inserendo un filtro passa basso sul riferimento $Y_{rif}(s)$:
+\begin{center}
+	\includegraphics[scale=0.5]{../figures/pid_filt.png}
+\end{center}
 
-Potremmo pensare di risolvere questo problema inserendo un filtro passa basso sul riferimento $Y_{rif}(s)$.
+Un montaggio alternativo, e più conveniente, è quello che deriva direttamente l'uscita e la spedisce negata al sistema:
+\begin{center}
+	\includegraphics[scale=0.5]{../figures/pid_deriv.png}
+\end{center}
+Questo viene naturale sfruttando che, per $Y_{rif}'(s)$ probabilmente nullo o comunque che si vuole trascurare, si ha:
+$$
+E(s) = Y_{rif}(s) - Y(s) \implies E'(s) = Y_{rif}'(s) - Y'(s) \approx - Y'(s)
+$$
 
-Un montaggio alternativo, e più conveniente, è quello che deriva direttamente l'uscita e la spedisce negata al sistema.
 In questo caso il sistema stesso potrà comportarsi da "filtro" per la derivata, ed aiutare a stabilizzare la risposta.
 
 \subsubsection{Wind-up dell'azione integrale}
